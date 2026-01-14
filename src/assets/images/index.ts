@@ -1,0 +1,1 @@
+export const iconSplash = require('./icon-splash.png');
