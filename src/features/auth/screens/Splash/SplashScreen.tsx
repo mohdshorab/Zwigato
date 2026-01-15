@@ -1,7 +1,7 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../../navigation/types';
-import QuickImage from '../../../../components/QuickImage/QuickImage';
+import { RootStackParamList } from '../../../../navigation/NavigationTypes';
+import { QuickImage } from '../../../../components';
 import { iconSplash } from '../../../../assets/images';
 import styles from './SplashScreen.styles';
 import { StatusBar, Text,} from 'react-native';

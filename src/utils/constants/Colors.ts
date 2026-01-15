@@ -1,7 +1,7 @@
 const COLORS = {
   // Brand
   primary: '#FF7622',
-  secondary: '#272C35',
+  secondary: '#121223',
 
   // Text
   text: {
@@ -17,6 +17,7 @@ const COLORS = {
     card: '#FFFFFF',
     input: '#F0F5FA',
     grayLight: '#F0F2F5',
+    blue: '#121223',
   },
 
   // UI Elements & State
@@ -33,6 +34,11 @@ const COLORS = {
     white: '#FFFFFF',
     black: '#000000',
   },
+
+  others:{
+    inputBox: '#F0F5FA',
+    uiIconColor: '#B4B9CA',
+  }
 };
 
 export default COLORS;
