@@ -1,0 +1,13 @@
+# Ignore all Ruby files
+*.rb linguist-vendored
+
+# Ignore all Kotlin files
+*.kt linguist-vendored
+
+# Ignore all Swift files
+*.swift linguist-vendored
+
+# OR, ignore entire folders (common for mobile/backend builds)
+android/* linguist-vendored
+ios/* linguist-vendored
+backend/ruby_api/* linguist-vendored
