@@ -1,0 +1,597 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "Kolkata Kathi Roll",
+      "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=60",
+      "address": "Shop 4, Market 1, Chittaranjan Park (CR Park), New Delhi",
+      "rating": 4.5,
+      "ratingCount": "1.2K+",
+      "deliveryTime": "25-30 min",
+      "offers": "Flat ₹100 OFF",
+      "costForTwo": 300,
+      "cuisines": ["Rolls", "North Indian", "Fast Food"],
+      "menu": [
+        {
+          "category": "Veg Rolls",
+          "items": [
+            {
+              "id": "101",
+              "name": "Soya Chaap Roll",
+              "desc": "Soya chaap chunks with veggies cooked with blend of spices wrapped in freshly made laccha paratha.",
+              "price": 180,
+              "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60",
+              "category": "Rolls",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [
+                { "name": "Make it Spicy", "price": 15 },
+                { "name": "Extra Mayonnaise", "price": 20 }
+              ],
+              "addOns": [
+                { "name": "Masala Coke", "price": 40 },
+                { "name": "Extra Green Chutney", "price": 10 }
+              ]
+            },
+            {
+              "id": "102",
+              "name": "Paneer Tikka Roll",
+              "desc": "Smoky paneer tikka tossed with onions and capsicum, wrapped in a crispy paratha.",
+              "price": 200,
+              "image": "https://images.unsplash.com/photo-1567188040706-fb8d89f3d9b4?auto=format&fit=crop&w=200&q=60",
+              "category": "Rolls",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [
+                { "name": "Whole Wheat Paratha", "price": 20 },
+                { "name": "Cheese Slice", "price": 25 }
+              ],
+              "addOns": [
+                { "name": "Pepsi 250ml", "price": 35 }
+              ]
+            },
+            {
+              "id": "103",
+              "name": "Mushroom Masala Roll",
+              "desc": "Spicy mushroom filling with crunchy onions and tangy sauces.",
+              "price": 190,
+              "image": "https://images.unsplash.com/photo-1593560708920-63984be3683f?auto=format&fit=crop&w=200&q=60",
+              "category": "Rolls",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [
+                { "name": "Double Filling", "price": 50 }
+              ],
+              "addOns": []
+            }
+          ]
+        },
+        {
+          "category": "Non-Veg Rolls",
+          "items": [
+            {
+              "id": "104",
+              "name": "Double Egg Roll",
+              "desc": "Two eggs beaten with spices and fried on a paratha with onion filling.",
+              "price": 110,
+              "image": "https://images.unsplash.com/photo-1558223637-236b2895690b?auto=format&fit=crop&w=200&q=60",
+              "category": "Rolls",
+              "isVeg": false,
+              "serves": "1",
+              "customization": [{ "name": "Extra Egg", "price": 20 }],
+              "addOns": []
+            },
+            {
+              "id": "105",
+              "name": "Chicken Tikka Roll",
+              "desc": "Classic chicken tikka chunks wrapped in an egg-coated paratha.",
+              "price": 220,
+              "image": "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=200&q=60",
+              "category": "Rolls",
+              "isVeg": false,
+              "serves": "1",
+              "customization": [{ "name": "Extra Chicken", "price": 60 }],
+              "addOns": [{ "name": "Thums Up", "price": 40 }]
+            },
+            {
+              "id": "106",
+              "name": "Mutton Seekh Roll",
+              "desc": "Juicy mutton seekh kebab wrapped in a soft rumali roti.",
+              "price": 250,
+              "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=200&q=60",
+              "category": "Rolls",
+              "isVeg": false,
+              "serves": "1",
+              "customization": [],
+              "addOns": []
+            }
+          ]
+        },
+        {
+          "category": "Momos",
+          "items": [
+            {
+              "id": "107",
+              "name": "Steamed Veg Momos",
+              "desc": "Delicate flour dumplings stuffed with mixed vegetables.",
+              "price": 120,
+              "image": "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=200&q=60",
+              "category": "Momos",
+              "isVeg": true,
+              "serves": "8 Pcs",
+              "customization": [],
+              "addOns": []
+            },
+            {
+              "id": "108",
+              "name": "Fried Chicken Momos",
+              "desc": "Crispy fried dumplings stuffed with spiced minced chicken.",
+              "price": 160,
+              "image": "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=200&q=60",
+              "category": "Momos",
+              "isVeg": false,
+              "serves": "8 Pcs",
+              "customization": [],
+              "addOns": [{ "name": "Schezwan Sauce", "price": 10 }]
+            },
+            {
+              "id": "109",
+              "name": "Paneer Momos",
+              "desc": "Soft dumplings filled with grated paneer and herbs.",
+              "price": 150,
+              "image": "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=200&q=60",
+              "category": "Momos",
+              "isVeg": true,
+              "serves": "8 Pcs",
+              "customization": [],
+              "addOns": []
+            }
+          ]
+        },
+        {
+          "category": "Drinks",
+          "items": [
+            {
+              "id": "110",
+              "name": "Cold Coffee",
+              "desc": "Creamy blend of milk, coffee and sugar.",
+              "price": 90,
+              "image": "https://images.unsplash.com/photo-1517701604599-bb29b5dd7359?auto=format&fit=crop&w=200&q=60",
+              "category": "Beverages",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [{ "name": "Ice Cream Scoop", "price": 30 }],
+              "addOns": []
+            },
+            {
+              "id": "111",
+              "name": "Masala Lemonade",
+              "desc": "Refreshing lemon drink with indian spices.",
+              "price": 60,
+              "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=200&q=60",
+              "category": "Beverages",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [],
+              "addOns": []
+            },
+            {
+              "id": "112",
+              "name": "Mango Lassi",
+              "desc": "Thick yogurt shake with mango pulp.",
+              "price": 100,
+              "image": "https://images.unsplash.com/photo-1543362906-ac1b48264378?auto=format&fit=crop&w=200&q=60",
+              "category": "Beverages",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [],
+              "addOns": []
+            }
+          ]
+        },
+        {
+          "category": "Combos",
+          "items": [
+            {
+              "id": "113",
+              "name": "Roll & Coke Combo",
+              "desc": "1 Veg Roll + 1 Coke (250ml).",
+              "price": 200,
+              "image": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=200&q=60",
+              "category": "Combo",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [],
+              "addOns": []
+            },
+            {
+              "id": "114",
+              "name": "Non-Veg Feast",
+              "desc": "1 Chicken Roll + 1 Egg Roll + 1 Lemonade.",
+              "price": 350,
+              "image": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=200&q=60",
+              "category": "Combo",
+              "isVeg": false,
+              "serves": "2",
+              "customization": [],
+              "addOns": []
+            },
+            {
+              "id": "115",
+              "name": "Snack Box",
+              "desc": "4 Momos + 1 Small Roll.",
+              "price": 180,
+              "image": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=200&q=60",
+              "category": "Combo",
+              "isVeg": true,
+              "serves": "1",
+              "customization": [],
+              "addOns": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Pizza Paradise",
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=60",
+      "address": "Block C, Connaught Place, New Delhi",
+      "rating": 4.1,
+      "ratingCount": "5K+",
+      "deliveryTime": "40-45 min",
+      "offers": "Free Coke on orders above ₹400",
+      "costForTwo": 600,
+      "cuisines": ["Italian", "Pizza", "Fast Food"],
+      "menu": [
+        {
+          "category": "Veg Pizzas",
+          "items": [
+            {
+              "id": "201",
+              "name": "Margherita",
+              "desc": "Classic cheese pizza with basil.",
+              "price": 250,
+              "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=200&q=60",
+              "category": "Pizza",
+              "isVeg": true,
+              "serves": "2",
+              "customization": [{ "name": "Cheese Burst", "price": 50 }],
+              "addOns": []
+            },
+            {
+              "id": "202",
+              "name": "Farmhouse",
+              "desc": "Delightful combination of onion, capsicum, tomato & grilled mushroom.",
+              "price": 400,
+              "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=200&q=60",
+              "category": "Pizza",
+              "isVeg": true,
+              "serves": "2",
+              "customization": [{ "name": "Thin Crust", "price": 0 }],
+              "addOns": []
+            },
+             {
+              "id": "203",
+              "name": "Peppy Paneer",
+              "desc": "Chunky paneer with crisp capsicum and spicy red pepper.",
+              "price": 450,
+              "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=200&q=60",
+              "category": "Pizza",
+              "isVeg": true,
+              "serves": "2",
+              "customization": [],
+              "addOns": []
+            }
+          ]
+        },
+        {
+          "category": "Non-Veg Pizzas",
+          "items": [
+            {
+              "id": "204",
+              "name": "Chicken Pepperoni",
+              "desc": "American classic with spicy chicken pepperoni.",
+              "price": 500,
+              "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=200&q=60",
+              "category": "Pizza",
+              "isVeg": false,
+              "serves": "2",
+              "customization": [{ "name": "Extra Cheese", "price": 60 }],
+              "addOns": []
+            },
+             {
+              "id": "205",
+              "name": "Non Veg Supreme",
+              "desc": "Supreme combination of black olives, onion, capsicum, grilled mushroom, pepper BBQ chicken.",
+              "price": 600,
+              "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=200&q=60",
+              "category": "Pizza",
+              "isVeg": false,
+              "serves": "2",
+              "customization": [],
+              "addOns": []
+            },
+             {
+              "id": "206",
+              "name": "Chicken Tikka Pizza",
+              "desc": "Fusion of tandoori sauce and chicken tikka.",
+              "price": 550,
+              "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=200&q=60",
+              "category": "Pizza",
+              "isVeg": false,
+              "serves": "2",
+              "customization": [],
+              "addOns": []
+            }
+          ]
+        },
+        {
+          "category": "Sides",
+          "items": [
+            { "id": "207", "name": "Garlic Breadsticks", "desc": "Freshly baked garlic bread.", "price": 120, "image": "https://images.unsplash.com/photo-1573140247632-f84660f67627?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "2", "customization": [{"name": "Cheesy Dip", "price": 25}], "addOns": []},
+            { "id": "208", "name": "Stuffed Garlic Bread", "desc": "Garlic bread stuffed with cheese and jalapeños.", "price": 180, "image": "https://images.unsplash.com/photo-1573140247632-f84660f67627?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "2", "customization": [], "addOns": []},
+            { "id": "209", "name": "Chicken Wings", "desc": "Spicy roasted chicken wings.", "price": 220, "image": "https://images.unsplash.com/photo-1527477396000-64ca9c00173f?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": false, "serves": "2", "customization": [], "addOns": []}
+          ]
+        },
+         {
+          "category": "Desserts",
+          "items": [
+             { "id": "210", "name": "Choco Lava Cake", "desc": "Molten chocolate cake.", "price": 110, "image": "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": []},
+             { "id": "211", "name": "Brownie", "desc": "Walnut brownie.", "price": 90, "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": []},
+             { "id": "212", "name": "Ice Cream Tub", "desc": "Vanilla bean ice cream.", "price": 200, "image": "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "2", "customization": [], "addOns": []}
+          ]
+        },
+        {
+          "category": "Beverages",
+          "items": [
+             { "id": "213", "name": "Pepsi", "desc": "500ml bottle.", "price": 60, "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=200&q=60", "category": "Beverages", "isVeg": true, "serves": "2", "customization": [], "addOns": []},
+             { "id": "214", "name": "Mirinda", "desc": "500ml bottle.", "price": 60, "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=200&q=60", "category": "Beverages", "isVeg": true, "serves": "2", "customization": [], "addOns": []},
+             { "id": "215", "name": "Water", "desc": "Mineral water 1L.", "price": 40, "image": "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=200&q=60", "category": "Beverages", "isVeg": true, "serves": "2", "customization": [], "addOns": []}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Burger Manor",
+      "image": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=600&q=60",
+      "address": "DLF Cyber City, Gurugram",
+      "rating": 4.3,
+      "ratingCount": "3K+",
+      "deliveryTime": "30-35 min",
+      "offers": "20% OFF on Combos",
+      "costForTwo": 400,
+      "cuisines": ["American", "Burgers", "Fast Food"],
+      "menu": [
+        {
+            "category": "Burgers",
+            "items": [
+                { "id": "301", "name": "Crispy Veg Burger", "desc": "Crispy potato patty with lettuce and mayo.", "price": 89, "image": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=200&q=60", "category": "Burger", "isVeg": true, "serves": "1", "customization": [{"name": "Add Cheese", "price": 20}], "addOns": [] },
+                { "id": "302", "name": "Chicken Whopper", "desc": "Signature flame grilled chicken patty.", "price": 199, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=200&q=60", "category": "Burger", "isVeg": false, "serves": "1", "customization": [{"name": "Double Patty", "price": 90}], "addOns": [] },
+                { "id": "303", "name": "Paneer Royale", "desc": "Crispy paneer patty with spicy sauce.", "price": 179, "image": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=200&q=60", "category": "Burger", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }
+            ]
+        },
+        {
+            "category": "Sides",
+            "items": [
+                { "id": "304", "name": "Fries (M)", "desc": "Golden crispy fries.", "price": 99, "image": "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "1", "customization": [{"name": "Peri Peri", "price": 20}], "addOns": [] },
+                { "id": "305", "name": "Chicken Nuggets", "desc": "6 pieces of nuggets.", "price": 149, "image": "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": false, "serves": "1", "customization": [], "addOns": [{"name": "Mustard Dip", "price": 10}] },
+                { "id": "306", "name": "Onion Rings", "desc": "Batter fried onion rings.", "price": 119, "image": "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }
+            ]
+        },
+        { "category": "Drinks", "items": [ { "id": "307", "name": "Coke", "desc": "Fizzy drink.", "price": 60, "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=200&q=60", "category": "Drinks", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "308", "name": "Chocolate Shake", "desc": "Thick chocolate shake.", "price": 149, "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=200&q=60", "category": "Drinks", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "309", "name": "Iced Tea", "desc": "Lemon iced tea.", "price": 79, "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=200&q=60", "category": "Drinks", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Wraps", "items": [ { "id": "310", "name": "Veg Wrap", "desc": "Tortilla wrap with veg patty.", "price": 129, "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=200&q=60", "category": "Wrap", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "311", "name": "Chicken Wrap", "desc": "Spicy chicken in tortilla.", "price": 169, "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=200&q=60", "category": "Wrap", "isVeg": false, "serves": "1", "customization": [], "addOns": [] }, { "id": "312", "name": "Egg Wrap", "desc": "Eggy delight wrap.", "price": 139, "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=200&q=60", "category": "Wrap", "isVeg": false, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Dessert", "items": [ { "id": "313", "name": "Soft Serve", "desc": "Vanilla softy.", "price": 49, "image": "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "314", "name": "Choco Pie", "desc": "Warm chocolate pie.", "price": 69, "image": "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "315", "name": "Sundae", "desc": "Chocolate fudge sundae.", "price": 99, "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "The Golden Dragon",
+      "image": "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=600&q=60",
+      "address": "GK-2, M Block, New Delhi",
+      "rating": 4.6,
+      "ratingCount": "2.2K+",
+      "deliveryTime": "35-40 min",
+      "offers": "15% OFF on Debit Cards",
+      "costForTwo": 1200,
+      "cuisines": ["Chinese", "Asian", "Thai"],
+      "menu": [
+        {
+          "category": "Starters",
+          "items": [
+            { "id": "401", "name": "Chilli Chicken", "desc": "Diced chicken tossed in chilli sauce.", "price": 350, "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": false, "serves": "2", "customization": [], "addOns": [] },
+            { "id": "402", "name": "Spring Rolls", "desc": "Crispy veg rolls.", "price": 250, "image": "https://images.unsplash.com/photo-1544510808-91bcbee1df55?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "2", "customization": [], "addOns": [] },
+            { "id": "403", "name": "Dimsums", "desc": "Steamed chicken dimsums.", "price": 300, "image": "https://images.unsplash.com/photo-1496116218417-1a781b1c423c?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": false, "serves": "2", "customization": [], "addOns": [] }
+          ]
+        },
+        {
+           "category": "Main Course",
+           "items": [
+             { "id": "404", "name": "Kung Pao Chicken", "desc": "Chicken with peanuts and vegetables.", "price": 450, "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": false, "serves": "2", "customization": [], "addOns": [] },
+             { "id": "405", "name": "Veg Manchurian", "desc": "Vegetable balls in soy gravy.", "price": 350, "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "2", "customization": [], "addOns": [] },
+             { "id": "406", "name": "Thai Green Curry", "desc": "Aromatic curry with jasmine rice.", "price": 500, "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=200&q=60", "category": "Thai", "isVeg": true, "serves": "2", "customization": [{"name": "Add Chicken", "price": 100}], "addOns": [] }
+           ]
+        },
+        { "category": "Rice & Noodles", "items": [ { "id": "407", "name": "Hakka Noodles", "desc": "Stir fried noodles.", "price": 250, "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "408", "name": "Fried Rice", "desc": "Wok tossed rice with veggies.", "price": 250, "image": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "409", "name": "Chilli Garlic Noodles", "desc": "Spicy garlic noodles.", "price": 270, "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "2", "customization": [], "addOns": [] } ] },
+        { "category": "Soup", "items": [ { "id": "410", "name": "Manchow Soup", "desc": "Spicy soup with fried noodles.", "price": 150, "image": "https://images.unsplash.com/photo-1547592166-23acbe346499?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "411", "name": "Sweet Corn Soup", "desc": "Creamy corn soup.", "price": 150, "image": "https://images.unsplash.com/photo-1547592166-23acbe346499?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "412", "name": "Hot & Sour Soup", "desc": "Tangy and spicy.", "price": 160, "image": "https://images.unsplash.com/photo-1547592166-23acbe346499?auto=format&fit=crop&w=200&q=60", "category": "Chinese", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Desserts", "items": [ { "id": "413", "name": "Date Pancakes", "desc": "Fried pancakes with dates.", "price": 200, "image": "https://images.unsplash.com/photo-1528198622811-0842b4e50787?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "414", "name": "Honey Noodles", "desc": "Crispy noodles with honey and ice cream.", "price": 220, "image": "https://images.unsplash.com/photo-1528198622811-0842b4e50787?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "415", "name": "Coconut Jelly", "desc": "Refreshing jelly.", "price": 150, "image": "https://images.unsplash.com/photo-1528198622811-0842b4e50787?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Royal Biryani House",
+      "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=60",
+      "address": "Chandni Chowk, Old Delhi",
+      "rating": 4.8,
+      "ratingCount": "10K+",
+      "deliveryTime": "45-55 min",
+      "offers": "Free Gulab Jamun",
+      "costForTwo": 700,
+      "cuisines": ["Biryani", "Mughlai", "North Indian"],
+      "menu": [
+        {
+          "category": "Biryani",
+          "items": [
+            { "id": "501", "name": "Hyderabadi Chicken Biryani", "desc": "Aromatic basmati rice cooked with chicken and spices.", "price": 300, "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=60", "category": "Biryani", "isVeg": false, "serves": "1", "customization": [{"name": "Double Masala", "price": 30}], "addOns": [{"name": "Extra Raita", "price": 20}] },
+            { "id": "502", "name": "Mutton Biryani", "desc": "Tender mutton pieces with long grain rice.", "price": 450, "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=60", "category": "Biryani", "isVeg": false, "serves": "1", "customization": [], "addOns": [] },
+            { "id": "503", "name": "Veg Biryani", "desc": "Assorted vegetables cooked with rice.", "price": 250, "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=60", "category": "Biryani", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }
+          ]
+        },
+        {
+           "category": "Kebabs",
+           "items": [
+             { "id": "504", "name": "Galouti Kebab", "desc": "Melt in mouth minced meat kebabs.", "price": 350, "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=200&q=60", "category": "Mughlai", "isVeg": false, "serves": "2", "customization": [], "addOns": [] },
+             { "id": "505", "name": "Chicken Tikka", "desc": "Spicy grilled chicken.", "price": 300, "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=200&q=60", "category": "Mughlai", "isVeg": false, "serves": "2", "customization": [], "addOns": [] },
+             { "id": "506", "name": "Hara Bhara Kebab", "desc": "Spinach and pea patties.", "price": 250, "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=200&q=60", "category": "Mughlai", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }
+           ]
+        },
+        { "category": "Curries", "items": [ { "id": "507", "name": "Butter Chicken", "desc": "Creamy tomato gravy with chicken.", "price": 400, "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": false, "serves": "2", "customization": [], "addOns": [] }, { "id": "508", "name": "Paneer Butter Masala", "desc": "Cottage cheese in rich gravy.", "price": 350, "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "509", "name": "Dal Makhani", "desc": "Slow cooked black lentils.", "price": 300, "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] } ] },
+        { "category": "Breads", "items": [ { "id": "510", "name": "Garlic Naan", "desc": "Buttered garlic bread.", "price": 60, "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60", "category": "Breads", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "511", "name": "Tandoori Roti", "desc": "Whole wheat bread.", "price": 30, "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60", "category": "Breads", "isVeg": true, "serves": "1", "customization": [{"name": "Butter", "price": 10}], "addOns": [] }, { "id": "512", "name": "Rumali Roti", "desc": "Thin soft bread.", "price": 40, "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60", "category": "Breads", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Desserts", "items": [ { "id": "513", "name": "Gulab Jamun", "desc": "2 pcs of hot gulab jamun.", "price": 80, "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "514", "name": "Phirni", "desc": "Rice pudding in clay pot.", "price": 100, "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "515", "name": "Shahi Tukda", "desc": "Fried bread with rabri.", "price": 120, "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Dosa Plaza",
+      "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=60",
+      "address": "12/45, WEA, Karol Bagh, New Delhi",
+      "rating": 4.4,
+      "ratingCount": "800+",
+      "deliveryTime": "20-25 min",
+      "offers": "Flat 30% OFF",
+      "costForTwo": 250,
+      "cuisines": ["South Indian", "Veg"],
+      "menu": [
+        {
+          "category": "Dosas",
+          "items": [
+            { "id": "601", "name": "Masala Dosa", "desc": "Crispy crepe with potato filling.", "price": 100, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [{"name": "Butter", "price": 20}], "addOns": [] },
+            { "id": "602", "name": "Rava Dosa", "desc": "Semolina crepe with onion.", "price": 120, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] },
+            { "id": "603", "name": "Mysore Masala", "desc": "Spicy chutney spread dosa.", "price": 130, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }
+          ]
+        },
+        { "category": "Idli & Vada", "items": [ { "id": "604", "name": "Idli Sambar", "desc": "2 pcs steamed rice cakes.", "price": 60, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "605", "name": "Medu Vada", "desc": "2 pcs fried lentil donuts.", "price": 70, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "606", "name": "Idli Vada Combo", "desc": "1 Idli + 1 Vada.", "price": 65, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Rice", "items": [ { "id": "607", "name": "Curd Rice", "desc": "Yogurt mixed rice with tadka.", "price": 90, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [{"name": "Pickle", "price": 5}] }, { "id": "608", "name": "Lemon Rice", "desc": "Tangy yellow rice.", "price": 90, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "609", "name": "Tomato Rice", "desc": "Spicy tomato rice.", "price": 90, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Uttapam", "items": [ { "id": "610", "name": "Onion Uttapam", "desc": "Thick pancake with onion topping.", "price": 110, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "611", "name": "Tomato Uttapam", "desc": "Thick pancake with tomato.", "price": 110, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "612", "name": "Mix Veg Uttapam", "desc": "Topped with mixed veggies.", "price": 130, "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60", "category": "South Indian", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Beverages", "items": [ { "id": "613", "name": "Filter Coffee", "desc": "Authentic south indian coffee.", "price": 40, "image": "https://images.unsplash.com/photo-1517701604599-bb29b5dd7359?auto=format&fit=crop&w=200&q=60", "category": "Beverages", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "614", "name": "Buttermilk", "desc": "Spiced chaas.", "price": 30, "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=200&q=60", "category": "Beverages", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "615", "name": "Badam Milk", "desc": "Almond milk cold.", "price": 60, "image": "https://images.unsplash.com/photo-1543362906-ac1b48264378?auto=format&fit=crop&w=200&q=60", "category": "Beverages", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Sweet Cravings",
+      "image": "https://images.unsplash.com/photo-1551024601-569d6f7e1271?auto=format&fit=crop&w=600&q=60",
+      "address": "Shop 18, Defence Colony Market, New Delhi",
+      "rating": 4.7,
+      "ratingCount": "1.8K+",
+      "deliveryTime": "15-20 min",
+      "offers": "Buy 1 Get 1 on Pastries",
+      "costForTwo": 350,
+      "cuisines": ["Desserts", "Bakery"],
+      "menu": [
+        {
+          "category": "Cakes",
+          "items": [
+            { "id": "701", "name": "Truffle Cake", "desc": "500g Chocolate Truffle.", "price": 500, "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "4", "customization": [], "addOns": [] },
+            { "id": "702", "name": "Red Velvet", "desc": "500g Red Velvet Cream Cheese.", "price": 600, "image": "https://images.unsplash.com/photo-1586788680434-30d32443f468?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "4", "customization": [], "addOns": [] },
+            { "id": "703", "name": "Pineapple Cake", "desc": "Fresh cream pineapple.", "price": 400, "image": "https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "4", "customization": [], "addOns": [] }
+          ]
+        },
+        { "category": "Pastries", "items": [ { "id": "704", "name": "Black Forest", "desc": "Slice of black forest.", "price": 80, "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "705", "name": "Blueberry Cheese", "desc": "Cheesecake slice.", "price": 150, "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "706", "name": "Choco Chip", "desc": "Muffin.", "price": 60, "image": "https://images.unsplash.com/photo-1558401391-7899b4bd5bbf?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Donuts", "items": [ { "id": "707", "name": "Choco Glaze", "desc": "Chocolate glazed donut.", "price": 70, "image": "https://images.unsplash.com/photo-1551024601-569d6f7e1271?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "708", "name": "Sugar Rush", "desc": "Sugar dusted donut.", "price": 60, "image": "https://images.unsplash.com/photo-1551024601-569d6f7e1271?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "709", "name": "Jam Filled", "desc": "Donut with strawberry jam.", "price": 80, "image": "https://images.unsplash.com/photo-1551024601-569d6f7e1271?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Cookies", "items": [ { "id": "710", "name": "Choco Chip Cookie", "desc": "Large cookie.", "price": 40, "image": "https://images.unsplash.com/photo-1499636138143-bd649043ea52?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "711", "name": "Oatmeal Cookie", "desc": "Healthy oat cookie.", "price": 45, "image": "https://images.unsplash.com/photo-1499636138143-bd649043ea52?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "712", "name": "Double Choco", "desc": "Dark chocolate cookie.", "price": 50, "image": "https://images.unsplash.com/photo-1499636138143-bd649043ea52?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Shakes", "items": [ { "id": "713", "name": "Oreo Shake", "desc": "Thick oreo shake.", "price": 120, "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "714", "name": "Kitkat Shake", "desc": "Crunchy kitkat shake.", "price": 130, "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "715", "name": "Strawberry Shake", "desc": "Pink berry shake.", "price": 110, "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=200&q=60", "category": "Dessert", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Healthy Bites",
+      "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=60",
+      "address": "Basant Lok Market, Vasant Vihar, New Delhi",
+      "rating": 4.2,
+      "ratingCount": "900+",
+      "deliveryTime": "30-40 min",
+      "offers": "Pro Member Discount",
+      "costForTwo": 500,
+      "cuisines": ["Healthy", "Salads", "Juices"],
+      "menu": [
+        {
+          "category": "Salads",
+          "items": [
+            { "id": "801", "name": "Caesar Salad", "desc": "Lettuce, croutons, parmesan.", "price": 250, "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [{"name": "Add Grilled Chicken", "price": 80}], "addOns": [] },
+            { "id": "802", "name": "Greek Salad", "desc": "Feta cheese, olives, cucumber.", "price": 280, "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] },
+            { "id": "803", "name": "Protein Bowl", "desc": "Chickpeas, paneer, veggies.", "price": 300, "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }
+          ]
+        },
+        { "category": "Smoothies", "items": [ { "id": "804", "name": "Berry Blast", "desc": "Mixed berries yoghurt.", "price": 200, "image": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "805", "name": "Green Detox", "desc": "Spinach, apple, cucumber.", "price": 180, "image": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "806", "name": "Banana Oat", "desc": "Energy smoothie.", "price": 160, "image": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Wraps", "items": [ { "id": "807", "name": "Hummus Wrap", "desc": "Whole wheat wrap with hummus.", "price": 220, "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "808", "name": "Tofu Wrap", "desc": "Grilled tofu and veggies.", "price": 240, "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "809", "name": "Egg White Wrap", "desc": "Protein rich.", "price": 200, "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": false, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Bowls", "items": [ { "id": "810", "name": "Burrito Bowl", "desc": "Brown rice, beans, salsa.", "price": 300, "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "811", "name": "Teriyaki Bowl", "desc": "Grilled veggies with sauce.", "price": 320, "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "812", "name": "Quinoa Bowl", "desc": "Superfood bowl.", "price": 350, "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Juices", "items": [ { "id": "813", "name": "Orange Juice", "desc": "Freshly squeezed.", "price": 120, "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "814", "name": "Watermelon Juice", "desc": "Hydrating juice.", "price": 100, "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "815", "name": "ABC Juice", "desc": "Apple Beetroot Carrot.", "price": 140, "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=200&q=60", "category": "Healthy", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Sushi Spot",
+      "image": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=60",
+      "address": "42, Middle Lane, Khan Market, New Delhi",
+      "rating": 4.5,
+      "ratingCount": "1.5K+",
+      "deliveryTime": "40-50 min",
+      "offers": "10% OFF",
+      "costForTwo": 1500,
+      "cuisines": ["Japanese", "Sushi", "Asian"],
+      "menu": [
+        {
+          "category": "Sushi",
+          "items": [
+            { "id": "901", "name": "Salmon Sushi", "desc": "Fresh salmon roll.", "price": 400, "image": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=60", "category": "Sushi", "isVeg": false, "serves": "4 Pcs", "customization": [], "addOns": [] },
+            { "id": "902", "name": "Tuna Sushi", "desc": "Tuna maki roll.", "price": 420, "image": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=60", "category": "Sushi", "isVeg": false, "serves": "4 Pcs", "customization": [], "addOns": [] },
+            { "id": "903", "name": "Veg California", "desc": "Cucumber and avocado.", "price": 300, "image": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=60", "category": "Sushi", "isVeg": true, "serves": "4 Pcs", "customization": [], "addOns": [] }
+          ]
+        },
+        { "category": "Ramen", "items": [ { "id": "904", "name": "Chicken Ramen", "desc": "Noodle soup with chicken.", "price": 450, "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=200&q=60", "category": "Japanese", "isVeg": false, "serves": "1", "customization": [], "addOns": [] }, { "id": "905", "name": "Miso Ramen", "desc": "Soybean paste broth.", "price": 400, "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=200&q=60", "category": "Japanese", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "906", "name": "Spicy Ramen", "desc": "Hot chilli noodle soup.", "price": 420, "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=200&q=60", "category": "Japanese", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Tempura", "items": [ { "id": "907", "name": "Prawn Tempura", "desc": "Batter fried prawns.", "price": 500, "image": "https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=200&q=60", "category": "Japanese", "isVeg": false, "serves": "2", "customization": [], "addOns": [] }, { "id": "908", "name": "Veg Tempura", "desc": "Fried assorted veggies.", "price": 350, "image": "https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=200&q=60", "category": "Japanese", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "909", "name": "Chicken Katsu", "desc": "Fried chicken cutlet.", "price": 400, "image": "https://images.unsplash.com/photo-1615361200141-f45040f367be?auto=format&fit=crop&w=200&q=60", "category": "Japanese", "isVeg": false, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Bao", "items": [ { "id": "910", "name": "Chicken Bao", "desc": "Steamed bun with chicken.", "price": 250, "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=200&q=60", "category": "Asian", "isVeg": false, "serves": "2", "customization": [], "addOns": [] }, { "id": "911", "name": "Mushroom Bao", "desc": "Bun with mushroom filling.", "price": 220, "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=200&q=60", "category": "Asian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "912", "name": "Pork Bao", "desc": "Sticky pork belly bun.", "price": 300, "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=200&q=60", "category": "Asian", "isVeg": false, "serves": "2", "customization": [], "addOns": [] } ] },
+        { "category": "Drinks", "items": [ { "id": "913", "name": "Green Tea", "desc": "Japanese matcha.", "price": 100, "image": "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=200&q=60", "category": "Drinks", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "914", "name": "Jasmine Tea", "desc": "Aromatic tea.", "price": 110, "image": "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=200&q=60", "category": "Drinks", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "915", "name": "Ginger Ale", "desc": "Sparkling ginger drink.", "price": 90, "image": "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=200&q=60", "category": "Drinks", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Spicy Handi",
+      "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=600&q=60",
+      "address": "Pocket 4, Sector 7, Dwarka, New Delhi",
+      "rating": 4.0,
+      "ratingCount": "300+",
+      "deliveryTime": "35-40 min",
+      "offers": "Flat ₹150 OFF",
+      "costForTwo": 450,
+      "cuisines": ["North Indian", "Curry", "Thali"],
+      "menu": [
+        {
+          "category": "Thali",
+          "items": [
+            { "id": "1001", "name": "Veg Thali", "desc": "Dal, Paneer, Roti, Rice.", "price": 200, "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60", "category": "Thali", "isVeg": true, "serves": "1", "customization": [], "addOns": [] },
+            { "id": "1002", "name": "Non-Veg Thali", "desc": "Chicken curry, Dal, Roti, Rice.", "price": 250, "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60", "category": "Thali", "isVeg": false, "serves": "1", "customization": [], "addOns": [] },
+            { "id": "1003", "name": "Special Thali", "desc": "Paneer, Dal Makhani, Naan, Sweet.", "price": 280, "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60", "category": "Thali", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }
+          ]
+        },
+        { "category": "Main Course", "items": [ { "id": "1004", "name": "Kadhai Paneer", "desc": "Spicy paneer with capsicum.", "price": 220, "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "1005", "name": "Egg Curry", "desc": "Boiled eggs in spicy gravy.", "price": 180, "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": false, "serves": "2", "customization": [], "addOns": [] }, { "id": "1006", "name": "Chicken Curry", "desc": "Home style chicken curry.", "price": 260, "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": false, "serves": "2", "customization": [], "addOns": [] } ] },
+        { "category": "Rice", "items": [ { "id": "1007", "name": "Jeera Rice", "desc": "Cumin tempered rice.", "price": 100, "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "1008", "name": "Veg Pulao", "desc": "Rice with vegetables.", "price": 140, "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] }, { "id": "1009", "name": "Plain Rice", "desc": "Steamed basmati rice.", "price": 80, "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=200&q=60", "category": "North Indian", "isVeg": true, "serves": "2", "customization": [], "addOns": [] } ] },
+        { "category": "Breads", "items": [ { "id": "1010", "name": "Butter Naan", "desc": "Soft flatbread.", "price": 50, "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60", "category": "Breads", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "1011", "name": "Laccha Paratha", "desc": "Layered wheat bread.", "price": 45, "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60", "category": "Breads", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "1012", "name": "Missi Roti", "desc": "Gram flour bread.", "price": 40, "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60", "category": "Breads", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] },
+        { "category": "Accompaniments", "items": [ { "id": "1013", "name": "Raita", "desc": "Mixed veg yogurt.", "price": 60, "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "1014", "name": "Salad", "desc": "Green salad.", "price": 50, "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "1", "customization": [], "addOns": [] }, { "id": "1015", "name": "Papad", "desc": "Roasted papad.", "price": 20, "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=200&q=60", "category": "Sides", "isVeg": true, "serves": "1", "customization": [], "addOns": [] } ] }
+      ]
+    }
+  ],
+  "categories": [
+    { "id": 1, "name": "Biryani", "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=60" },
+    { "id": 2, "name": "Burger", "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=200&q=60" },
+    { "id": 3, "name": "Pizza", "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=200&q=60" },
+    { "id": 4, "name": "Rolls", "image": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=200&q=60" },
+    { "id": 5, "name": "Chinese", "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=200&q=60" },
+    { "id": 6, "name": "South Indian", "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=60" },
+    { "id": 7, "name": "Dessert", "image": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=200&q=60" },
+    { "id": 8, "name": "Healthy", "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=200&q=60" },
+    { "id": 9, "name": "Sushi", "image": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=60" },
+    { "id": 10, "name": "Thali", "image": "https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=200&q=60" }
+  ]
+}
