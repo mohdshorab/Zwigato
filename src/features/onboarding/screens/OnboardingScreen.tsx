@@ -49,7 +49,9 @@ const OnboardingScreen = ({
           <View style={styles.continueBtnContainer}>
             <AppButton
               title="Continue"
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate('HomeScreen');
+              }}
               buttonStyle={styles.continueBtn}
             />
           </View>

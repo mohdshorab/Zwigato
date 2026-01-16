@@ -4,6 +4,7 @@ import OnboardingScreen from '../features/onboarding/screens/OnboardingScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
 import { RootStackParamList } from './NavigationTypes';
+import HomeScreen from '../features/home/HomeScreen';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();
 const RootNavigation = () => {
@@ -20,6 +21,7 @@ const RootNavigation = () => {
           name={'Onboarding'}
           component={OnboardingScreen}
         />
+                <StackNavigator.Screen name={'HomeScreen'} component={HomeScreen} />
       </StackNavigator.Navigator>
     </NavigationContainer>
   );
