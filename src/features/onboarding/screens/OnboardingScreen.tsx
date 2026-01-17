@@ -26,7 +26,7 @@ const OnboardingScreen = ({
       <Text style={styles.titleText}>zwigato</Text>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         {/* ------------- Bottomsheet starts ------------- */}
         <ScrollView style={styles.bottomSheet}>

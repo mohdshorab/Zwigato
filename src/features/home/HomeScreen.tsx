@@ -1,20 +1,27 @@
-import { ScrollView, Text } from 'react-native';
+import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './HomeScreen.style';
 import { useEffect, useState } from 'react';
 import { RootStackParamList } from '../../navigation/NavigationTypes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { BASE_URL, ENDPOINTS } from '../../api/urlConfig';
+import { ENDPOINTS } from '../../api/urlConfig';
+import apiClient from '../../api/apiClient';
 
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'HomeScreen'>) => {
   const [restaurants, setRestaurants] = useState([]);
   useEffect(() => {
+    console.log('SHORAB', restaurants);
     const fetchdata = async () => {
-      const res = await fetch(`${BASE_URL}${ENDPOINTS.RESTAURANT}`);
-      const json = await res.json();
-      setRestaurants(json);
+      try {
+        console.log('AXIOS API CLIENT');
+        const res = await apiClient.get(`${ENDPOINTS.RESTAURANT}`);
+        console.log('SHORAB', res.data);
+        setRestaurants(res?.data);
+      } catch (e: any) {
+        console.log('Axios Error :', e);
+      }
     };
     fetchdata();
     console.log(restaurants);
