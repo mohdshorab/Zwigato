@@ -14,6 +14,7 @@ import { RootStackParamList } from '../../../navigation/NavigationTypes';
 import { hs, ms, vs } from '../../../utils/Layout';
 import { useState } from 'react';
 import ContentSeparator from '../component/ContentSeparator/ContentSeparator';
+import { useAppSelector } from '../../../store/hooks';
 
 const OnboardingScreen = ({
   navigation,

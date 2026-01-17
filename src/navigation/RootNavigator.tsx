@@ -4,14 +4,14 @@ import OnboardingScreen from '../features/onboarding/screens/OnboardingScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
 import { RootStackParamList } from './NavigationTypes';
-import HomeScreen from '../features/home/HomeScreen';
+import HomeScreen from '../features/home/screens/HomeScreen';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();
 const RootNavigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <StackNavigator.Navigator
-        initialRouteName={'Onboarding'}
+        initialRouteName={'Splash'}
         screenOptions={{
           headerShown: false,
         }}

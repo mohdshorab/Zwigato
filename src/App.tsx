@@ -1,12 +1,15 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import HomeScreen from './features/home/HomeScreen';
 import RootNavigation from './navigation/RootNavigator';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <RootNavigation/>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <RootNavigation />
+      </SafeAreaProvider>
+    </Provider>
   );
 };
 
