@@ -7,7 +7,8 @@ import styles from './SplashScreen.styles';
 import { StatusBar, Text } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { useEffect } from 'react';
-import { fetchRestaurants } from '../../../home/slices/restaurantsSlice';
+import { fetchRestaurants } from '../../../../store/slices/restaurantsSlice';
+import { fetchCategories } from '../../../../store/slices/restaurantsCategoriesSlice';
 
 const SplashScreen = ({
   navigation,
@@ -15,19 +16,22 @@ const SplashScreen = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    try {
+    const fetchData = async () => {
       // createAsyncThunk always returns a resolved Promise, even if the API call fails
-      // With .unwrap(): It "unpacks" the result. If the call was successful, it returns the payload.
+      // With dispatch(fetchCategories()).unwrap(): It "unpacks" the result. If the call was successful, it returns the payload.
       // If the call failed, it throws an error, which allows your try/catch block to actually catch it.
-      dispatch(fetchRestaurants())
-        .unwrap()
-        .then(() => {
-          navigation.navigate('Onboarding');
-        });
-    } catch (e) {
-      console.error('SOMETHING WENT WRONG!');
-      navigation.navigate('Onboarding');
-    }
+      // Promise.allSettled returns an Array of Objects like [{ status: 'fulfilled', value: ... }, { status: 'rejected', reason: ... }].
+      // The order of these objects in the results array matches exactly the order of the promises you provided in the input array.
+      // Whether your dispatch(anyThunk()) succeeded or rejected, the allSettled Promise itself will ALWAYS resolve. It never reaches the catch section
+      const timer = new Promise(resolve => setTimeout(() => resolve(), 2000));
+      await Promise.allSettled([
+        dispatch(fetchRestaurants()),
+        dispatch(fetchCategories()),
+        timer,
+      ]);
+      navigation.replace('Onboarding');
+    };
+    fetchData();
   }, [dispatch, navigation]);
 
   return (

@@ -1,6 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import apiClient from '../../../api/apiClient';
-import { ENDPOINTS } from '../../../api/urlConfig';
+import apiClient from '../../api/apiClient';
+import { ENDPOINTS } from '../../api/urlConfig';
+import { Restaurant } from '../../types/restaurant';
+
+interface restaurants {
+  items: Restaurant;
+  status: string;
+  error: string | null;
+}
+
+const initialState = {
+  items: [],
+  status: 'idle',
+  error: null,
+};
 
 export const fetchRestaurants = createAsyncThunk(
   'restaurants/fetchAll',
@@ -12,11 +25,7 @@ export const fetchRestaurants = createAsyncThunk(
 
 const restaurantsSlice = createSlice({
   name: 'restaurants',
-  initialState: {
-    items: [],
-    status: 'idle',
-    error: null,
-  },
+  initialState: initialState,
   reducers: {},
   extraReducers: builder => {
     builder
@@ -29,7 +38,7 @@ const restaurantsSlice = createSlice({
         state.items = action.payload;
       })
       .addCase(fetchRestaurants.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'rejected';
         state.error = action.error.message;
       });
   },
