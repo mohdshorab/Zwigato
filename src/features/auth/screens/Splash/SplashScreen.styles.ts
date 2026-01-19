@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: COLORS.common.white
   },
   //using vertical scale for both to make the icon Square always
   iconSplash: {

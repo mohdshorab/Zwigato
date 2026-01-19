@@ -5,20 +5,21 @@ import { RootStackParamList } from '../../../navigation/NavigationTypes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlashList } from '@shopify/flash-list';
 import { useAppSelector } from '../../../store/hooks';
-import { Restaurant } from '../../../types/restaurant';
+import { restaurants } from '../../../store/slices/restaurantsSlice';
+import { ShowAppToast } from '../../../components';
 
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'HomeScreen'>) => {
-  const restaurantsList: Restaurant[] = useAppSelector(
-    state => state.restaurants.items,
+  const { items, status, error }: restaurants = useAppSelector(
+    state => state.restaurants,
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <Text>Home Screen</Text>
       <FlashList
-        data={restaurantsList}
+        data={items}
         renderItem={({ item }) => {
           return <Text style={{ color: 'red' }}>{item?.name}</Text>;
         }}

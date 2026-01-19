@@ -3,8 +3,8 @@ import apiClient from '../../api/apiClient';
 import { ENDPOINTS } from '../../api/urlConfig';
 import { Restaurant } from '../../types/restaurant';
 
-interface restaurants {
-  items: Restaurant;
+export interface restaurants {
+  items: Restaurant[];
   status: string;
   error: string | null;
 }

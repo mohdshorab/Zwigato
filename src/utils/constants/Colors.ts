@@ -38,6 +38,10 @@ const COLORS = {
   others:{
     inputBox: '#F0F5FA',
     uiIconColor: '#B4B9CA',
+  },
+  
+  toast:{
+    androidBg: '#676767'
   }
 };
 

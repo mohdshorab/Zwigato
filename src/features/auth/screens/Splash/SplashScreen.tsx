@@ -1,7 +1,7 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../../navigation/NavigationTypes';
-import { QuickImage } from '../../../../components';
+import { QuickImage, ShowAppToast } from '../../../../components';
 import { iconSplash } from '../../../../assets/images';
 import styles from './SplashScreen.styles';
 import { StatusBar, Text } from 'react-native';
@@ -24,11 +24,13 @@ const SplashScreen = ({
       // The order of these objects in the results array matches exactly the order of the promises you provided in the input array.
       // Whether your dispatch(anyThunk()) succeeded or rejected, the allSettled Promise itself will ALWAYS resolve. It never reaches the catch section
       const timer = new Promise(resolve => setTimeout(() => resolve(), 2000));
-      await Promise.allSettled([
+      const promiseObject = await Promise.allSettled([
         dispatch(fetchRestaurants()),
         dispatch(fetchCategories()),
         timer,
       ]);
+      const anyRejection = promiseObject.find(t => t.status == 'rejected');
+      anyRejection && ShowAppToast('Something went wrong!');
       navigation.replace('Onboarding');
     };
     fetchData();
