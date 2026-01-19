@@ -1,27 +1,39 @@
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './HomeScreen.style';
 import { RootStackParamList } from '../../../navigation/NavigationTypes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlashList } from '@shopify/flash-list';
 import { useAppSelector } from '../../../store/hooks';
-import { restaurants } from '../../../store/slices/restaurantsSlice';
-import { ShowAppToast } from '../../../components';
+import { CategoryState } from '../../../store/slices/restaurantsCategoriesSlice';
+import { useState } from 'react';
+import CategoryCard from '../components/CategoryCard';
 
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'HomeScreen'>) => {
-  const { items, status, error }: restaurants = useAppSelector(
-    state => state.restaurants,
+  const { categories, status, error }: CategoryState = useAppSelector(
+    state => state.restaurantsCategories,
   );
+
+  const [isSelected, setIsSelected] = useState(1);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Hey Username, Good Morning</Text>
       <FlashList
-        data={items}
-        renderItem={({ item }) => {
-          return <Text style={{ color: 'red' }}>{item?.name}</Text>;
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={categories}
+        keyExtractor={(item, index) => item?.id.toString()}
+        renderItem={({ item, index }) => {
+          return (
+            <CategoryCard
+              item={item}
+              isSelected={isSelected}
+              onPress={() => setIsSelected(item?.id)}
+            />
+          );
         }}
       />
     </SafeAreaView>

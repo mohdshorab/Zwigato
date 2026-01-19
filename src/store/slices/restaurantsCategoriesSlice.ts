@@ -3,7 +3,7 @@ import apiClient from '../../api/apiClient';
 import { ENDPOINTS } from '../../api/urlConfig';
 import { CategoryItem } from '../../types/restaurantCategories';
 
-interface CategoryState {
+export interface CategoryState {
   categories: CategoryItem[];
   status: string;
   error: string | null;

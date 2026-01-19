@@ -5,8 +5,8 @@ const COLORS = {
 
   // Text
   text: {
-    primary: '#181C2E',
-    secondary: '#676767',
+    primary: '#32343E',
+    secondary: '#646982',
     placeholder: '#A0A5BA',
     white: '#FFFFFF',
   },
@@ -23,6 +23,7 @@ const COLORS = {
   // UI Elements & State
   ui: {
     border: '#E8EAED',
+    borderGrey: '#646982',
     badge: '#FFE1CC',
     error: '#E74C3C',
     success: '#27AE60',
