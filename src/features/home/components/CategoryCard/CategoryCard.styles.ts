@@ -1,22 +1,21 @@
-import { StyleSheet } from 'react-native';
-import COLORS from '../../../utils/constants/Colors';
-import { hs, ms, vs } from '../../../utils/Layout';
+import { Platform, StyleSheet } from 'react-native';
+import COLORS from '../../../../utils/constants/Colors';
+import { hs, vs, ms } from '../../../../utils/Layout';
 
 const styles = StyleSheet.create({
   cardContainer: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.25,
     borderBottomColor: COLORS.ui.borderGrey,
     alignItems: 'center',
-    marginVertical: vs(20),
     backgroundColor: COLORS.common.white,
-    paddingTop: vs(20),
+    paddingTop: vs(10),
     paddingHorizontal: hs(10),
+    marginBottom:vs(15)
   },
   categoryImage: {
-    height: hs(60),
-    width: hs(60),
-    borderRadius: hs(30),
-    // marginBottom: vs(10),
+    height: hs(70),
+    width: hs(70),
+    borderRadius: hs(35),
   },
   categoryTitle: {
     fontWeight: '500',

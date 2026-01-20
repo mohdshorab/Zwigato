@@ -12,7 +12,7 @@ type IonicIconProps = {
   size: number;
   style?: StyleProp<TextStyle>;
   color?: string;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const CustomIonicIcon = ({
@@ -20,7 +20,7 @@ const CustomIonicIcon = ({
   size,
   color = COLORS.common.black,
   style,
-  onPress,
+  onPress = ()=>{},
 }: IonicIconProps) => {
   return (
     <TouchableOpacity onPress={onPress}>

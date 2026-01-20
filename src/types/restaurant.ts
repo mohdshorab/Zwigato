@@ -1,5 +1,3 @@
-// Path: src/types/restaurant.ts
-
 export interface CustomizationOption {
   name: string;
   price: number;

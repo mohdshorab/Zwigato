@@ -36,14 +36,14 @@ const COLORS = {
     black: '#000000',
   },
 
-  others:{
+  others: {
     inputBox: '#F0F5FA',
     uiIconColor: '#B4B9CA',
   },
-  
-  toast:{
-    androidBg: '#676767'
-  }
+
+  toast: {
+    androidBg: '#676767',
+  },
 };
 
 export default COLORS;

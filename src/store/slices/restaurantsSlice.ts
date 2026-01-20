@@ -34,7 +34,6 @@ const restaurantsSlice = createSlice({
       })
       .addCase(fetchRestaurants.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        console.log('PAYLOAD', action.payload);
         state.items = action.payload;
       })
       .addCase(fetchRestaurants.rejected, (state, action) => {

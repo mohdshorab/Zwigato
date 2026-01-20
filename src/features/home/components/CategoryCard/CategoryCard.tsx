@@ -1,8 +1,7 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './CategoryCard.styles';
-import { QuickImage } from '../../../components';
-import { useState } from 'react';
-import { CategoryItem } from '../../../types/restaurantCategories';
+import { QuickImage } from '../../../../components';
+import { CategoryItem } from '../../../../types/restaurantCategories';
 
 interface props {
   item: CategoryItem;

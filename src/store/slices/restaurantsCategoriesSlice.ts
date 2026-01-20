@@ -18,7 +18,6 @@ export const fetchCategories = createAsyncThunk(
   'restaurants/fetchAllCategories',
   async () => {
     const res = await apiClient.get(`${ENDPOINTS.CATEGORIES}`);
-    console.log('CATS' , res?.data)
     return res?.data;
   },
 );

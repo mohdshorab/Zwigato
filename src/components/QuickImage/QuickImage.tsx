@@ -2,7 +2,7 @@ import FastImage, { ImageStyle, Source } from 'react-native-fast-image';
 
 type QuickImageProps = {
   source: string | number | Source;
-  style?: ImageStyle | ImageStyle[];
+  style: ImageStyle | ImageStyle[];
   resizeMode?: 'contain' | 'cover' | 'stretch' | 'center';
 };
 
