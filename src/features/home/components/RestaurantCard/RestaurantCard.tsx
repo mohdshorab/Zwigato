@@ -7,7 +7,7 @@ import { Restaurant } from '../../../../types/restaurant';
 
 interface RestaurantCardProps {
   item: Restaurant;
-  onPress?: () => void;
+  onPress: () => void;
 }
 
 const RestaurantCard = ({ item, onPress }: RestaurantCardProps) => {

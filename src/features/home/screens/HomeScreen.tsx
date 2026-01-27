@@ -16,6 +16,7 @@ import {
   dataAsPerSelectedCat,
   selectedCategory,
 } from '../../../store/slices/restaurantsCategoriesSelector';
+import { Restaurant } from '../../../types/restaurant';
 
 const HomeScreen = ({
   navigation,
@@ -41,6 +42,12 @@ const HomeScreen = ({
         </Text>
       </View>
     );
+  };
+
+  const onPressingRestaurantCard = (item: Restaurant) => {
+    navigation.navigate('RestaurantDetailScreen', {
+      restaurantId: item?.id,
+    });
   };
 
   return (
@@ -78,7 +85,12 @@ const HomeScreen = ({
         data={dataToBeShown || []}
         keyExtractor={(item, index) => item?.id.toString()}
         renderItem={({ item }) => {
-          return <RestaurantCard item={item} />;
+          return (
+            <RestaurantCard
+              onPress={() => onPressingRestaurantCard(item)}
+              item={item}
+            />
+          );
         }}
         ListEmptyComponent={ListEmptyComponent}
         contentContainerStyle={dataToBeShown?.length === 0 ? styles.flex : {}}

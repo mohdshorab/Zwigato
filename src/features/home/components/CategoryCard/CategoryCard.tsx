@@ -5,7 +5,7 @@ import { CategoryItem } from '../../../../types/restaurantCategories';
 
 interface props {
   item: CategoryItem;
-  isSelected: number;
+  isSelected: string;
   onPress: () => void;
 }
 

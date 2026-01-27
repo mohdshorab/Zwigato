@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
 import { RootStackParamList } from './NavigationTypes';
 import HomeScreen from '../features/home/screens/HomeScreen';
+import RestaurantDetailScreen from '../features/restauarant/screen/RestaurantDetailScreen';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();
 const RootNavigation = () => {
@@ -21,7 +22,11 @@ const RootNavigation = () => {
           name={'Onboarding'}
           component={OnboardingScreen}
         />
-                <StackNavigator.Screen name={'HomeScreen'} component={HomeScreen} />
+        <StackNavigator.Screen name={'HomeScreen'} component={HomeScreen} />
+        <StackNavigator.Screen
+          name={'RestaurantDetailScreen'}
+          component={RestaurantDetailScreen}
+        />
       </StackNavigator.Navigator>
     </NavigationContainer>
   );
