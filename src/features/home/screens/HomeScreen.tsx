@@ -12,6 +12,10 @@ import { CustomIonicIcon, QuickImage } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { restaurants } from '../../../store/slices/restaurantsSlice';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
+import {
+  dataAsPerSelectedCat,
+  selectedCategory,
+} from '../../../store/slices/restaurantsCategoriesSelector';
 
 const HomeScreen = ({
   navigation,
@@ -20,17 +24,13 @@ const HomeScreen = ({
     state => state.restaurantsCategories,
   );
   const { items }: restaurants = useAppSelector(state => state.restaurants);
-  const [isSelected, setIsSelected] = useState(0);
-
-  const selectedCatName =
-    isSelected !== 0 ? categories?.find(i => i?.id == isSelected)?.name : null;
-
-  const dataToBeShown = useMemo(() => {
-    if (isSelected === 0) return items;
-    if (selectedCatName)
-      return items.filter(item => item.cuisines.includes(selectedCatName));
-    return [];
-  }, [isSelected, selectedCatName, items]);
+  const [isSelected, setIsSelected] = useState('0');
+  const selectedCatName = useAppSelector(state =>
+    selectedCategory(state, isSelected),
+  );
+  const dataToBeShown = useAppSelector(state =>
+    dataAsPerSelectedCat(state, selectedCatName),
+  );
 
   const ListEmptyComponent = () => {
     return (
@@ -75,21 +75,23 @@ const HomeScreen = ({
       <FlashList
         key={isSelected}
         showsVerticalScrollIndicator
-        data={dataToBeShown}
+        data={dataToBeShown || []}
         keyExtractor={(item, index) => item?.id.toString()}
         renderItem={({ item }) => {
           return <RestaurantCard item={item} />;
         }}
         ListEmptyComponent={ListEmptyComponent}
-        contentContainerStyle={dataToBeShown.length === 0 ? styles.flex : {}}
+        contentContainerStyle={dataToBeShown?.length === 0 ? styles.flex : {}}
         ListHeaderComponent={() => (
           <Text style={styles.subHeads}>
-            {isSelected == 0 ? 'Explore More' : `${selectedCatName}`}
+            {dataToBeShown?.length && isSelected === '0'
+              ? 'Explore More'
+              : `${selectedCatName}`}
           </Text>
         )}
         ListFooterComponent={() => (
           <Text style={styles.listEndHeads}>
-            {dataToBeShown.length !== 0 ? `That's all for now!` : null}
+            {dataToBeShown?.length ? `That's all for now!` : ''}
           </Text>
         )}
       />
