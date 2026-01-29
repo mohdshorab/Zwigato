@@ -6,7 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlashList } from '@shopify/flash-list';
 import { useAppSelector } from '../../../store/hooks';
 import { CategoryState } from '../../../store/slices/restaurantsCategoriesSlice';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
 import { CustomIonicIcon, QuickImage } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
@@ -25,7 +25,7 @@ const HomeScreen = ({
     state => state.restaurantsCategories,
   );
   const { items }: restaurants = useAppSelector(state => state.restaurants);
-  const [isSelected, setIsSelected] = useState('0');
+  const [isSelected, setIsSelected] = useState<number>(0);
   const selectedCatName = useAppSelector(state =>
     selectedCategory(state, isSelected),
   );
@@ -68,7 +68,7 @@ const HomeScreen = ({
         horizontal
         showsHorizontalScrollIndicator={false}
         data={categories}
-        keyExtractor={(item, index) => item?.id.toString()}
+        keyExtractor={item => item?.id.toString()}
         renderItem={({ item, index }) => {
           return (
             <CategoryCard
@@ -83,7 +83,7 @@ const HomeScreen = ({
         key={isSelected}
         showsVerticalScrollIndicator
         data={dataToBeShown || []}
-        keyExtractor={(item, index) => item?.id.toString()}
+        keyExtractor={item => item?.id.toString()}
         renderItem={({ item }) => {
           return (
             <RestaurantCard
@@ -96,7 +96,9 @@ const HomeScreen = ({
         contentContainerStyle={dataToBeShown?.length === 0 ? styles.flex : {}}
         ListHeaderComponent={() => (
           <Text style={styles.subHeads}>
-            {dataToBeShown?.length && isSelected === '0'
+            {!dataToBeShown?.length
+              ? ''
+              : isSelected === 0
               ? 'Explore More'
               : `${selectedCatName}`}
           </Text>

@@ -3,27 +3,35 @@ import { RootState } from '../store';
 import { Restaurant } from '../../types/restaurant';
 
 const cats = (state: RootState) => state.restaurantsCategories.categories;
-const selectedCatId = (_: RootState, id: string | null | undefined) => id;
+const selectedCatId = (_: RootState, id: number | null | undefined) => id;
 const allRestaurantsData = (state: RootState) => state.restaurants.items;
 const getSelectedCategory = (
   _: RootState,
   categoryName: string | null | undefined,
 ) => categoryName;
 
+export const ALL_CATEGORIES_ID = 0;
+export const ALL_CATEGORIES_NAME = 'All';
+
+
 export const selectedCategory = createSelector(
   [cats, selectedCatId],
   (categories, id) => {
-    if (!id) return null;
-    if (id === '0') return id;
+    if (id === ALL_CATEGORIES_ID) {
+      return ALL_CATEGORIES_NAME;
+    }
     const found = categories?.find(i => i?.id === id);
-    return found ? found.name : null;
+    return found?.name ?? null;
   },
 );
 
 export const dataAsPerSelectedCat = createSelector(
   [allRestaurantsData, getSelectedCategory],
   (items: Restaurant[], selectedCatName) => {
-    if (!selectedCatName) return null;
+    if (selectedCatName === ALL_CATEGORIES_NAME) {
+      return items;
+    }
+    if (!selectedCatName) return [];
     if (selectedCatName === '0') return items;
     return items.filter(item => item?.cuisines?.includes(selectedCatName));
   },

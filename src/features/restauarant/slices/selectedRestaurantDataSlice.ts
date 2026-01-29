@@ -9,7 +9,7 @@ export interface SelectedRestaurantState {
   error: string | null;
 }
 
-const initialState : SelectedRestaurantState = {
+const initialState: SelectedRestaurantState = {
   restaurant: null,
   status: 'idle',
   error: null,
@@ -37,7 +37,8 @@ const selectedRestaurantDataSlice = createSlice({
         state.status = 'suceeded';
       })
       .addCase(fetchSelectedRestaurantData.rejected, (state, action) => {
-        (state.status = 'rejected'), (state.error = action.error.message);
+        state.status = 'rejected';
+        state.error = action.error.message;
       });
   },
 });

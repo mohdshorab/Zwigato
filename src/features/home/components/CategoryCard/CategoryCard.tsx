@@ -3,13 +3,13 @@ import styles from './CategoryCard.styles';
 import { QuickImage } from '../../../../components';
 import { CategoryItem } from '../../../../types/restaurantCategories';
 
-interface props {
+interface CategoryCardProps {
   item: CategoryItem;
-  isSelected: string;
+  isSelected: number;
   onPress: () => void;
 }
 
-const CategoryCard = ({ item, isSelected, onPress }: props) => {
+const CategoryCard = ({ item, isSelected, onPress }: CategoryCardProps) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
@@ -21,7 +21,7 @@ const CategoryCard = ({ item, isSelected, onPress }: props) => {
       <Text style={styles.categoryTitle}>{item?.name}</Text>
       <View
         style={[
-          item?.id == isSelected
+          item?.id === isSelected
             ? { backgroundColor: 'red' }
             : { backgroundColor: 'transparent' },
           styles.catTitle,

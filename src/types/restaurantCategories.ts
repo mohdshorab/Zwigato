@@ -1,5 +1,5 @@
 export interface CategoryItem {
-  id: string;
+  id: number;
   name: string;
   image: string;
   startsAt: string

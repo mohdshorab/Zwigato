@@ -27,7 +27,7 @@ export interface MenuCategory {
 }
 
 export interface Restaurant {
-  id: string;
+  id: number;
   name: string;
   image: string;
   address: string;
