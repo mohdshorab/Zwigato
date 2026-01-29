@@ -1,10 +1,6 @@
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { ms } from '../../utils/Layout';
-import {
-  StyleProp,
-  TextStyle,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleProp, TextStyle, TouchableOpacity, View } from 'react-native';
 import COLORS from '../../utils/constants/Colors';
 
 type IonicIconProps = {
@@ -20,13 +16,17 @@ const CustomIonicIcon = ({
   size,
   color = COLORS.common.black,
   style,
-  onPress = ()=>{},
+  onPress,
 }: IonicIconProps) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Ionicons name={name} size={size} style={style} color={color} />
-    </TouchableOpacity>
-  );
+  if (onPress) {
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <Ionicons name={name} size={size} style={style} color={color} />
+      </TouchableOpacity>
+    );
+  }
+
+  return <Ionicons name={name} size={size} style={style} color={color} />;
 };
 
 export default CustomIonicIcon;
