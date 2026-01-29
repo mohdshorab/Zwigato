@@ -34,6 +34,7 @@ const COLORS = {
   common: {
     white: '#FFFFFF',
     black: '#000000',
+    green: '#189103'
   },
 
   others: {
