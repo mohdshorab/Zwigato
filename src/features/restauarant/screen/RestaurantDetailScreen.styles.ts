@@ -95,6 +95,7 @@ export const styles = StyleSheet.create({
     fontSize: ms(14),
   },
   sectionHeader: {
+    backgroundColor: COLORS.common.white,
     paddingVertical: vs(12),
     paddingHorizontal: hs(16),
     borderBottomWidth: 2,
@@ -102,8 +103,8 @@ export const styles = StyleSheet.create({
     marginBottom: vs(12),
   },
   sectionTitle: {
-    fontSize: ms(20),
-    fontWeight: 'bold',
+    fontSize: ms(16),
+    fontWeight: '500',
     color: COLORS.common.black,
   },
   itemCard: {
@@ -116,10 +117,13 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    borderBottomWidth: 0.5,
+    borderStyle: 'dotted',
+    borderColor: COLORS.ui.borderGrey,
   },
   itemImage: {
-    width: hs(100),
-    height: hs(100),
+    width: hs(120),
+    height: hs(120),
     borderRadius: hs(8),
   },
   itemDetails: {
@@ -134,7 +138,7 @@ export const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: ms(16),
-    fontWeight: '600',
+    fontWeight: '400',
     color: COLORS.common.black,
     flex: 1,
   },
@@ -145,6 +149,7 @@ export const styles = StyleSheet.create({
     borderRadius: hs(2),
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: vs(5),
   },
   vegDot: {
     width: hs(8),
@@ -154,11 +159,27 @@ export const styles = StyleSheet.create({
   itemDesc: {
     fontSize: ms(13),
     color: COLORS.ui.borderGrey,
-    marginBottom: hs(8),
+    marginVertical: vs(8),
   },
   itemPrice: {
     fontSize: ms(16),
-    fontWeight: '600',
+    fontWeight: '400',
     color: COLORS.common.black,
   },
+  actionButtons: {
+    borderRadius: ms(15),
+    borderWidth: 0.5,
+    borderColor: COLORS.ui.borderGrey,
+    padding: ms(5),
+    marginHorizontal: hs(10),
+  },
+  rightSection: { alignItems: 'center' },
+  addButton: {
+    position: 'relative',
+    bottom: vs(20),
+    backgroundColor: COLORS.common.white,
+    zIndex: 1,
+    paddingHorizontal: hs(30),
+  },
+  customisationText: { color: COLORS.ui.borderGrey },
 });

@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   ActivityIndicator,
-  FlatList,
   ScrollView,
   SectionList,
   Text,
@@ -17,11 +16,12 @@ import {
   SelectedRestaurantState,
 } from '../slices/selectedRestaurantDataSlice';
 import { styles } from './RestaurantDetailScreen.styles';
-import { CustomIonicIcon, QuickImage } from '../../../components';
+import { AppButton, CustomIonicIcon, QuickImage } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { hs, ms, vs } from '../../../utils/Layout';
 import FilterChip from '../components/FilterChip/FilterChip';
 import { FlashList } from '@shopify/flash-list';
+import { MenuItem } from '../../../types/restaurant';
 
 const RESTAURANT_FILTERS = [
   { id: '1', title: 'Filters', icon: 'options-outline' },
@@ -88,13 +88,83 @@ const RestaurantDetailScreen = ({
     );
   };
 
+  const renderMenuList = ({ item }: { item: MenuItem }) => {
+    return (
+      <TouchableOpacity style={styles.itemCard}>
+        <View style={styles.itemDetails}>
+          <View
+            style={[
+              styles.vegIndicator,
+              {
+                borderColor: item.isVeg
+                  ? COLORS.common.green
+                  : COLORS.common.red,
+              },
+            ]}
+          >
+            <View
+              style={[
+                styles.vegDot,
+                {
+                  backgroundColor: item.isVeg
+                    ? COLORS.common.green
+                    : COLORS.common.red,
+                },
+              ]}
+            />
+          </View>
+          <View style={styles.itemHeader}>
+            <Text style={styles.itemName}>{item.name}</Text>
+          </View>
+          <Text style={styles.itemPrice}>₹{item.price}</Text>
+          <Text style={styles.itemDesc}>{item.desc}</Text>
+          <View style={{ flexDirection: 'row', marginVertical: vs(10) }}>
+            <CustomIonicIcon
+              name="bookmark-outline"
+              size={18}
+              color={COLORS.ui.borderGrey}
+              style={styles.actionButtons}
+              onPress={() => {}}
+            />
+            <CustomIonicIcon
+              name="arrow-redo-outline"
+              size={18}
+              color={COLORS.ui.borderGrey}
+              style={styles.actionButtons}
+              onPress={() => {}}
+            />
+          </View>
+        </View>
+        <View style={styles.rightSection}>
+          <QuickImage source={{ uri: item.image }} style={styles.itemImage} />
+          <AppButton
+            title="Add"
+            variant="outline"
+            onPress={() => {}}
+            buttonStyle={styles.addButton}
+          />
+          {item?.customization?.length > 0 && (
+            <Text style={styles.customisationText}>customisable</Text>
+          )}
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderSectionHeader = ({ section }) => {
+    return (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{section.title}</Text>
+      </View>
+    );
+  };
+
   if (status === 'loading')
     return (
       <SafeAreaView style={styles.loadingContainer}>
         <ActivityIndicator size={'large'} />
       </SafeAreaView>
     );
-  const menuItem = restaurant?.menu[0];
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.headerRow}>
@@ -116,10 +186,7 @@ const RestaurantDetailScreen = ({
       </View>
       <View style={styles.thickSeparator} />
       <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {RESTAURANT_FILTERS.map((item, index) => (
             <FilterChip
               key={index}
@@ -144,40 +211,7 @@ const RestaurantDetailScreen = ({
             <Text style={styles.sectionTitle}>{title}</Text>
           </View>
         )}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity style={styles.itemCard}>
-              <QuickImage
-                source={{ uri: item.image }}
-                style={styles.itemImage}
-              />
-              <View style={styles.itemDetails}>
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemName}>{item.name}</Text>
-                  <View
-                    style={[
-                      styles.vegIndicator,
-                      {
-                        borderColor: item.isVeg ? COLORS.common.green : COLORS.common.red,
-                      },
-                    ]}
-                  >
-                    <View
-                      style={[
-                        styles.vegDot,
-                        {
-                          backgroundColor: item.isVeg ? COLORS.common.green : COLORS.common.red,
-                        },
-                      ]}
-                    />
-                  </View>
-                </View>
-                <Text style={styles.itemDesc}>{item.desc}</Text>
-                <Text style={styles.itemPrice}>₹{item.price}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
+        renderItem={renderMenuList}
       />
     </SafeAreaView>
   );
