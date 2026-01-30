@@ -13,7 +13,6 @@ const getSelectedCategory = (
 export const ALL_CATEGORIES_ID = 0;
 export const ALL_CATEGORIES_NAME = 'All';
 
-
 export const selectedCategory = createSelector(
   [cats, selectedCatId],
   (categories, id) => {

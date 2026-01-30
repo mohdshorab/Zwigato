@@ -10,7 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '../../../navigation/NavigationTypes';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   fetchSelectedRestaurantData,
   SelectedRestaurantState,
@@ -18,17 +18,15 @@ import {
 import { styles } from './RestaurantDetailScreen.styles';
 import { AppButton, CustomIonicIcon, QuickImage } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
-import { hs, ms, vs } from '../../../utils/Layout';
+import { ms, vs } from '../../../utils/Layout';
 import FilterChip from '../components/FilterChip/FilterChip';
-import { FlashList } from '@shopify/flash-list';
 import { MenuItem } from '../../../types/restaurant';
-
-const RESTAURANT_FILTERS = [
-  { id: '1', title: 'Filters', icon: 'options-outline' },
-  { id: '2', title: 'Veg', icon: 'leaf' },
-  { id: '3', title: 'Non-Veg', icon: 'restaurant' },
-  { id: '4', title: 'Sort', icon: 'swap-vertical-outline' },
-];
+import {
+  FilterOption,
+  FOOD_TYPES,
+  RESTAURANT_FILTERS,
+} from '../../../utils/constants/restaurantConstants';
+import { filteredData } from '../slices/filteredSectionsSelector';
 
 const RestaurantDetailScreen = ({
   navigation,
@@ -36,12 +34,23 @@ const RestaurantDetailScreen = ({
 }: NativeStackScreenProps<RootStackParamList, 'RestaurantDetailScreen'>) => {
   const { restaurantId } = route.params;
   const dispatch = useAppDispatch();
+  const [selectedFilter, setSelectedFilter] = useState<number>(0);
   useEffect(() => {
     dispatch(fetchSelectedRestaurantData(restaurantId));
   }, [restaurantId, dispatch]);
   const { restaurant, status, error }: SelectedRestaurantState = useAppSelector(
     state => state.selectedRestaurant,
   );
+
+  const filteredSections = useAppSelector(state =>
+    filteredData(state, selectedFilter),
+  );
+
+  const onPressFilterHandling = (item: FilterOption) => {
+    if (item.action === 'TOGGLE') {
+      setSelectedFilter(prev => (prev === item.id ? 0 : item.id));
+    }
+  };
 
   const RestaurantInfo = () => {
     return (
@@ -165,6 +174,7 @@ const RestaurantDetailScreen = ({
         <ActivityIndicator size={'large'} />
       </SafeAreaView>
     );
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.headerRow}>
@@ -190,21 +200,16 @@ const RestaurantDetailScreen = ({
           {RESTAURANT_FILTERS.map((item, index) => (
             <FilterChip
               key={index}
-              title={item.title}
-              icon={item.icon}
-              onPress={() => console.log(item.title)}
+              filterOptions={item}
+              selectedId={selectedFilter}
+              onPress={() => onPressFilterHandling(item)}
             />
           ))}
         </ScrollView>
       </View>
       <View style={styles.thinSeparator} />
       <SectionList
-        sections={
-          restaurant?.menu.map(menuCat => ({
-            title: menuCat?.category,
-            data: menuCat?.items || [],
-          })) || []
-        }
+        sections={filteredSections}
         keyExtractor={item => item?.id}
         renderSectionHeader={({ section: { title } }) => (
           <View style={styles.sectionHeader}>
