@@ -182,4 +182,5 @@ export const styles = StyleSheet.create({
     paddingHorizontal: hs(30),
   },
   customisationText: { color: COLORS.ui.borderGrey },
+  actionButtonsContainer: { flexDirection: 'row', marginVertical: vs(10) },
 });

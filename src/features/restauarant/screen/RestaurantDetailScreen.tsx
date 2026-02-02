@@ -27,6 +27,7 @@ import {
   RESTAURANT_FILTERS,
 } from '../../../utils/constants/restaurantConstants';
 import { filteredData } from '../slices/filteredSectionsSelector';
+import MenuItemModal from '../components/MenuItemModal/MenuItemModal';
 
 const RestaurantDetailScreen = ({
   navigation,
@@ -35,9 +36,15 @@ const RestaurantDetailScreen = ({
   const { restaurantId } = route.params;
   const dispatch = useAppDispatch();
   const [selectedFilter, setSelectedFilter] = useState<number>(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFoodInfo, setSelectedFoodInfo] = useState<MenuItem | null>(
+    null,
+  );
+
   useEffect(() => {
     dispatch(fetchSelectedRestaurantData(restaurantId));
   }, [restaurantId, dispatch]);
+
   const { restaurant, status, error }: SelectedRestaurantState = useAppSelector(
     state => state.selectedRestaurant,
   );
@@ -50,6 +57,15 @@ const RestaurantDetailScreen = ({
     if (item.action === 'TOGGLE') {
       setSelectedFilter(prev => (prev === item.id ? 0 : item.id));
     }
+  };
+
+  const showFoodDetails = (item: MenuItem) => {
+    setSelectedFoodInfo(item);
+    setShowModal(true);
+  };
+
+  const onCloseModal = () => {
+    setShowModal(!showModal);
   };
 
   const RestaurantInfo = () => {
@@ -99,7 +115,10 @@ const RestaurantDetailScreen = ({
 
   const renderMenuList = ({ item }: { item: MenuItem }) => {
     return (
-      <TouchableOpacity style={styles.itemCard}>
+      <TouchableOpacity
+        onPress={() => showFoodDetails(item)}
+        style={styles.itemCard}
+      >
         <View style={styles.itemDetails}>
           <View
             style={[
@@ -127,7 +146,7 @@ const RestaurantDetailScreen = ({
           </View>
           <Text style={styles.itemPrice}>₹{item.price}</Text>
           <Text style={styles.itemDesc}>{item.desc}</Text>
-          <View style={{ flexDirection: 'row', marginVertical: vs(10) }}>
+          <View style={styles.actionButtonsContainer}>
             <CustomIonicIcon
               name="bookmark-outline"
               size={18}
@@ -149,7 +168,7 @@ const RestaurantDetailScreen = ({
           <AppButton
             title="Add"
             variant="outline"
-            onPress={() => {}}
+            onPress={() => showFoodDetails(item)}
             buttonStyle={styles.addButton}
           />
           {item?.customization?.length > 0 && (
@@ -157,14 +176,6 @@ const RestaurantDetailScreen = ({
           )}
         </View>
       </TouchableOpacity>
-    );
-  };
-
-  const renderSectionHeader = ({ section }) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{section.title}</Text>
-      </View>
     );
   };
 
@@ -217,6 +228,11 @@ const RestaurantDetailScreen = ({
           </View>
         )}
         renderItem={renderMenuList}
+      />
+      <MenuItemModal
+        showModal={showModal}
+        infoToShow={selectedFoodInfo}
+        onClose={() => onCloseModal()}
       />
     </SafeAreaView>
   );
