@@ -1,14 +1,10 @@
-import {
-  TextInput,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { TextInput, View, Text, TouchableOpacity } from 'react-native';
 import COLORS from '../../utils/constants/Colors';
 import { hs, ms, vs } from '../../utils/Layout';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useState } from 'react';
 import styles from './InputBox.styles';
+import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
 
 type InputBoxProps = {
   title?: string;
@@ -18,7 +14,9 @@ type InputBoxProps = {
   placeholder?: string;
   onChangeText?: (text: string) => void;
   isPassword?: boolean;
-  isEditable?: boolean
+  isEditable?: boolean;
+  icon?: string;
+  iconSize?: number;
 };
 
 const InputBox = ({
@@ -30,26 +28,30 @@ const InputBox = ({
   onChangeText,
   isPassword = false,
   isEditable = true,
+  icon = '',
+  iconSize = 12,
 }: InputBoxProps) => {
   const [isPassVisible, setIsPassVisible] = useState(isPassword);
 
   return (
-    <View style={styles.inputBoxContainer}>
+    <View>
       {title && <Text style={styles.inputBoxTitle}>{title}</Text>}
       <View style={styles.InputBoxPassIcon}>
         <TextInput
-          numberOfLines={noOfLines}
+          multiline={noOfLines > 1}
           keyboardType={keyboardType}
           value={value}
           style={[
             styles.inputBox,
             { paddingRight: isPassword ? hs(40) : hs(10) },
+            icon && { paddingLeft: hs(40) },
           ]}
           placeholder={placeholder}
-          onChangeText={onChangeText || (()=>{})}
+          onChangeText={onChangeText}
           secureTextEntry={isPassVisible}
-          placeholderTextColor={COLORS.others.uiIconColor}
+          placeholderTextColor={COLORS.ui.borderGrey}
           editable={isEditable}
+          accessibilityLabel={isPassVisible ? 'Show password' : 'Hide password'}
         />
 
         {isPassword && value.length ? (
@@ -66,6 +68,14 @@ const InputBox = ({
             />
           </TouchableOpacity>
         ) : null}
+        {icon && (
+          <CustomIonicIcon
+            name={icon}
+            size={iconSize}
+            style={styles.searchIcon}
+            color={COLORS.primary}
+          />
+        )}
       </View>
     </View>
   );

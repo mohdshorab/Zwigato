@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: hs(10),
     marginBottom: vs(20),
     borderRadius: hs(20),
-    shadowColor: '#000',
+    shadowColor: COLORS.common.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 10,

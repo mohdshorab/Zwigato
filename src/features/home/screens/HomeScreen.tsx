@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../store/hooks';
 import { CategoryState } from '../../../store/slices/restaurantsCategoriesSlice';
 import { useState } from 'react';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
-import { CustomIonicIcon, QuickImage } from '../../../components';
+import { CommonHeader, CustomIonicIcon, QuickImage } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { restaurants } from '../../../store/slices/restaurantsSlice';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
@@ -50,9 +50,13 @@ const HomeScreen = ({
     });
   };
 
+  const onPressCatIcon = (id: number) => {
+    setIsSelected(id);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Hey Username, Good Morning</Text>
+      <CommonHeader searchBox searchPlaceHolder="What are you looking for?" />
       <View style={styles.categoriesHead}>
         <Text style={styles.catHeadTitle}>All Categories</Text>
         <TouchableOpacity style={styles.seeAllContainer}>
@@ -74,7 +78,7 @@ const HomeScreen = ({
             <CategoryCard
               item={item}
               isSelected={isSelected}
-              onPress={() => setIsSelected(item?.id)}
+              onPress={() => onPressCatIcon(item.id)}
             />
           );
         }}

@@ -44,6 +44,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: hs(10),
+    marginVertical: vs(20)
   },
   flexOne: { flex: 1 },
   image: {

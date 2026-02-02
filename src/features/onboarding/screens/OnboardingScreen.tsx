@@ -19,7 +19,7 @@ import { useAppSelector } from '../../../store/hooks';
 const OnboardingScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Onboarding'>) => {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'right', 'left']}>
@@ -41,8 +41,8 @@ const OnboardingScreen = ({
               <InputBox
                 placeholder="9875588220"
                 noOfLines={1}
-                value={email}
-                onChangeText={(t: string) => setEmail(t)}
+                value={phone}
+                onChangeText={(t: string) => setPhone(t)}
                 keyboardType="numeric"
               />
             </View>

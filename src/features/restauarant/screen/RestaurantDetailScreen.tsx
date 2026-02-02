@@ -16,9 +16,15 @@ import {
   SelectedRestaurantState,
 } from '../slices/selectedRestaurantDataSlice';
 import { styles } from './RestaurantDetailScreen.styles';
-import { AppButton, CustomIonicIcon, QuickImage } from '../../../components';
+import {
+  AppButton,
+  CommonHeader,
+  CustomIonicIcon,
+  InputBox,
+  QuickImage,
+} from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
-import { ms, vs } from '../../../utils/Layout';
+import { hs, ms, vs } from '../../../utils/Layout';
 import FilterChip from '../components/FilterChip/FilterChip';
 import { MenuItem } from '../../../types/restaurant';
 import {
@@ -188,6 +194,14 @@ const RestaurantDetailScreen = ({
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <CommonHeader
+        needBack
+        headEndIcon="ellipsis-vertical-outline"
+        searchBox
+        navigation={navigation}
+        searchPlaceHolder={`search in ${restaurant?.name}` || ''}
+        onPressHeadEndIcon={() => {}}
+      />
       <View style={styles.headerRow}>
         <RestaurantInfo />
         <RatingBadge />
