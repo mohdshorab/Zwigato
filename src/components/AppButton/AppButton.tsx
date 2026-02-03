@@ -6,6 +6,9 @@ import {
   ViewStyle,
 } from 'react-native';
 import styles from './AppButton.styles';
+import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
+import COLORS from '../../utils/constants/Colors';
+import { ms } from '../../utils/Layout';
 
 type AppButtonProps = {
   onPress: () => void;
@@ -13,6 +16,8 @@ type AppButtonProps = {
   variant?: 'primary' | 'outline';
   buttonStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  icon?: string;
+  iconSize?: number;
 };
 
 const AppButton = ({
@@ -21,6 +26,8 @@ const AppButton = ({
   variant = 'primary',
   buttonStyle,
   textStyle,
+  icon,
+  iconSize = ms(16),
 }: AppButtonProps) => {
   return (
     <TouchableOpacity
@@ -29,8 +36,17 @@ const AppButton = ({
         styles.button,
         variant === 'outline' ? styles.outlineButton : styles.primaryButton,
         buttonStyle,
+        icon && { flexDirection: 'row' },
       ]}
     >
+      {icon && (
+        <CustomIonicIcon
+          name={icon}
+          size={ms(iconSize)}
+          color={variant === 'outline' ? COLORS.primary : COLORS.common.white}
+          style={styles.buttonWithIcon}
+        />
+      )}
       <Text
         style={[
           styles.text,

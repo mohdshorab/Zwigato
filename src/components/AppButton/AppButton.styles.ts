@@ -4,8 +4,8 @@ import COLORS from "../../utils/constants/Colors";
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: vs(10),
-    paddingHorizontal: hs(16),
+    paddingVertical: vs(5),
+    paddingHorizontal: hs(10),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: hs(10),
@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
   outlineText: {
     color: COLORS.primary,
   },
+  buttonWithIcon:{
+    marginRight:vs(10),
+  }
 });
 
 export default styles;

@@ -54,9 +54,20 @@ const HomeScreen = ({
     setIsSelected(id);
   };
 
+  const onSearchIconPress = () => {
+    navigation.navigate('SearchScreen', {
+      searchMode: 'global',
+      searchPlaceHolder: `What are you craving today?`,
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <CommonHeader searchBox searchPlaceHolder="What are you looking for?" />
+      <CommonHeader
+        showSearchIcon
+        navigation={navigation}
+        onSearchIconPress={onSearchIconPress}
+      />
       <View style={styles.categoriesHead}>
         <Text style={styles.catHeadTitle}>All Categories</Text>
         <TouchableOpacity style={styles.seeAllContainer}>

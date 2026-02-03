@@ -6,6 +6,7 @@ import { navigationRef } from './NavigationService';
 import { RootStackParamList } from './NavigationTypes';
 import HomeScreen from '../features/home/screens/HomeScreen';
 import RestaurantDetailScreen from '../features/restauarant/screen/RestaurantDetailScreen';
+import SearchScreen from '../features/search/screens/SearchScreen';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();
 const RootNavigation = () => {
@@ -27,6 +28,14 @@ const RootNavigation = () => {
           name={'RestaurantDetailScreen'}
           component={RestaurantDetailScreen}
         />
+        <StackNavigator.Group
+          screenOptions={{
+            presentation: 'fullScreenModal',
+            animation: 'slide_from_bottom',
+          }}
+        >
+          <StackNavigator.Screen name="SearchScreen" component={SearchScreen} />
+        </StackNavigator.Group>
       </StackNavigator.Navigator>
     </NavigationContainer>
   );

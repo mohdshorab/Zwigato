@@ -74,6 +74,14 @@ const RestaurantDetailScreen = ({
     setShowModal(!showModal);
   };
 
+  const onSearchIconPress = () => {
+    navigation.navigate('SearchScreen', {
+      searchMode: 'restaurant',
+      searchPlaceHolder: `Search in ${restaurant?.name}`,
+      contextId: restaurantId.toString(),
+    });
+  };
+
   const RestaurantInfo = () => {
     return (
       <View style={styles.infoWrapper}>
@@ -195,12 +203,12 @@ const RestaurantDetailScreen = ({
   return (
     <SafeAreaView style={styles.mainContainer}>
       <CommonHeader
-        needBack
-        headEndIcon="ellipsis-vertical-outline"
-        searchBox
+        showBackButton
+        endIcon="ellipsis-vertical-outline"
+        showSearchIcon
         navigation={navigation}
-        searchPlaceHolder={`search in ${restaurant?.name}` || ''}
-        onPressHeadEndIcon={() => {}}
+        onEndIconPress={() => {}}
+        onSearchIconPress={onSearchIconPress}
       />
       <View style={styles.headerRow}>
         <RestaurantInfo />
