@@ -18,16 +18,19 @@ const COLORS = {
     input: '#F0F5FA',
     grayLight: '#F0F2F5',
     blue: '#121223',
+    skeleton: '#E1E9EE', 
   },
 
   // UI Elements & State
   ui: {
     border: '#E8EAED',
+    borderLight: '#F0F0F0',
     borderGrey: '#646982',
     badge: '#FFE1CC',
     error: '#E74C3C',
     success: '#27AE60',
     warning: '#FFC107',
+    shadow: '#000000',
   },
 
   // Basic
@@ -35,7 +38,7 @@ const COLORS = {
     white: '#FFFFFF',
     black: '#000000',
     green: '#0f8a00',
-    red:'#ff0000'
+    red: '#ff0000',
   },
 
   others: {

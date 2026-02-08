@@ -17,6 +17,8 @@ type InputBoxProps = {
   isEditable?: boolean;
   icon?: string;
   iconSize?: number;
+  autoFocus?: boolean;
+  onEndEditing?: () => void;
 };
 
 const InputBox = ({
@@ -30,6 +32,8 @@ const InputBox = ({
   isEditable = true,
   icon = '',
   iconSize = 12,
+  autoFocus = false,
+  onEndEditing = () => {},
 }: InputBoxProps) => {
   const [isPassVisible, setIsPassVisible] = useState(isPassword);
 
@@ -38,6 +42,7 @@ const InputBox = ({
       {title && <Text style={styles.inputBoxTitle}>{title}</Text>}
       <View style={styles.InputBoxPassIcon}>
         <TextInput
+          autoFocus={autoFocus}
           multiline={noOfLines > 1}
           keyboardType={keyboardType}
           value={value}
@@ -52,6 +57,7 @@ const InputBox = ({
           placeholderTextColor={COLORS.ui.borderGrey}
           editable={isEditable}
           accessibilityLabel={isPassVisible ? 'Show password' : 'Hide password'}
+          onEndEditing={onEndEditing}
         />
 
         {isPassword && value.length ? (

@@ -19,6 +19,7 @@ export interface MenuItem {
   serves: string;
   customization: CustomizationOption[];
   addOns: AddOnOption[];
+  restaurantID?: string;
 }
 
 export interface MenuCategory {

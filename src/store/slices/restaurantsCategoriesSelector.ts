@@ -32,6 +32,12 @@ export const dataAsPerSelectedCat = createSelector(
     }
     if (!selectedCatName) return [];
     if (selectedCatName === '0') return items;
-    return items.filter(item => item?.cuisines?.includes(selectedCatName));
+    const searchInCategoryName = items.filter(i => {
+      return i.menu.some(menuItem => menuItem.category === selectedCatName);
+    });
+    const searchInCuisines = items?.filter(item =>
+      item?.cuisines?.some(i => i === selectedCatName),
+    );
+    return [...new Set([...searchInCategoryName, ...searchInCuisines])];
   },
 );

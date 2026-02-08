@@ -10,7 +10,6 @@ import { useState } from 'react';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
 import { CommonHeader, CustomIonicIcon, QuickImage } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
-import { restaurants } from '../../../store/slices/restaurantsSlice';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
 import {
   dataAsPerSelectedCat,
@@ -24,7 +23,6 @@ const HomeScreen = ({
   const { categories, status, error }: CategoryState = useAppSelector(
     state => state.restaurantsCategories,
   );
-  const { items }: restaurants = useAppSelector(state => state.restaurants);
   const [isSelected, setIsSelected] = useState<number>(0);
   const selectedCatName = useAppSelector(state =>
     selectedCategory(state, isSelected),
@@ -44,9 +42,9 @@ const HomeScreen = ({
     );
   };
 
-  const onPressingRestaurantCard = (item: Restaurant) => {
+  const onPressingRestaurantCard = (restID: number) => {
     navigation.navigate('RestaurantDetailScreen', {
-      restaurantId: item?.id,
+      restaurantId: restID,
     });
   };
 
@@ -57,7 +55,7 @@ const HomeScreen = ({
   const onSearchIconPress = () => {
     navigation.navigate('SearchScreen', {
       searchMode: 'global',
-      searchPlaceHolder: `What are you craving today?`,
+      searchPlaceHolder: `Restaurant name or a dish...`,
     });
   };
 
@@ -102,7 +100,7 @@ const HomeScreen = ({
         renderItem={({ item }) => {
           return (
             <RestaurantCard
-              onPress={() => onPressingRestaurantCard(item)}
+              onPress={() => onPressingRestaurantCard(item?.id)}
               item={item}
             />
           );

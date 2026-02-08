@@ -20,6 +20,8 @@ interface CommonheaderProps {
   onEndIconPress?: () => void;
   showSearchIcon?: boolean;
   onSearchIconPress?: () => void;
+  autoFocusSearch?: boolean;
+  onEndEditing?: () => void;
 }
 
 const CommonHeader = ({
@@ -33,6 +35,8 @@ const CommonHeader = ({
   onEndIconPress,
   showSearchIcon,
   onSearchIconPress,
+  autoFocusSearch = false,
+  onEndEditing,
 }: CommonheaderProps) => {
   const [searchText, setSearchText] = useState('');
 
@@ -69,15 +73,17 @@ const CommonHeader = ({
       {showSearchBox && (
         <View style={styles.searchWrapper}>
           <InputBox
+            autoFocus={autoFocusSearch}
             value={searchText}
             onChangeText={t => handleSearchChange(t)}
             placeholder={searchPlaceholder}
             icon="search"
             iconSize={18}
+            onEndEditing={onEndEditing}
           />
         </View>
       )}
-      {!showSearchBox && <View style={ styles.stretchWrapper} />}
+      {!showSearchBox && <View style={styles.stretchWrapper} />}
       <View style={styles.rightIconContainer}>
         {!showSearchBox && showSearchIcon && (
           <AppButton
