@@ -29,12 +29,14 @@ import ItemCard from '../components/ItemCard/ItemCard';
 import { GlobalSearchItem } from '../types/searchTypes';
 import FoodItemCard from '../../restauarant/components/FoodItemCard/FoodItemCard';
 
+const EMPTY_ARRAY: any[] = [];
+
 const SearchScreen = ({
   route,
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'SearchScreen'>) => {
   const insets = useSafeAreaInsets();
-  const { searchPlaceHolder, searchMode, contextId } = route?.params;
+  const { searchPlaceHolder, searchMode, contextId } = route?.params || {};
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isItemModalVisible, setIsItemModalVisible] = useState<boolean>(false);
@@ -48,17 +50,16 @@ const SearchScreen = ({
   );
 
   const globalFoodItemResults = useAppSelector(state =>
-    searchMode === 'global' ? globalSearchFoodItems(state, searchQuery) : [],
+    searchMode === 'global' ? globalSearchFoodItems(state, searchQuery) : EMPTY_ARRAY,
   );
 
   const globalRestaurantResults = useAppSelector(state =>
-    searchMode === 'global' ? globalSearchRestaurants(state, searchQuery) : [],
+    searchMode === 'global' ? globalSearchRestaurants(state, searchQuery) : EMPTY_ARRAY,
   );
 
   const isSearchEmpty = searchQuery.length === 0;
 
   const handleSearchInputChange = (text: string) => {
-    console.log(text);
     setIsLoading(true);
     setSearchQuery(text);
     setTimeout(() => setIsLoading(false), 1000);
@@ -123,8 +124,8 @@ const SearchScreen = ({
 
     if (
       !isSearchEmpty &&
-      !globalFoodItemResults.length &&
-      !globalRestaurantResults.length
+      !globalFoodItemResults?.length &&
+      !globalRestaurantResults?.length
     ) {
       return (
         <View style={styles.listEmptyContainer}>
@@ -140,14 +141,14 @@ const SearchScreen = ({
   };
 
   const combinedData = [
-    ...(globalRestaurantResults.length > 0
+    ...(globalRestaurantResults?.length > 0
       ? [{ type: 'header' as const, title: 'Restaurants' }]
       : []),
-    ...globalRestaurantResults.map(gRestResults => ({
+    ...globalRestaurantResults?.map(gRestResults => ({
       type: 'restaurant' as const,
       data: gRestResults,
     })),
-    ...(globalFoodItemResults.length > 0
+    ...(globalFoodItemResults?.length > 0
       ? [
           {
             type: 'header' as const,
@@ -155,7 +156,7 @@ const SearchScreen = ({
           },
         ]
       : []),
-    ...globalFoodItemResults.map(gFastFoodItem => ({
+    ...globalFoodItemResults?.map(gFastFoodItem => ({
       type: 'dish' as const,
       data: gFastFoodItem,
     })),

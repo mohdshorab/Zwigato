@@ -2,6 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../store/store';
 import { Restaurant } from '../../../types/restaurant';
 
+const EMPTY_ARRAY: any[] = [];
+
 // return selected restaurant menu
 export const restaurantMenuList = (state: RootState) => {
   return state.selectedRestaurant?.restaurant?.menu;
@@ -19,18 +21,16 @@ export const allRestaurants = (state: RootState) => {
 export const searchedDataList = createSelector(
   [restaurantMenuList, searchedString],
   (menuList, text) => {
-    const trimmedText = text.trim().toLowerCase() || '';
-    console.log('In a searchedDataList :', text, menuList);
-    if (trimmedText === '') return [];
+    const trimmedText = text?.trim().toLowerCase() || '';
+    if (trimmedText === '') return EMPTY_ARRAY;
     const flattenedMenuList =
       menuList?.reduce<any[]>((acc, i) => {
-        return [...acc, ...i.items];
-      }, []) || [];
-    console.log(flattenedMenuList);
+        return [...acc, ...i?.items];
+      }, []) || EMPTY_ARRAY;
     return (
       flattenedMenuList?.filter(i => {
-        return i.name.trim().toLowerCase().includes(trimmedText);
-      }) || []
+        return i?.name?.trim().toLowerCase().includes(trimmedText);
+      }) || EMPTY_ARRAY
     );
   },
 );
@@ -40,11 +40,11 @@ export const globalSearchRestaurants = createSelector(
   [allRestaurants, searchedString],
   (restaurants: Restaurant[], str) => {
     const trimmedText = str?.trim().toLowerCase() || '';
-    if (trimmedText === '') return [];
+    if (trimmedText === '') return EMPTY_ARRAY;
     return (
       restaurants.filter(r => {
-        return r.name.trim().toLowerCase().includes(trimmedText);
-      }) || []
+        return r?.name?.trim().toLowerCase().includes(trimmedText);
+      }) || EMPTY_ARRAY
     );
   },
 );
@@ -54,9 +54,9 @@ export const globalSearchFoodItems = createSelector(
   [allRestaurants, searchedString],
   (allData: Restaurant[], str) => {
     const trimmedText = str?.trim().toLowerCase() || '';
-    if (trimmedText === '') return [];
+    if (trimmedText === '') return EMPTY_ARRAY;
     const allFoodItems = allData?.reduce<any[]>((acc, item) => {
-      const foodItems = item.menu.reduce<any[]>((acc, i) => {
+      const foodItems = item?.menu?.reduce<any[]>((acc, i) => {
         return [...acc, ...i.items];
       }, []);
       const itemsWithResId = foodItems.map(i => ({
@@ -64,10 +64,10 @@ export const globalSearchFoodItems = createSelector(
         restaurantID: item.id,
       }));
       return [...acc, ...itemsWithResId];
-    }, []);
-    const searchedData = allFoodItems.filter(i =>
-      i.name.trim().toLowerCase().includes(trimmedText),
+    }, []) || EMPTY_ARRAY;
+    const searchedData = allFoodItems?.filter(i =>
+      i?.name?.trim().toLowerCase().includes(trimmedText),
     );
-    return searchedData;
+    return searchedData || EMPTY_ARRAY;
   },
 );
