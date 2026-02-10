@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { hs, ms, vs } from '../../../../utils/Layout';
-import COLORS from '../../../../utils/constants/Colors';
-
+import { hs, vs, ms } from '../../utils/Layout';
+import COLORS from '../../utils/constants/Colors';
 
 const styles = StyleSheet.create({
   itemCard: {

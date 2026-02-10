@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from '../features/auth/screens/Splash/SplashScreen';
-import OnboardingScreen from '../features/onboarding/screens/OnboardingScreen';
+import OnboardingScreen from '../features/auth/screens/Onboarding/OnboardingScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './NavigationService';
 import { RootStackParamList } from './NavigationTypes';
 import HomeScreen from '../features/home/screens/HomeScreen';
-import RestaurantDetailScreen from '../features/restauarant/screen/RestaurantDetailScreen';
+import RestaurantDetailScreen from '../features/restaurant/screens/RestaurantDetailScreen';
 import SearchScreen from '../features/search/screens/SearchScreen';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();

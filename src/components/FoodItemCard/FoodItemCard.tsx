@@ -1,8 +1,10 @@
 import { Text, TouchableOpacity, View } from 'react-native';
-import { MenuItem } from '../../../../types/restaurant';
-import COLORS from '../../../../utils/constants/Colors';
-import { QuickImage, AppButton, CustomIonicIcon } from '../../../../components';
+import { MenuItem } from '../../types/restaurant';
+import COLORS from '../../utils/constants/Colors';
 import styles from './FoodItemCard.styles';
+import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
+import AppButton from '../AppButton/AppButton';
+import QuickImage from '../QuickImage/QuickImage';
 
 
 interface FoodItemCardProps {

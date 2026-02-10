@@ -7,14 +7,13 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { styles } from './OnboardingScreen.styles';
-import { AppButton, InputBox, CustomIonicIcon } from '../../../components';
+import { AppButton, InputBox, CustomIonicIcon } from '../../../../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigation/NavigationTypes';
-import { hs, ms, vs } from '../../../utils/Layout';
+import { RootStackParamList } from '../../../../navigation/NavigationTypes';
+import { hs, ms, vs } from '../../../../utils/Layout';
 import { useState } from 'react';
-import ContentSeparator from '../component/ContentSeparator/ContentSeparator';
-import { useAppSelector } from '../../../store/hooks';
+import ContentSeparator from '../../components/ContentSeparator/ContentSeparator';
+import { styles } from './OnboardingScreen.styles';
 
 const OnboardingScreen = ({
   navigation,
@@ -49,7 +48,7 @@ const OnboardingScreen = ({
           </View>
           <View style={styles.continueBtnContainer}>
             <AppButton
-              title="Continue"
+              title="Send OTP"
               onPress={() => {
                 navigation.navigate('HomeScreen');
               }}

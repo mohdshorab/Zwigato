@@ -1,9 +1,9 @@
 import { Modal, ScrollView, Text, View } from 'react-native';
-import COLORS from '../../../../utils/constants/Colors';
-import CustomIonicIcon from '../../../../components/CustomIonicIcon/CustomIonicIcon';
-import QuickImage from '../../../../components/QuickImage/QuickImage';
-import { MenuItem } from '../../../../types/restaurant';
-import AppButton from '../../../../components/AppButton/AppButton';
+import COLORS from '../../utils/constants/Colors';
+import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
+import QuickImage from '../QuickImage/QuickImage';
+import { MenuItem } from '../../types/restaurant';
+import AppButton from '../AppButton/AppButton';
 import styles from './MenuItemModal.styles';
 
 interface MenuItemModalProps {

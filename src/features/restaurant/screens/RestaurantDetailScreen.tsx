@@ -18,6 +18,8 @@ import { styles } from './RestaurantDetailScreen.styles';
 import {
   CommonHeader,
   CustomIonicIcon,
+  MenuItemModal,
+  FoodItemCard
 } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { hs, ms, vs } from '../../../utils/Layout';
@@ -28,8 +30,6 @@ import {
   RESTAURANT_FILTERS,
 } from '../../../utils/constants/restaurantConstants';
 import { filteredData } from '../slices/filteredSectionsSelector';
-import MenuItemModal from '../components/MenuItemModal/MenuItemModal';
-import FoodItemCard from '../components/FoodItemCard/FoodItemCard';
 
 const RestaurantDetailScreen = ({
   navigation,

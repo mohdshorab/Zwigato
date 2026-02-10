@@ -10,6 +10,8 @@ import {
 } from 'react-native-safe-area-context';
 import {
   CommonHeader,
+  MenuItemModal,
+  FoodItemCard
 } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -24,10 +26,8 @@ import {
   globalSearchRestaurants,
   searchedDataList,
 } from '../slices/searchSelectors';
-import MenuItemModal from '../../restauarant/components/MenuItemModal/MenuItemModal';
 import ItemCard from '../components/ItemCard/ItemCard';
 import { GlobalSearchItem } from '../types/searchTypes';
-import FoodItemCard from '../../restauarant/components/FoodItemCard/FoodItemCard';
 
 const EMPTY_ARRAY: any[] = [];
 
@@ -62,7 +62,7 @@ const SearchScreen = ({
   const handleSearchInputChange = (text: string) => {
     setIsLoading(true);
     setSearchQuery(text);
-    setTimeout(() => setIsLoading(false), 1000);
+    setTimeout(() => setIsLoading(false), 100);
   };
 
   const handleItemPress = (item: MenuItem) => {
