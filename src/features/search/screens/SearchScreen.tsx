@@ -1,18 +1,9 @@
-import {
-  View,
-  StatusBar,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import { View, StatusBar, Text, ActivityIndicator } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import {
-  CommonHeader,
-  MenuItemModal,
-  FoodItemCard
-} from '../../../components';
+import { CommonHeader, MenuItemModal, FoodItemCard } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../navigation/NavigationTypes';
@@ -50,11 +41,15 @@ const SearchScreen = ({
   );
 
   const globalFoodItemResults = useAppSelector(state =>
-    searchMode === 'global' ? globalSearchFoodItems(state, searchQuery) : EMPTY_ARRAY,
+    searchMode === 'global'
+      ? globalSearchFoodItems(state, searchQuery)
+      : EMPTY_ARRAY,
   );
 
   const globalRestaurantResults = useAppSelector(state =>
-    searchMode === 'global' ? globalSearchRestaurants(state, searchQuery) : EMPTY_ARRAY,
+    searchMode === 'global'
+      ? globalSearchRestaurants(state, searchQuery)
+      : EMPTY_ARRAY,
   );
 
   const isSearchEmpty = searchQuery.length === 0;

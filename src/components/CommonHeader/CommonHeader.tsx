@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
 import InputBox from '../InputBox/InputBox';
 import { NavigationProp } from '@react-navigation/native';
@@ -22,6 +22,7 @@ interface CommonheaderProps {
   onSearchIconPress?: () => void;
   autoFocusSearch?: boolean;
   onEndEditing?: () => void;
+  title?: string;
 }
 
 const CommonHeader = ({
@@ -37,6 +38,7 @@ const CommonHeader = ({
   onSearchIconPress,
   autoFocusSearch = false,
   onEndEditing,
+  title,
 }: CommonheaderProps) => {
   const [searchText, setSearchText] = useState('');
 
@@ -70,6 +72,7 @@ const CommonHeader = ({
           color={COLORS.common.black}
         />
       ) : null}
+      {!!title && <Text style={styles.titleStyle}>{title}</Text>}
       {showSearchBox && (
         <View style={styles.searchWrapper}>
           <InputBox

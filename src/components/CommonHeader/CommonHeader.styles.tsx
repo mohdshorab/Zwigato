@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { hs, vs } from '../../utils/Layout';
+import { hs, ms, vs } from '../../utils/Layout';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   stretchWrapper: { flex: 1 },
+  titleStyle: {
+    fontWeight: '500',
+    fontSize: ms(18),
+  },
 });
 
 export default styles;

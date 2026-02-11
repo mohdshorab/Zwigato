@@ -9,4 +9,7 @@ export type RootStackParamList = {
     contextId?: string;
     contextData?: any;
   };
+  OTPVerificationScreen: {
+    phoneNumber: string;
+  };
 };

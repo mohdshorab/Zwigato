@@ -7,6 +7,7 @@ import { RootStackParamList } from './NavigationTypes';
 import HomeScreen from '../features/home/screens/HomeScreen';
 import RestaurantDetailScreen from '../features/restaurant/screens/RestaurantDetailScreen';
 import SearchScreen from '../features/search/screens/SearchScreen';
+import OTPVerificationScreen from '../features/auth/screens/OTPVerification/OTPVerificationScreen';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();
 const RootNavigation = () => {
@@ -35,6 +36,7 @@ const RootNavigation = () => {
           }}
         >
           <StackNavigator.Screen name="SearchScreen" component={SearchScreen} />
+          <StackNavigator.Screen name="OTPVerificationScreen" component={OTPVerificationScreen} />
         </StackNavigator.Group>
       </StackNavigator.Navigator>
     </NavigationContainer>
