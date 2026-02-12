@@ -44,7 +44,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: hs(10),
-    marginVertical: vs(20)
   },
   flexOne: { flex: 1 },
   image: {
@@ -72,4 +71,12 @@ export const styles = StyleSheet.create({
     padding: ms(10),
     borderColor: COLORS.others.uiIconColor,
   },
+  errorString: {
+    fontWeight: '400',
+    color: COLORS.common.red,
+    alignSelf: 'center',
+    marginVertical: vs(10),
+  },
+  verticalMargin: { marginVertical: vs(20) },
+  marginTop: { marginTop: vs(20) },
 });

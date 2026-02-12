@@ -18,6 +18,7 @@ type AppButtonProps = {
   textStyle?: StyleProp<TextStyle>;
   icon?: string;
   iconSize?: number;
+  disable?: boolean;
 };
 
 const AppButton = ({
@@ -28,15 +29,18 @@ const AppButton = ({
   textStyle,
   icon,
   iconSize = ms(16),
+  disable = false,
 }: AppButtonProps) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={!disable ? onPress : ()=>{}}
+      activeOpacity={disable ? 1 : 0.2}
       style={[
         styles.button,
         variant === 'outline' ? styles.outlineButton : styles.primaryButton,
         buttonStyle,
         icon && { flexDirection: 'row' },
+        disable && { backgroundColor: COLORS.ui.borderGrey },
       ]}
     >
       {icon && (

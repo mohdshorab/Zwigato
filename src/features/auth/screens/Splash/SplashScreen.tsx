@@ -23,7 +23,7 @@ const SplashScreen = ({
       // Promise.allSettled returns an Array of Objects like [{ status: 'fulfilled', value: ... }, { status: 'rejected', reason: ... }].
       // The order of these objects in the results array matches exactly the order of the promises you provided in the input array.
       // Whether your dispatch(anyThunk()) succeeded or rejected, the allSettled Promise itself will ALWAYS resolve. It never reaches the catch section
-      const timer = new Promise(resolve => setTimeout(() => resolve(), 2000));
+      const timer = new Promise<void>(resolve => setTimeout(() => resolve(), 2000));
       const promiseObject = await Promise.allSettled([
         dispatch(fetchRestaurants()),
         dispatch(fetchCategories()),
