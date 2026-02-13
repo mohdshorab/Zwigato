@@ -53,7 +53,7 @@ const OnboardingScreen = ({
         phoneNumber: phoneNumber,
       });
     } else if (status === 'rejected' && error?.length)
-      ShowAppToast(getFirebaseAuthErrorMessage(error));
+      ShowAppToast(getFirebaseAuthErrorMessage(error),'error');
   }, [verificationId, status, error]);
 
   useEffect(() => {

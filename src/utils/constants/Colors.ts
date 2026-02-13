@@ -18,7 +18,7 @@ const COLORS = {
     input: '#F0F5FA',
     grayLight: '#F0F2F5',
     blue: '#121223',
-    skeleton: '#E1E9EE', 
+    skeleton: '#E1E9EE',
   },
 
   // UI Elements & State
@@ -48,6 +48,10 @@ const COLORS = {
 
   toast: {
     androidBg: '#676767',
+    success: '#10B981',
+    error: '#EF4444',
+    warning: '#F59E0B',
+    info: '#3B82F6',
   },
 };
 

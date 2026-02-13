@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { styles } from './HomeScreen.style';
+import { styles } from './HomeScreen.styles';
 import { RootStackParamList } from '../../../navigation/NavigationTypes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlashList } from '@shopify/flash-list';

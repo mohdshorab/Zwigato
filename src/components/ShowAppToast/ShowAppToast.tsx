@@ -1,12 +1,19 @@
 import { Platform } from 'react-native';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
-const ShowAppToast = (text: string) => {
+type ToastType = 'success' | 'error' | 'warning' | 'info';
+
+const ShowAppToast = (text: string, type: ToastType = 'info') => {
+  const baseDuration = 2000;
+  const duration = Math.max(baseDuration, text.length * 100);
+
   Toast.show({
-    type: 'nativeToast',
+    type: type,
     text1: text,
-    visibilityTime: 2000,
-    position: Platform.OS === 'ios' ? 'top' : 'bottom',
+    visibilityTime: duration,
+    position: 'top',
+    topOffset: 70,
   });
 };
 
