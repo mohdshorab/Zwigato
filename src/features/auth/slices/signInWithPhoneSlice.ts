@@ -1,5 +1,14 @@
-import { getAuth, signInWithPhoneNumber } from '@react-native-firebase/auth';
+import {
+  getAuth,
+  PhoneAuthProvider,
+  signInWithPhoneNumber,
+} from '@react-native-firebase/auth';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+interface ConfirmCodeProps {
+  code: string;
+  verificationId: string;
+}
 
 interface PhoneAuthState {
   verificationId: string;
@@ -7,6 +16,9 @@ interface PhoneAuthState {
   status: 'idle' | 'loading' | 'succeeded' | 'rejected';
   isCodeSent: boolean;
   phoneNumber: string;
+  otpVerificationStatus: 'idle' | 'loading' | 'succeeded' | 'rejected';
+  otpVerificationError: string | null;
+  firebaseUser: any;
 }
 
 const initialState: PhoneAuthState = {
@@ -15,6 +27,9 @@ const initialState: PhoneAuthState = {
   status: 'idle',
   isCodeSent: false,
   phoneNumber: '',
+  otpVerificationStatus: 'idle',
+  otpVerificationError: '',
+  firebaseUser: {},
 };
 
 export const signInWithPhone = createAsyncThunk(
@@ -32,6 +47,23 @@ export const signInWithPhone = createAsyncThunk(
   },
 );
 
+export const confirmCode = createAsyncThunk(
+  'auth/confirmCode',
+  async ({ code, verificationId }: ConfirmCodeProps, { rejectWithValue }) => {
+    try {
+      const credential = PhoneAuthProvider.credential(verificationId, code);
+      
+      const userCredential = await getAuth().signInWithCredential(credential);
+      return {
+        firebaseUid: userCredential.user.uid,
+        phoneNumber: userCredential.user.phoneNumber
+      };
+    } catch (e: any) {
+      return rejectWithValue(e.message);
+    }
+  },
+);
+
 const phoneAuthSlice = createSlice({
   name: 'auth/phoneAuthStateSlice',
   initialState,
@@ -40,6 +72,10 @@ const phoneAuthSlice = createSlice({
       state.error = null;
       state.status = 'idle';
     },
+    clearOtpStates: state => {
+      state.otpVerificationStatus = 'idle';
+      state.otpVerificationError = null;
+    },
   },
   extraReducers: builder => {
     builder
@@ -47,7 +83,6 @@ const phoneAuthSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(signInWithPhone.fulfilled, (state, action) => {
-        console.log('action.payload', action.payload);
         state.verificationId = action.payload.verificationdId ?? '';
         state.phoneNumber = action.payload.phone;
         state.isCodeSent = true;
@@ -56,9 +91,21 @@ const phoneAuthSlice = createSlice({
       .addCase(signInWithPhone.rejected, (state, action) => {
         state.error = (action.payload as string) ?? action.error.message;
         state.status = 'rejected';
+      })
+      .addCase(confirmCode.pending, state => {
+        state.otpVerificationStatus = 'loading';
+      })
+      .addCase(confirmCode.fulfilled, (state, action) => {
+        state.firebaseUser = action.payload;
+        state.otpVerificationStatus = 'succeeded';
+      })
+      .addCase(confirmCode.rejected, (state, action) => {
+        state.otpVerificationStatus = 'rejected';
+        state.otpVerificationError =
+          (action.payload as string) ?? action.error.message;
       });
   },
 });
 
-export const { clearState } = phoneAuthSlice.actions;
+export const { clearState, clearOtpStates } = phoneAuthSlice.actions;
 export default phoneAuthSlice.reducer;

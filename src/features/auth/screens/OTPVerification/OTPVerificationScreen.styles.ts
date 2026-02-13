@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     textDecorationLine: 'underline',
   },
+  loader: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)' },
 });
 
 export default styles;

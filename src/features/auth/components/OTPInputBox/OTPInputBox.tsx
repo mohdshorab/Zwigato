@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { InputBox } from '../../../../components';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './OTPInputBox.styles';
 import { validateOTPInput } from '../../../../utils/helpers/validators';
 
@@ -15,6 +15,10 @@ const OTPInputBox = ({ onCodeFilled }: OTPInputBoxProps) => {
   const inputRef = useRef<TextInput>(null);
   const oneTimeCodeArray = new Array(ARRAY_SIZE).fill(0);
 
+  useEffect(() => {
+    if (otpInput.length === 6) onCodeFilled(otpInput);
+  },[otpInput.length]);
+
   const handlePress = () => {
     inputRef.current?.focus();
   };
@@ -26,7 +30,7 @@ const OTPInputBox = ({ onCodeFilled }: OTPInputBoxProps) => {
     !validationResult.isValid &&
       setShowErrorString(validationResult.error || '');
   };
-  
+
   return (
     <View style={styles.container}>
       <Pressable style={styles.otpContainer} onPress={handlePress}>
@@ -40,7 +44,9 @@ const OTPInputBox = ({ onCodeFilled }: OTPInputBoxProps) => {
           );
         })}
       </Pressable>
-      {!!showErrorString.length && <Text style={styles.errorString}>OTP must contain only numbers</Text>}
+      {!!showErrorString.length && (
+        <Text style={styles.errorString}>OTP must contain only numbers</Text>
+      )}
       <View style={styles.hiddenInput}>
         <InputBox
           ref={inputRef}

@@ -2,7 +2,6 @@ import { getCode } from './helpers';
 
 export const getFirebaseAuthErrorMessage = (errorCode: string): string => {
   const code = getCode(errorCode);
-  console.log('code', code);
   switch (code) {
     case 'auth/invalid-phone-number':
       return 'Invalid phone number format';

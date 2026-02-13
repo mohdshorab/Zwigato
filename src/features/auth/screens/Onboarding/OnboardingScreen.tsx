@@ -50,10 +50,10 @@ const OnboardingScreen = ({
   useEffect(() => {
     if (verificationId.length > 0 && status === 'succeeded' && isCodeSent) {
       navigation.navigate('OTPVerificationScreen', {
-        phoneNumber: phoneNumber,
+        phoneNumber: `${COUNTRY_CODE} ${phone}`,
       });
     } else if (status === 'rejected' && error?.length)
-      ShowAppToast(getFirebaseAuthErrorMessage(error),'error');
+      ShowAppToast(getFirebaseAuthErrorMessage(error), 'error');
   }, [verificationId, status, error]);
 
   useEffect(() => {
@@ -75,7 +75,6 @@ const OnboardingScreen = ({
   const onPressSendOtp = async () => {
     if (error?.length) dispatch(clearState());
     const validate = validatePhoneComplete(phone);
-    console.log(`${COUNTRY_CODE} ${phone}`);
     !validate.isValid
       ? setErrorString(validate.error || '')
       : dispatch(signInWithPhone(`${COUNTRY_CODE} ${phone}`));
