@@ -51,7 +51,7 @@ const InputBox = forwardRef<TextInput, InputBoxProps>((props, ref) => {
           maxLength={ maxLength}
           multiline={noOfLines > 1}
           keyboardType={keyboardType}
-          value={value}
+          value={value.toString()}
           style={[
             styles.inputBox,
             { paddingRight: isPassword ? hs(40) : hs(10) },
@@ -66,7 +66,7 @@ const InputBox = forwardRef<TextInput, InputBoxProps>((props, ref) => {
           onEndEditing={onEndEditing}
         />
 
-        {isPassword && value.length ? (
+        {isPassword && typeof value === 'string' && value.length ? (
           <TouchableOpacity
             style={styles.eyeIcon}
             onPress={() => {

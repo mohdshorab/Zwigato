@@ -8,6 +8,7 @@ import HomeScreen from '../features/home/screens/HomeScreen';
 import RestaurantDetailScreen from '../features/restaurant/screens/RestaurantDetailScreen';
 import SearchScreen from '../features/search/screens/SearchScreen';
 import OTPVerificationScreen from '../features/auth/screens/OTPVerification/OTPVerificationScreen';
+import CompleteProfile from '../features/auth/screens/CompleteProfile/CompleteProfile';
 
 const StackNavigator = createNativeStackNavigator<RootStackParamList>();
 const RootNavigation = () => {
@@ -29,6 +30,10 @@ const RootNavigation = () => {
           name={'RestaurantDetailScreen'}
           component={RestaurantDetailScreen}
         />
+        <StackNavigator.Screen
+          name={'CompleteProfile'}
+          component={CompleteProfile}
+        />
         <StackNavigator.Group
           screenOptions={{
             presentation: 'fullScreenModal',
@@ -36,7 +41,10 @@ const RootNavigation = () => {
           }}
         >
           <StackNavigator.Screen name="SearchScreen" component={SearchScreen} />
-          <StackNavigator.Screen name="OTPVerificationScreen" component={OTPVerificationScreen} />
+          <StackNavigator.Screen
+            name="OTPVerificationScreen"
+            component={OTPVerificationScreen}
+          />
         </StackNavigator.Group>
       </StackNavigator.Navigator>
     </NavigationContainer>

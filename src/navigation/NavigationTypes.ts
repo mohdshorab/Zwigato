@@ -12,4 +12,5 @@ export type RootStackParamList = {
   OTPVerificationScreen: {
     phoneNumber: string;
   };
+  CompleteProfile: undefined;
 };

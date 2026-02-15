@@ -58,7 +58,7 @@ const CommonHeader = ({
       {showBackButton ? (
         <CustomIonicIcon
           name="chevron-back-outline"
-          size={ms(32)}
+          size={ms(26)}
           onPress={handleBackPress}
           style={styles.backButton}
           color={COLORS.common.black}

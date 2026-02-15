@@ -15,7 +15,6 @@ import {
   dataAsPerSelectedCat,
   selectedCategory,
 } from '../../../store/slices/restaurantsCategoriesSelector';
-import { Restaurant } from '../../../types/restaurant';
 
 const HomeScreen = ({
   navigation,

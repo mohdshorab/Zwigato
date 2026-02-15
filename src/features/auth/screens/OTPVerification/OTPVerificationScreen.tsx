@@ -20,7 +20,7 @@ import {
   clearOtpStates,
   confirmCode,
   signInWithPhone,
-} from '../../slices/signInWithPhoneSlice';
+} from '../../slices/phoneAuthSlice';
 import { ms } from '../../../../utils/Layout';
 import COLORS from '../../../../utils/constants/Colors';
 import { getFirebaseAuthErrorMessage } from '../../../../utils/helpers/errorMessages';
