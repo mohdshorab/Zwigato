@@ -25,7 +25,7 @@ import {
   validatePhoneInput,
 } from '../../../../utils/helpers/validators';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { clearState, signInWithPhone } from '../../slices/signInWithPhoneSlice';
+import { clearState, signInWithPhone } from '../../slices/phoneAuthSlice';
 import SendingOtpModal from '../../components/SendingOtpModal/SendingOtpModal';
 import { getFirebaseAuthErrorMessage } from '../../../../utils/helpers/errorMessages';
 const COUNTRY_CODE = '+91';
@@ -33,8 +33,9 @@ const OnboardingScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Onboarding'>) => {
   const dispatch = useAppDispatch();
-  const { verificationId, status, error, isCodeSent, phoneNumber } =
-    useAppSelector(state => state.phoneOTPAuth);
+  const { verificationId, status, error, isCodeSent } = useAppSelector(
+    state => state.phoneOTPAuth,
+  );
   const [phone, setPhone] = useState('');
   const [errorString, setErrorString] = useState<string>('');
 
@@ -54,7 +55,7 @@ const OnboardingScreen = ({
       });
     } else if (status === 'rejected' && error?.length)
       ShowAppToast(getFirebaseAuthErrorMessage(error), 'error');
-  }, [verificationId, status, error]);
+  }, [verificationId, status, error, isCodeSent]);
 
   useEffect(() => {
     return () => {
@@ -67,7 +68,7 @@ const OnboardingScreen = ({
   const onChangePhoneText = (t: string) => {
     if (errorString.length > 0) setErrorString('');
     const validationResults = validatePhoneInput(t);
-    if (!!validationResults.isValid) {
+    if (validationResults.isValid) {
       setPhone(t);
     }
   };
@@ -80,7 +81,7 @@ const OnboardingScreen = ({
       : dispatch(signInWithPhone(`${COUNTRY_CODE} ${phone}`));
   };
 
-  const navigateToHomescreen = () => () => navigation.navigate('HomeScreen');
+  const navigateToHomescreen = () => navigation.navigate('CompleteProfile');
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'right', 'left']}>
@@ -143,13 +144,7 @@ const OnboardingScreen = ({
           </View>
           <ContentSeparator text="Browse First" />
           {/* Bottom Continue as guest  */}
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <View style={styles.guestButton}>
             <AppButton
               title="Continue as Guest"
               onPress={navigateToHomescreen}

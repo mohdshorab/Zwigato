@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import restaurantsReducer from './slices/restaurantsSlice';
 import restaurantsCategoriesReducer from './slices/restaurantsCategoriesSlice';
 import selectedRestaurantDataReducer from '../features/restaurant/slices/selectedRestaurantDataSlice';
-import phoneAuthReducer from '../features/auth/slices/signInWithPhoneSlice';
+import phoneAuthReducer from '../features/auth/slices/phoneAuthSlice';
+import authUserReducer from '../features/auth/slices/authSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     restaurantsCategories: restaurantsCategoriesReducer,
     selectedRestaurant: selectedRestaurantDataReducer,
     phoneOTPAuth: phoneAuthReducer,
+    authUser: authUserReducer,
   },
 });
 

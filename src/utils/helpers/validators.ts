@@ -64,3 +64,34 @@ export const validatePhoneComplete = (phone: string): ValidationResult => {
 
   return { isValid: true };
 };
+
+export const validateEmailInput = (email: string): ValidationResult => {
+  if (email === '') {
+    return { isValid: true };
+  }
+
+  if (!REGEX.EMAIL_INPUT.test(email)) {
+    return {
+      isValid: false,
+      error: `Email can't have invalid characters`,
+    };
+  }
+  return { isValid: true };
+};
+
+export const validateEmailComplete = (email: string): ValidationResult => {
+  if (email === '') {
+    return {
+      isValid: false,
+      error: 'Please enter email address',
+    };
+  }
+  if (!REGEX.EMAIL.test(email)) {
+    return {
+      isValid: false,
+      error: 'Please enter a valid email address',
+    };
+  }
+
+  return { isValid: true };
+};

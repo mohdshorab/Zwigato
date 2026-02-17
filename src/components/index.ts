@@ -6,3 +6,4 @@ export { default as ShowAppToast } from './ShowAppToast/ShowAppToast';
 export { default as CommonHeader } from './CommonHeader/CommonHeader';
 export { default as MenuItemModal } from './MenuItemModal/MenuItemModal';
 export { default as FoodItemCard } from './FoodItemCard/FoodItemCard';
+export { default as ImagePickerModal } from './ImagePicker/ImagePickerModal';

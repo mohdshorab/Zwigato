@@ -8,3 +8,8 @@ export const ENDPOINTS = {
   RESTAURANT: '/restaurants',
   CATEGORIES: '/categories',
 };
+
+export const AUTH_ENDPOINTS = {
+  REGISTER : '/register',
+  LOGIN: '/login',  
+}

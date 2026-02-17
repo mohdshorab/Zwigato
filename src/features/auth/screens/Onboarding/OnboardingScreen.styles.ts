@@ -79,4 +79,9 @@ export const styles = StyleSheet.create({
   },
   verticalMargin: { marginVertical: vs(20) },
   marginTop: { marginTop: vs(20) },
+  guestButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

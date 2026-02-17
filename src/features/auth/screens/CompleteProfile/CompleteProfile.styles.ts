@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 3,
     borderColor: COLORS.ui.border,
+    backgroundColor: COLORS.common.white,
   },
   formGroup: {
     marginTop: vs(10),
@@ -54,6 +55,19 @@ const styles = StyleSheet.create({
   },
   buttonSpacing: {
     marginTop: vs(20),
+  },
+  phoneRow: {
+    flexDirection: 'row',
+    columnGap: hs(20),
+  },
+
+  phoneInputContainer: {
+    flex: 1,
+  },
+  errorString: {
+    fontWeight: '400',
+    color: COLORS.common.red,
+    alignSelf: 'center',
   },
 });
 
