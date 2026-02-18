@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   Modal,
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -31,8 +30,7 @@ const OTPVerificationScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'OTPVerificationScreen'>) => {
   const insets = useSafeAreaInsets();
-  const { phoneNumber } =
-    route?.params ?? useAppSelector(state => state.phoneOTPAuth.phoneNumber);
+  const { phoneNumber } = route?.params;
   const {
     status,
     error,
@@ -90,9 +88,19 @@ const OTPVerificationScreen = ({
 
   const handleOTPComplete = (otp: string) => {
     const validationResult = validateOTPComplete(otp);
-    if (!!validationResult.isValid) {
+    if (validationResult.isValid) {
       setTimerCount(30);
-      dispatch(confirmCode({ code: otp, verificationId }));
+      dispatch(confirmCode({ code: otp, verificationId }))
+        .unwrap()
+        .then(user => {
+          user.firebaseUid.length > 0 &&
+            navigation.replace('CompleteProfile', {
+              authProvider: 'phoneAuth',
+            });
+        })
+        .catch(e => {
+          ShowAppToast(getFirebaseAuthErrorMessage(e), 'error');
+        });
     }
     if (!validationResult.isValid)
       ShowAppToast(
@@ -112,7 +120,7 @@ const OTPVerificationScreen = ({
     return () => {
       dispatch(clearOtpStates());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <View style={[styles.mainContainer, { paddingTop: insets.top }]}>

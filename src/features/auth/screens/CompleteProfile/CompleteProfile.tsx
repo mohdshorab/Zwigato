@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -18,17 +18,22 @@ import {
   ImagePickerModal,
   InputBox,
   QuickImage,
+  ShowAppToast,
 } from '../../../../components';
 import Dropdown from '../../../../components/Dropdown/Dropdown';
-import { hs, ms } from '../../../../utils/Layout';
+import { ms } from '../../../../utils/Layout';
 import styles from './CompleteProfile.styles';
 import { GENDER_TYPES } from '../../../../utils/constants/ProfileConstants';
 import {
+  validateAddress,
+  validateEmailComplete,
   validateEmailInput,
+  validateName,
+  validatePhoneComplete,
   validatePhoneInput,
 } from '../../../../utils/helpers/validators';
-import { useAppDispatch } from '../../../../store/hooks';
-import { registerUser } from '../../slices/authSlice';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { RegisterPayload, registerUser } from '../../slices/authSlice';
 
 type userForm = {
   userName: string;
@@ -41,8 +46,10 @@ type userForm = {
 };
 
 const CompleteProfile = ({
+  route,
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'CompleteProfile'>) => {
+  const { authProvider } = route?.params;
   const [userProfileForm, setUserProfileForm] = useState<userForm>({
     userName: '',
     userPhone: '',
@@ -52,35 +59,94 @@ const CompleteProfile = ({
     userGender: '',
     userPhoto: '',
   });
+  const [nameErrorString, setNameErrorString] = useState('');
+  const [addressErrorString, setAddressErrorString] = useState('');
   const [phoneErrorString, setPhoneErrorString] = useState('');
   const [emailErrorString, setEmailErrorString] = useState('');
+
   const ref = useRef<TextInput>(null);
+
   const [showModal, setShowModal] = useState(false);
+
   const dispatch = useAppDispatch();
+
+  const { user, accessToken, error, status } = useAppSelector(
+    state => state.authUser,
+  );
+
+  const phoneAuthData = useAppSelector(state => state.phoneOTPAuth);
+
+  const activeUser = useMemo(() => {
+    if (authProvider === 'phoneAuth')
+      return {
+        authProvider: authProvider,
+        fbUid: phoneAuthData.firebaseUser?.firebaseUid,
+        phoneNumber: phoneAuthData.firebaseUser?.phoneNumber,
+      };
+    // TODO : later
+    // if (authProvider === 'googleSignIn')
+  }, [authProvider, phoneAuthData]);
+
+  useEffect(() => {
+    if (activeUser?.authProvider === 'phoneAuth') {
+      setUserProfileForm(prev => ({
+        ...prev,
+        userPhone: activeUser.phoneNumber?.replace('+91', '') || '',
+      }));
+    }
+  }, [activeUser]);
 
   useEffect(() => {
     ref.current?.focus();
   }, []);
 
-  const validatePhone = (phone: string) => {
-    const results = validatePhoneInput(phone);
-    results.isValid
-      ? updateUserFormField('userPhone', phone)
-      : setPhoneErrorString(results.error || 'Wrong Input!');
-  };
+  useEffect(() => {
+    !!error && ShowAppToast(error, 'error');
+  }, [error]);
 
-  const validateEmail = (email: string) => {
-    const results = validateEmailInput(email);
-    results.isValid
-      ? updateUserFormField('userEmail', email)
-      : setEmailErrorString(results.error || 'Wrong Input!');
-  };
+  useEffect(() => {
+    if (status === 'succeeded' && accessToken) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      });
+    }
+  }, [status, accessToken, navigation]);
 
   const updateUserFormField = (key: keyof userForm, value: string) => {
     if (key === 'userPhone') setPhoneErrorString('');
     if (key === 'userEmail') setEmailErrorString('');
-
+    if (key === 'userPhone') setPhoneErrorString('');
+    if (key === 'userEmail') setEmailErrorString('');
+    if (key === 'userName') setNameErrorString('');
+    if (key === 'userAddress') setAddressErrorString('');
     setUserProfileForm(prev => ({ ...prev, [key]: value }));
+  };
+
+  const validateAndSetName = (name: string) => {
+    updateUserFormField('userName', name);
+    const result = validateName(name);
+    if (!result.isValid) setNameErrorString(result.error);
+  };
+
+  const validateAndSetPhone = (phone: string) => {
+    updateUserFormField('userPhone', phone);
+    const result = validatePhoneInput(phone);
+    if (!result.isValid)
+      setPhoneErrorString(result.error || 'Invalid phone number.');
+  };
+
+  const validateAndSetEmail = (email: string) => {
+    updateUserFormField('userEmail', email);
+    const result = validateEmailInput(email);
+    if (!result.isValid)
+      setEmailErrorString(result.error || 'Invalid email address.');
+  };
+
+  const validateAndSetAddress = (address: string) => {
+    updateUserFormField('userAddress', address);
+    const result = validateAddress(address);
+    if (!result.isValid) setAddressErrorString(result.error);
   };
 
   const onPressOption = (id: number) => {
@@ -88,29 +154,66 @@ const CompleteProfile = ({
     updateUserFormField('userGender', selectedItem?.dropdownItem || '');
   };
 
-  const getInfo = () => {
-console.log(userProfileForm)
+  const isFormValid = (): boolean => {
+    const nameOk = validateName(userProfileForm.userName).isValid;
+    const phoneOk = validatePhoneComplete(userProfileForm.userPhone).isValid;
+    const addressOk = validateAddress(userProfileForm.userAddress).isValid;
+    const emailOk =
+      !userProfileForm.userEmail ||
+      validateEmailComplete(userProfileForm.userEmail).isValid;
+    const dobOk = userProfileForm.userDob.length > 0;
+    return nameOk && phoneOk && addressOk && emailOk && dobOk;
   };
 
-  const onPressImagePicker = async () => {
+  const profileInfoSubmission = () => {
+    if (!isFormValid()) return;
+
+    const finalPayload: RegisterPayload = {
+      userName: userProfileForm.userName,
+      phone: activeUser?.phoneNumber || `+91${userProfileForm.userPhone}`,
+      userEmail: userProfileForm.userEmail,
+      userDob: userProfileForm.userDob,
+      userAddress: userProfileForm.userAddress,
+      userGender: userProfileForm.userGender,
+      userPhoto: userProfileForm.userPhoto,
+      orderHistory: [],
+      cartItems: [],
+      recentSearches: [],
+      createdAt: new Date().toISOString(),
+      email: userProfileForm.userEmail,
+      password: activeUser?.fbUid,
+      firebaseUid: activeUser?.fbUid || null,
+      phone: activeUser?.phoneNumber || userProfileForm.userPhone,
+      isProfileComplete: true,
+      authProvider: authProvider,
+    };
+
+    dispatch(registerUser(finalPayload));
+  };
+  const onPressImagePicker = () => {
     setShowModal(true);
   };
 
   const onClose = () => {
     setShowModal(false);
   };
+  const isLoading = status === 'loading';
 
   return (
     <SafeAreaView style={styles.container}>
+      <CommonHeader
+        title="Complete Your Profile"
+        showBackButton
+        navigation={navigation}
+      />
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.flexOnly}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <CommonHeader
-          title="Complete Profile"
-          showBackButton
-          navigation={navigation}
-        />
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps={'handled'}
+        >
           <View style={styles.headerBackground} />
           <View style={styles.card}>
             <View style={styles.avatarContainer}>
@@ -129,11 +232,14 @@ console.log(userProfileForm)
             <View style={styles.formGroup}>
               <InputBox
                 ref={ref}
-                title="Full Name"
+                title="Full Name*"
                 placeholder="Enter your name"
                 value={userProfileForm.userName}
-                onChangeText={t => updateUserFormField('userName', t)}
+                onChangeText={validateAndSetName}
               />
+              {!!nameErrorString && (
+                <Text style={styles.fieldError}>{nameErrorString}</Text>
+              )}
               <View style={styles.phoneRow}>
                 <InputBox
                   title="Code"
@@ -148,23 +254,29 @@ console.log(userProfileForm)
                     placeholder="9875588220"
                     value={userProfileForm.userPhone}
                     keyboardType="numeric"
-                    onChangeText={validatePhone}
+                    onChangeText={validateAndSetPhone}
+                    isEditable={
+                      !(
+                        activeUser?.phoneNumber &&
+                        activeUser.phoneNumber?.length > 0
+                      )
+                    }
                   />
                 </View>
               </View>
               {!!phoneErrorString.length &&
                 userProfileForm.userPhone.length !== 10 && (
-                  <Text style={styles.errorString}>{phoneErrorString}</Text>
+                  <Text style={styles.fieldError}>{phoneErrorString}</Text>
                 )}
               <InputBox
-                title="Email Address"
+                title="Email Address*"
                 placeholder="example@mail.com"
                 value={userProfileForm.userEmail}
                 keyboardType="email-address"
-                onChangeText={validateEmail}
+                onChangeText={validateAndSetEmail}
               />
               {!!emailErrorString.length && (
-                <Text style={styles.errorString}>{emailErrorString}</Text>
+                <Text style={styles.fieldError}>{emailErrorString}</Text>
               )}
               <InputBox
                 title="DOB"
@@ -181,13 +293,20 @@ console.log(userProfileForm)
                 title="Address"
                 placeholder="Your home address"
                 value={userProfileForm.userAddress}
-                onChangeText={t => updateUserFormField('userAddress', t)}
+                onChangeText={validateAndSetAddress}
               />
+              {!!addressErrorString && (
+                <Text style={styles.fieldError}>{addressErrorString}</Text>
+              )}
             </View>
             <AppButton
-              title="Save"
-              onPress={getInfo}
-              buttonStyle={styles.buttonSpacing}
+              title={isLoading ? 'Saving...' : 'Complete Profile'}
+              onPress={profileInfoSubmission}
+              disable={isLoading || !isFormValid()}
+              buttonStyle={[
+                styles.submitBtn,
+                (!isFormValid() || isLoading) && styles.submitBtnDisabled,
+              ]}
             />
           </View>
         </ScrollView>

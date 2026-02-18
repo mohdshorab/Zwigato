@@ -95,3 +95,21 @@ export const validateEmailComplete = (email: string): ValidationResult => {
 
   return { isValid: true };
 };
+
+export const validateName = (name: string): { isValid: boolean; error: string } => {
+  const trimmed = name.trim();
+  if (!trimmed) return { isValid: false, error: 'Name is required.' };
+  if (trimmed.length < 2)
+    return { isValid: false, error: 'Name must be at least 2 characters.' };
+  if (!/^[a-zA-Z\s]+$/.test(trimmed))
+    return { isValid: false, error: 'Name cannot contain numbers or symbols.' };
+  return { isValid: true, error: '' };
+};
+
+export const validateAddress = (
+  address: string,
+): { isValid: boolean; error: string } => {
+  if (!address.trim())
+    return { isValid: false, error: 'Address cannot be empty.' };
+  return { isValid: true, error: '' };
+};

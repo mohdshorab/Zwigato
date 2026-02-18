@@ -64,11 +64,21 @@ const styles = StyleSheet.create({
   phoneInputContainer: {
     flex: 1,
   },
-  errorString: {
-    fontWeight: '400',
-    color: COLORS.common.red,
-    alignSelf: 'center',
+  fieldError: {
+    color: COLORS.ui.errorString,
+    fontSize: ms(11),
+    marginTop: vs(-6),
+    marginBottom: vs(4),
+    marginLeft: hs(4),
   },
+  submitBtn: {
+    marginTop: vs(24),
+    marginBottom: vs(16),
+  },
+  submitBtnDisabled: {
+    opacity: 0.5,
+  },
+  flexOnly: { flex: 1 },
 });
 
 export default styles;

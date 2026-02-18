@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "server": "json-server --watch src/server/db.json --port 3000 --host 0.0.0.0",
+    "server": "json-server --watch src/server/db.json --port 3000 --host 0.0.0.0 -m ./node_modules/json-server-auth",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -19,7 +19,7 @@
     "@reduxjs/toolkit": "^2.11.2",
     "@shopify/flash-list": "^2.2.0",
     "axios": "^1.13.2",
-    "json-server": "^1.0.0-beta.3",
+    "json-server": "0.17.4",
     "json-server-auth": "^2.1.0",
     "react": "19.2.0",
     "react-native": "0.83.1",

@@ -12,5 +12,7 @@ export type RootStackParamList = {
   OTPVerificationScreen: {
     phoneNumber: string;
   };
-  CompleteProfile: undefined;
+  CompleteProfile: {
+    authProvider: 'phoneAuth' | 'googleAuth' | 'emailPassAuth' | 'guest';
+  };
 };

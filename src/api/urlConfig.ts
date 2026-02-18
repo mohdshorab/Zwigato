@@ -10,6 +10,6 @@ export const ENDPOINTS = {
 };
 
 export const AUTH_ENDPOINTS = {
-  REGISTER : '/register',
-  LOGIN: '/login',  
-}
+  REGISTER: '/users',
+  LOGIN: '/signin',
+};

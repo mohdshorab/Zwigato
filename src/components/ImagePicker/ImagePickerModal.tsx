@@ -74,7 +74,11 @@ const ImagePickerModal = ({
   const renderCameraOption = () => {
     return (
       <View style={styles.optionLeft}>
-        <CustomIonicIcon name="camera-outline" size={ms(44)} />
+        <CustomIonicIcon
+          name="camera-outline"
+          size={ms(44)}
+          color={COLORS.primary}
+        />
         <Text style={styles.text}>Camera</Text>
       </View>
     );
@@ -82,7 +86,11 @@ const ImagePickerModal = ({
   const renderImageLibraryOption = () => {
     return (
       <View style={styles.optionRight}>
-        <CustomIonicIcon name="image-outline" size={ms(44)} />
+        <CustomIonicIcon
+          name="image-outline"
+          size={ms(44)}
+          color={COLORS.primary}
+        />
         <Text style={styles.text}>Gallery</Text>
       </View>
     );

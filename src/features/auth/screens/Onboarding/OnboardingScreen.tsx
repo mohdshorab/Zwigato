@@ -65,6 +65,12 @@ const OnboardingScreen = ({
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    return () => {
+      setPhone('');
+    };
+  }, []);
+
   const onChangePhoneText = (t: string) => {
     if (errorString.length > 0) setErrorString('');
     const validationResults = validatePhoneInput(t);
@@ -81,7 +87,7 @@ const OnboardingScreen = ({
       : dispatch(signInWithPhone(`${COUNTRY_CODE} ${phone}`));
   };
 
-  const navigateToHomescreen = () => navigation.navigate('CompleteProfile');
+  const navigateToHomescreen = () => navigation.navigate('HomeScreen');
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'right', 'left']}>

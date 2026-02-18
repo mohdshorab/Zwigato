@@ -31,6 +31,7 @@ const COLORS = {
     success: '#27AE60',
     warning: '#FFC107',
     shadow: '#000000',
+    errorString : '#E53935',
   },
 
   // Basic

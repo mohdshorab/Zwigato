@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   selectedText: {
     fontSize: ms(16),
     letterSpacing: 2,
-    color: COLORS.ui.borderGrey,
+    color: COLORS.common.black,
   },
   expandedContainer: {
     borderWidth: 1,

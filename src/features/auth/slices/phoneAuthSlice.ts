@@ -10,6 +10,10 @@ interface ConfirmCodeProps {
   verificationId: string;
 }
 
+interface FirebaseUser {
+  firebaseUid: string;
+  phoneNumber: string | null;
+}
 interface PhoneAuthState {
   verificationId: string;
   error: string | null;
@@ -18,7 +22,7 @@ interface PhoneAuthState {
   phoneNumber: string;
   otpVerificationStatus: 'idle' | 'loading' | 'succeeded' | 'rejected';
   otpVerificationError: string | null;
-  firebaseUser: any;
+  firebaseUser: FirebaseUser | null;
 }
 
 const initialState: PhoneAuthState = {
@@ -29,7 +33,7 @@ const initialState: PhoneAuthState = {
   phoneNumber: '',
   otpVerificationStatus: 'idle',
   otpVerificationError: '',
-  firebaseUser: {},
+  firebaseUser: null,
 };
 
 export const signInWithPhone = createAsyncThunk(
@@ -38,7 +42,7 @@ export const signInWithPhone = createAsyncThunk(
     try {
       const confirmation = await signInWithPhoneNumber(getAuth(), phoneNumber);
       return {
-        verificationdId: confirmation.verificationId,
+        verificationId: confirmation.verificationId,
         phone: phoneNumber,
       };
     } catch (e: any) {
@@ -52,11 +56,11 @@ export const confirmCode = createAsyncThunk(
   async ({ code, verificationId }: ConfirmCodeProps, { rejectWithValue }) => {
     try {
       const credential = PhoneAuthProvider.credential(verificationId, code);
-      
+
       const userCredential = await getAuth().signInWithCredential(credential);
       return {
         firebaseUid: userCredential.user.uid,
-        phoneNumber: userCredential.user.phoneNumber
+        phoneNumber: userCredential.user.phoneNumber,
       };
     } catch (e: any) {
       return rejectWithValue(e.message);
@@ -83,7 +87,7 @@ const phoneAuthSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(signInWithPhone.fulfilled, (state, action) => {
-        state.verificationId = action.payload.verificationdId ?? '';
+        state.verificationId = action.payload.verificationId ?? '';
         state.phoneNumber = action.payload.phone;
         state.isCodeSent = true;
         state.status = 'succeeded';
