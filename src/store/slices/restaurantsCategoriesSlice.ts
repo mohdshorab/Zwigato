@@ -29,7 +29,7 @@ const restaurantsCategoriesSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchCategories.pending, state => {
-        state.status == 'loading';
+        state.status === 'loading';
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.status = 'succeeded';

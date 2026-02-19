@@ -87,14 +87,16 @@ const OnboardingScreen = ({
       : dispatch(signInWithPhone(`${COUNTRY_CODE} ${phone}`));
   };
 
-  const navigateToHomescreen = () => navigation.navigate('HomeScreen');
+  const navigateToHomescreen = () => navigation.navigate('CompleteProfile',{
+    authProvider:'phoneAuth'
+  });
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'right', 'left']}>
       <StatusBar barStyle="light-content" />
       <Text style={styles.titleText}>zwigato</Text>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={styles.flexOne}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         {/* ------------- Bottomsheet starts ------------- */}

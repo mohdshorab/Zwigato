@@ -45,6 +45,9 @@ const COLORS = {
   others: {
     inputBox: '#F0F5FA',
     uiIconColor: '#B4B9CA',
+    calendarDayHeader: '#9CA3AF', 
+    calendarDisabled: '#D1D5DB',  
+    calendarSelectionBg: '#FFE1CC', 
   },
 
   toast: {

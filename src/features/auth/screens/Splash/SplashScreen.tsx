@@ -14,29 +14,39 @@ const SplashScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Splash'>) => {
   const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(state => state.authUser.accessToken);
+  const isRehydrated = useAppSelector(state => state.authUser.isRehydrated);
 
   useEffect(() => {
+    if (!isRehydrated) return; 
+
     const fetchData = async () => {
       // createAsyncThunk always returns a resolved Promise, even if the API call fails
-      // With dispatch(fetchCategories()).unwrap(): It "unpacks" the result. If the call was successful, it returns the payload.
-      // If the call failed, it throws an error, which allows your try/catch block to actually catch it.
-      // Promise.allSettled returns an Array of Objects like [{ status: 'fulfilled', value: ... }, { status: 'rejected', reason: ... }].
+      //With dispatch(fetchCategories()).unwrap(): It "unpacks" the result. If the call was successful, it returns the payload.
+      //If the call failed, it throws an error, which allows your try/catch block to actually catch it.
+      //Promise.allSettled returns an Array of Objects like [{ status: 'fulfilled', value: ... }, { status: 'rejected', reason: ... }].
       // The order of these objects in the results array matches exactly the order of the promises you provided in the input array.
       // Whether your dispatch(anyThunk()) succeeded or rejected, the allSettled Promise itself will ALWAYS resolve. It never reaches the catch section
       const timer = new Promise<void>(resolve =>
         setTimeout(() => resolve(), 2000),
       );
-      const promiseObject = await Promise.allSettled([
+      const results = await Promise.allSettled([
         dispatch(fetchRestaurants()),
         dispatch(fetchCategories()),
         timer,
       ]);
-      const anyRejection = promiseObject.find(t => t.status == 'rejected');
-      anyRejection && ShowAppToast('Something went wrong!', 'error');
-      navigation.replace('Onboarding');
+      const anyRejection = results.find(r => r.status === 'rejected');
+      if (anyRejection) ShowAppToast('Something went wrong!', 'error');
+
+      if (accessToken) {
+        navigation.replace('AppStack' as any);
+      } else {
+        navigation.replace('AuthStack' as any);
+      }
     };
+
     fetchData();
-  }, [dispatch, navigation]);
+  }, [isRehydrated, dispatch, navigation, accessToken]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,7 +56,6 @@ const SplashScreen = ({
         style={styles.iconSplash}
         resizeMode="contain"
       />
-      {/* <ActivityIndicator size={'large'} color={COLORS.primary} /> */}
       <Text style={styles.bottomText}>Loading your 5-star experience...</Text>
     </SafeAreaView>
   );

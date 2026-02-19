@@ -34,6 +34,7 @@ import {
 } from '../../../../utils/helpers/validators';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { RegisterPayload, registerUser } from '../../slices/authSlice';
+import DeliveryCalendar from '../../../../components/DeliveryCalendar/DeliveryCalendar';
 
 type userForm = {
   userName: string;
@@ -67,6 +68,8 @@ const CompleteProfile = ({
   const ref = useRef<TextInput>(null);
 
   const [showModal, setShowModal] = useState(false);
+
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -197,6 +200,12 @@ const CompleteProfile = ({
   const onClose = () => {
     setShowModal(false);
   };
+
+  const handleDateSelection = (date: string) => {
+    updateUserFormField('userDob', date);
+    setShowCalendar(false);
+  };
+
   const isLoading = status === 'loading';
 
   return (
@@ -278,12 +287,29 @@ const CompleteProfile = ({
               {!!emailErrorString.length && (
                 <Text style={styles.fieldError}>{emailErrorString}</Text>
               )}
-              <InputBox
-                title="DOB"
-                placeholder="DD/MM/YYYY"
-                value={userProfileForm.userDob}
-                onChangeText={t => updateUserFormField('userDob', t)}
-              />
+
+              <TouchableOpacity
+                onPress={() => setShowCalendar(true)}
+                activeOpacity={0.7}
+              >
+                <View pointerEvents="none">
+                  <InputBox
+                    title="Date of Birth*"
+                    placeholder="YYYY-MM-DD"
+                    value={userProfileForm.userDob}
+                    isEditable={false}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              {showCalendar && (
+                <DeliveryCalendar
+                  visible={showCalendar}
+                  initialDate={userProfileForm.userDob}
+                  onClose={() => setShowCalendar(false)}
+                  onDateSelect={handleDateSelection}
+                />
+              )}
               <Dropdown
                 title="Gender"
                 onPressOption={onPressOption}

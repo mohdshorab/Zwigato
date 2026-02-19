@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../../../api/apiClient';
 import { AUTH_ENDPOINTS } from '../../../api/urlConfig';
 import { createSlice } from '@reduxjs/toolkit';
+import { Storage } from '../../../utils/storage';
 
 export interface User {
   id: number;
@@ -46,6 +47,7 @@ export interface AuthUserState {
   accessToken: string;
   status: 'idle' | 'loading' | 'succeeded' | 'rejected';
   error: string | null;
+  isRehydrated: boolean;
 }
 
 const initialState: AuthUserState = {
@@ -53,6 +55,7 @@ const initialState: AuthUserState = {
   accessToken: '',
   status: 'idle',
   error: null,
+  isRehydrated: false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -81,8 +84,22 @@ const authUserSlice = createSlice({
     clearAuthError(state) {
       state.error = null;
     },
-    resetAuthState() {
-      return initialState;
+    logout() {
+      Storage.removeItem('auth-token');
+      Storage.removeItem('user');
+      return {
+        ...initialState,
+        isRehydrated: true,
+      };
+    },
+    rehydrateAuth(state, action) {
+      state.accessToken = action.payload.accessToken;
+      state.user = action.payload.user;
+      state.status = 'succeeded';
+      state.isRehydrated = true;
+    },
+    setRehydrated(state) {
+      state.isRehydrated = true;
     },
   },
   extraReducers: builder => {
@@ -95,6 +112,8 @@ const authUserSlice = createSlice({
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
         state.status = 'succeeded';
+        Storage.setItem('auth-token', action.payload.accessToken);
+        Storage.setObject('user', action.payload.user);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -103,5 +122,6 @@ const authUserSlice = createSlice({
   },
 });
 
-export const { clearAuthError, resetAuthState } = authUserSlice.actions;
+export const { clearAuthError, logout, rehydrateAuth, setRehydrated } =
+  authUserSlice.actions;
 export default authUserSlice.reducer;

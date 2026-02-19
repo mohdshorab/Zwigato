@@ -15,4 +15,6 @@ export type RootStackParamList = {
   CompleteProfile: {
     authProvider: 'phoneAuth' | 'googleAuth' | 'emailPassAuth' | 'guest';
   };
+  AuthStack: undefined;
+  AppStack: undefined;
 };

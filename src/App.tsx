@@ -4,13 +4,17 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from './utils/toastConfig/toastConfig';
+import AppInitializer from './AppInitializer';
 
 const App = () => {
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <RootNavigation />
-        <Toast config={toastConfig} />
+        <AppInitializer>
+          <RootNavigation />
+          <Toast config={toastConfig} />
+        </AppInitializer>
       </SafeAreaProvider>
     </Provider>
   );
