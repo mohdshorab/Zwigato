@@ -24,6 +24,7 @@ import { ms } from '../../../../utils/Layout';
 import COLORS from '../../../../utils/constants/Colors';
 import { getFirebaseAuthErrorMessage } from '../../../../utils/helpers/errorMessages';
 import SendingOtpModal from '../../components/SendingOtpModal/SendingOtpModal';
+import { checkUserExists, loginUser } from '../../slices/authSlice';
 
 const OTPVerificationScreen = ({
   route,
@@ -85,26 +86,50 @@ const OTPVerificationScreen = ({
     }
   }, [showWaitToresend]);
 
-  const handleOTPComplete = (otp: string) => {
-    const validationResult = validateOTPComplete(otp);
-    if (validationResult.isValid) {
-      dispatch(confirmCode({ code: otp, verificationId }))
-        .unwrap()
-        .then(user => {
-          user.firebaseUid.length > 0 &&
-            navigation.replace('CompleteProfile', {
-              authProvider: 'phoneAuth',
-            });
-        })
-        .catch(e => {
-          ShowAppToast(getFirebaseAuthErrorMessage(e), 'error');
-        });
+  const handleExistingOrNewUser = async (user: {
+    firebaseUid: string;
+    phoneNumber: string;
+  }) => {
+    const existingUser = await dispatch(
+      checkUserExists({
+        authProvider: 'phoneAuth',
+        identifier: user.phoneNumber,
+      }),
+    ).unwrap();
+
+    if (existingUser) {
+      await dispatch(
+        loginUser({
+          email: existingUser.email,
+          password: existingUser.firebaseUid,
+        }),
+      ).unwrap();
+      navigation.reset({ index: 0, routes: [{ name: 'Splash' }] });
+    } else {
+      navigation.replace('CompleteProfile', { authProvider: 'phoneAuth' });
     }
-    if (!validationResult.isValid)
+  };
+
+  const handleOTPComplete = (otp: string) => {
+    if (!validateOTPComplete(otp).isValid) {
       ShowAppToast(
-        validationResult.error ?? 'Something went wrong. Try again.',
+        validateOTPComplete(otp).error ?? 'Something went wrong. Try again.',
         'error',
       );
+      return;
+    }
+    dispatch(confirmCode({ code: otp, verificationId }))
+      .unwrap()
+      .then(async user => {
+        if (!user.firebaseUid || !user.phoneNumber) return;
+        await handleExistingOrNewUser({
+          firebaseUid: user.firebaseUid,
+          phoneNumber: user.phoneNumber,
+        });
+      })
+      .catch(e => {
+        ShowAppToast(getFirebaseAuthErrorMessage(e), 'error');
+      });
   };
 
   const handleResendOTP = () => {

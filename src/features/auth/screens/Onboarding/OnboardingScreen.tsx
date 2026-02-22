@@ -114,7 +114,7 @@ const OnboardingScreen = ({
             <InputBox title="PHONE" value={COUNTRY_CODE} isEditable={false} />
             <View style={styles.flexOne}>
               <InputBox
-                placeholder="9875588220"
+                placeholder="9876543210"
                 noOfLines={1}
                 value={phone}
                 onChangeText={onChangePhoneText}

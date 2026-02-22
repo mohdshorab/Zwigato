@@ -48,6 +48,8 @@ export interface AuthUserState {
   status: 'idle' | 'loading' | 'succeeded' | 'rejected';
   error: string | null;
   isRehydrated: boolean;
+  existingUser: User | null;
+  checkUserStatus: 'idle' | 'loading' | 'succeeded' | 'rejected';
 }
 
 const initialState: AuthUserState = {
@@ -56,6 +58,8 @@ const initialState: AuthUserState = {
   status: 'idle',
   error: null,
   isRehydrated: false,
+  existingUser: null,
+  checkUserStatus: 'idle',
 };
 
 export const registerUser = createAsyncThunk(
@@ -71,6 +75,49 @@ export const registerUser = createAsyncThunk(
       return rejectWithValue(
         e.response?.data ?? {
           message: 'Registration failed. Please try again.',
+        },
+      );
+    }
+  },
+);
+
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async (
+    credentials: { email: string; password: string },
+    { rejectWithValue },
+  ) => {
+    try {
+      const result = await apiClient.post(AUTH_ENDPOINTS.LOGIN, credentials);
+      return result.data;
+    } catch (e: any) {
+      return rejectWithValue(
+        e.response?.data ?? { message: 'Login failed. Please try again.' },
+      );
+    }
+  },
+);
+
+export const checkUserExists = createAsyncThunk(
+  'auth/checkUserExists',
+  async (
+    payload: {
+      authProvider: 'phoneAuth' | 'googleAuth';
+      identifier: string;
+    },
+    { rejectWithValue },
+  ) => {
+    try {
+      const field = payload.authProvider === 'phoneAuth' ? 'phone' : 'email';
+      const url = `${AUTH_ENDPOINTS.CHECK_USER}?${field}=${encodeURIComponent(
+        payload.identifier,
+      )}`;
+      const result = await apiClient.get(url);
+      return result.data.length > 0 ? result.data[0] : null;
+    } catch (e: any) {
+      return rejectWithValue(
+        e.response?.data ?? {
+          message: 'Unable to verify account. Please try again.',
         },
       );
     }
@@ -121,6 +168,36 @@ const authUserSlice = createSlice({
           (action.payload as any)?.message ??
           action.error?.message ??
           'Unknown error';
+      })
+      .addCase(loginUser.pending, state => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.accessToken = action.payload.accessToken;
+        state.status = 'succeeded';
+        Storage.setItem('auth-token', action.payload.accessToken);
+        Storage.setObject('user', action.payload.user);
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error =
+          (action.payload as any)?.message ??
+          action.error?.message ??
+          'Unknown error';
+      })
+      .addCase(checkUserExists.pending, state => {
+        state.checkUserStatus = 'loading';
+        state.error = null;
+      })
+      .addCase(checkUserExists.fulfilled, (state, action) => {
+        state.checkUserStatus = 'succeeded';
+        state.existingUser = action.payload;
+      })
+      .addCase(checkUserExists.rejected, (state, action) => {
+        state.checkUserStatus = 'rejected';
+        state.error = (action.payload as any)?.message ?? 'Unknown error';
       });
   },
 });
