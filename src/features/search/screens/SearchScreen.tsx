@@ -1,6 +1,5 @@
 import { View, StatusBar, Text, ActivityIndicator } from 'react-native';
 import {
-  SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { CommonHeader, MenuItemModal, FoodItemCard } from '../../../components';

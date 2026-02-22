@@ -73,7 +73,7 @@ const CompleteProfile = ({
 
   const dispatch = useAppDispatch();
 
-  const { user, accessToken, error, status } = useAppSelector(
+  const { accessToken, error, status } = useAppSelector(
     state => state.authUser,
   );
 
@@ -186,7 +186,6 @@ const CompleteProfile = ({
       email: userProfileForm.userEmail,
       password: activeUser?.fbUid,
       firebaseUid: activeUser?.fbUid || null,
-      phone: activeUser?.phoneNumber || userProfileForm.userPhone,
       isProfileComplete: true,
       authProvider: authProvider,
     };

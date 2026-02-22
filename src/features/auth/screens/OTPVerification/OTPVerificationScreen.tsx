@@ -50,7 +50,6 @@ const OTPVerificationScreen = ({
     ) {
       ShowAppToast(getFirebaseAuthErrorMessage(otpVerificationError), 'error');
     }
-    // otpVerificationStatus === 'succeeded' && navigation.replace('HomeScreen');
   }, [otpVerificationStatus, otpVerificationError]);
 
   useEffect(() => {
@@ -89,7 +88,6 @@ const OTPVerificationScreen = ({
   const handleOTPComplete = (otp: string) => {
     const validationResult = validateOTPComplete(otp);
     if (validationResult.isValid) {
-      setTimerCount(30);
       dispatch(confirmCode({ code: otp, verificationId }))
         .unwrap()
         .then(user => {
@@ -143,11 +141,11 @@ const OTPVerificationScreen = ({
         <View style={styles.resendContainer}>
           <View style={styles.rowLayout}>
             <Text style={styles.instructionText}>Didn't get the OTP?</Text>
-            <TouchableOpacity onPress={handleResendOTP}>
-              {!showWaitToresend && (
+            {!showWaitToresend && (
+              <TouchableOpacity onPress={handleResendOTP}>
                 <Text style={styles.actionLinkText}>Resend OTP</Text>
-              )}
-            </TouchableOpacity>
+              </TouchableOpacity>
+            )}
             {!!showWaitToresend && (
               <Text style={styles.actionLinkText}>
                 wait for {timerCount} seconds..
@@ -174,7 +172,7 @@ const OTPVerificationScreen = ({
           size={ms(40)}
         />
       </Modal>
-      <SendingOtpModal visible={showWaitToresend} />
+      <SendingOtpModal visible={status === 'loading'} />
     </View>
   );
 };

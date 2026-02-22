@@ -117,7 +117,10 @@ const authUserSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error?.message ?? 'Unknown error';
+        state.error =
+          (action.payload as any)?.message ??
+          action.error?.message ??
+          'Unknown error';
       });
   },
 });

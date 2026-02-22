@@ -7,6 +7,9 @@ import { toastConfig } from './utils/toastConfig/toastConfig';
 import AppInitializer from './AppInitializer';
 
 const App = () => {
+  if (__DEV__) {
+    require('../ReactotronConfig');
+  }
 
   return (
     <Provider store={store}>
