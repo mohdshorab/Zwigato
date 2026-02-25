@@ -87,9 +87,7 @@ const OnboardingScreen = ({
       : dispatch(signInWithPhone(`${COUNTRY_CODE} ${phone}`));
   };
 
-  const navigateToHomescreen = () => navigation.navigate('CompleteProfile',{
-    authProvider:'phoneAuth'
-  });
+  const navigateToHomescreen = () => navigation.navigate('HomeScreen');
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'right', 'left']}>

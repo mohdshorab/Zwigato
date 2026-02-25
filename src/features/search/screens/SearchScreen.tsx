@@ -1,13 +1,11 @@
 import { View, StatusBar, Text, ActivityIndicator } from 'react-native';
-import {
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CommonHeader, MenuItemModal, FoodItemCard } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../navigation/NavigationTypes';
 import styles from './SearchScreen.styles';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '../../../store/hooks';
 import { FlashList } from '@shopify/flash-list';
 import { MenuItem, Restaurant } from '../../../types/restaurant';
@@ -18,6 +16,7 @@ import {
 } from '../slices/searchSelectors';
 import ItemCard from '../components/ItemCard/ItemCard';
 import { GlobalSearchItem } from '../types/searchTypes';
+import useDebounce from '../../../hooks/useDebounce';
 
 const EMPTY_ARRAY: any[] = [];
 
@@ -35,28 +34,35 @@ const SearchScreen = ({
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const debounceQuery = useDebounce(searchQuery, 500);
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (debounceQuery === searchQuery) {
+      setIsLoading(false);
+    }
+  }, [debounceQuery, searchQuery]);
+
   const localRestaurantResults = useAppSelector(state =>
-    searchedDataList(state, searchQuery),
+    searchedDataList(state, debounceQuery),
   );
 
   const globalFoodItemResults = useAppSelector(state =>
     searchMode === 'global'
-      ? globalSearchFoodItems(state, searchQuery)
+      ? globalSearchFoodItems(state, debounceQuery)
       : EMPTY_ARRAY,
   );
 
   const globalRestaurantResults = useAppSelector(state =>
     searchMode === 'global'
-      ? globalSearchRestaurants(state, searchQuery)
+      ? globalSearchRestaurants(state, debounceQuery)
       : EMPTY_ARRAY,
   );
 
   const isSearchEmpty = searchQuery.length === 0;
 
   const handleSearchInputChange = (text: string) => {
-    setIsLoading(true);
     setSearchQuery(text);
-    setTimeout(() => setIsLoading(false), 100);
   };
 
   const handleItemPress = (item: MenuItem) => {
@@ -134,27 +140,30 @@ const SearchScreen = ({
     return null;
   };
 
-  const combinedData = [
-    ...(globalRestaurantResults?.length > 0
-      ? [{ type: 'header' as const, title: 'Restaurants' }]
-      : []),
-    ...globalRestaurantResults?.map(gRestResults => ({
-      type: 'restaurant' as const,
-      data: gRestResults,
-    })),
-    ...(globalFoodItemResults?.length > 0
-      ? [
-          {
-            type: 'header' as const,
-            title: 'Dishes',
-          },
-        ]
-      : []),
-    ...globalFoodItemResults?.map(gFastFoodItem => ({
-      type: 'dish' as const,
-      data: gFastFoodItem,
-    })),
-  ];
+  const combinedData = useMemo(() => {
+    if (searchQuery.length === 0) return EMPTY_ARRAY;
+    return [
+      ...(globalRestaurantResults?.length > 0
+        ? [{ type: 'header' as const, title: 'Restaurants' }]
+        : []),
+      ...globalRestaurantResults?.map(gRestResults => ({
+        type: 'restaurant' as const,
+        data: gRestResults,
+      })),
+      ...(globalFoodItemResults?.length > 0
+        ? [
+            {
+              type: 'header' as const,
+              title: 'Dishes',
+            },
+          ]
+        : []),
+      ...globalFoodItemResults?.map(gFastFoodItem => ({
+        type: 'dish' as const,
+        data: gFastFoodItem,
+      })),
+    ];
+  }, [globalFoodItemResults, globalRestaurantResults, searchQuery.length]);
 
   const renderGlobalSearchedData = () => {
     if (isLoading) {
