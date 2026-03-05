@@ -50,8 +50,8 @@ export const addToCart = createAsyncThunk<any, any, any>(
   },
 );
 
-const addToCartSlice = createSlice({
-  name: 'cart/addToCartSlice',
+const cartSlice = createSlice({
+  name: 'cart/cartSlice',
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
@@ -70,4 +70,4 @@ const addToCartSlice = createSlice({
   },
 });
 
-export default addToCartSlice.reducer;
+export default cartSlice.reducer;

@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingHorizontal: hs(10),
     paddingVertical: vs(15),
     backgroundColor: COLORS.common.white,
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: 'row',
     borderRadius: hs(10),
-    alignItems: 'center',
+    justifyContent:'space-evenly',
     borderColor: COLORS.primary,
     paddingHorizontal: hs(5),
   },

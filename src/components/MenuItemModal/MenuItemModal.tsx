@@ -11,7 +11,7 @@ import AppButton from '../AppButton/AppButton';
 import styles from './MenuItemModal.styles';
 import { useCallback, useMemo, useState } from 'react';
 import useCounter from '../../hooks/useCounter';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { addToCart } from '../../features/cart/slices/CartSlice';
 
 interface MenuItemModalProps {
@@ -25,6 +25,16 @@ interface CustomizationProps {
   type: 'CustomizationOption' | 'AddOnOption';
 }
 
+interface SelectedAddons {
+  name: string;
+  price: number;
+}
+
+interface FingerPrintProps {
+  itemId: string;
+  selectedAddons: SelectedAddons[];
+}
+
 const MenuItemModal = ({
   showModal,
   infoToShow,
@@ -36,6 +46,9 @@ const MenuItemModal = ({
   const [selectedCustom, setSelectedCustom] = useState<CustomizationOption[]>(
     [],
   );
+
+  const { status, cart } = useAppSelector(state => state.cart);
+
   const allSelectedItems = useMemo(
     () => [...selectedAddOns, ...selectedCustom],
     [selectedAddOns, selectedCustom],
@@ -59,11 +72,41 @@ const MenuItemModal = ({
     );
   }, [allSelectedItems, infoToShow]);
 
+  const generateFingerprint = ({
+    itemId,
+    selectedAddons,
+  }: FingerPrintProps) => {
+    const sorted = [...selectedAddons]
+      .map(addon => addon.name)
+      .sort()
+      .join('|');
+
+    return sorted.length > 0 ? `${itemId}__${sorted}` : `${itemId}__plain`;
+  };
+
+  const currentFingerprint = useMemo(
+    () =>
+      generateFingerprint({
+        itemId: infoToShow?.id ?? '',
+        selectedAddons: allSelectedItems,
+      }),
+    [allSelectedItems, infoToShow?.id],
+  );
+
+  const matchingCartItem = useMemo(
+    () => cart.find(c => c.cartItemId === currentFingerprint),
+    [cart, currentFingerprint],
+  );
+
   if (!infoToShow) return null;
 
   const addItemToCart = () => {
+    const cartItemId = generateFingerprint({
+      itemId: infoToShow.id,
+      selectedAddons: allSelectedItems,
+    });
     const finalOrder = {
-      cartItemId: Date.now().toString(),
+      cartItemId: cartItemId,
       id: infoToShow.id,
       name: infoToShow.name,
       basePrice: infoToShow.price,
@@ -74,7 +117,6 @@ const MenuItemModal = ({
     };
     dispatch(addToCart(finalOrder));
     onClose();
-    console.log(finalOrder)
   };
 
   const OnPressCustomization = ({ item, type }: CustomizationProps) => {
@@ -238,28 +280,33 @@ const MenuItemModal = ({
             ) : null}
           </ScrollView>
           <View style={styles.footerContainer}>
-            <View style={styles.quantityContainer}>
-              <CustomIonicIcon
-                name="add-outline"
-                size={25}
-                color={COLORS.primary}
-                onPress={increment}
+            {matchingCartItem ? (
+              <View style={styles.quantityContainer}>
+                <CustomIonicIcon
+                  name="add-outline"
+                  size={25}
+                  color={COLORS.primary}
+                  onPress={increment}
+                />
+                <Text style={styles.quantityText}>
+                  {matchingCartItem.quantity}
+                </Text>
+                <CustomIonicIcon
+                  name="remove-outline"
+                  size={25}
+                  color={COLORS.primary}
+                  onPress={decrement}
+                />
+              </View>
+            ) : (
+              <AppButton
+                onPress={addItemToCart}
+                title={`Add Item  ₹${totalPrice}`}
+                textStyle={styles.addButtonText}
+                buttonStyle={styles.addButton}
+                disable={status === 'loading'}
               />
-              <Text style={styles.quantityText}>{count}</Text>
-              <CustomIonicIcon
-                name="remove-outline"
-                size={25}
-                color={COLORS.primary}
-                onPress={decrement}
-              />
-            </View>
-            <AppButton
-              onPress={addItemToCart}
-              title={`Add Item  ₹${totalPrice}`}
-              textStyle={styles.addButtonText}
-              buttonStyle={styles.addButton}
-              disable= {status === 'loading'}
-            />
+            )}
           </View>
         </View>
       </View>

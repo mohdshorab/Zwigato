@@ -4,6 +4,7 @@ import restaurantsCategoriesReducer from './slices/restaurantsCategoriesSlice';
 import selectedRestaurantDataReducer from '../features/restaurant/slices/selectedRestaurantDataSlice';
 import phoneAuthReducer from '../features/auth/slices/phoneAuthSlice';
 import authUserReducer from '../features/auth/slices/authSlice';
+import cartReducer from '../features/cart/slices/CartSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     selectedRestaurant: selectedRestaurantDataReducer,
     phoneOTPAuth: phoneAuthReducer,
     authUser: authUserReducer,
+    cart: cartReducer,
   },
 });
 
