@@ -2,9 +2,17 @@ import { Modal, ScrollView, Text, View } from 'react-native';
 import COLORS from '../../utils/constants/Colors';
 import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
 import QuickImage from '../QuickImage/QuickImage';
-import { MenuItem } from '../../types/restaurant';
+import {
+  AddOnOption,
+  CustomizationOption,
+  MenuItem,
+} from '../../types/restaurant';
 import AppButton from '../AppButton/AppButton';
 import styles from './MenuItemModal.styles';
+import { useCallback, useMemo, useState } from 'react';
+import useCounter from '../../hooks/useCounter';
+import { useAppDispatch } from '../../store/hooks';
+import { addToCart } from '../../features/cart/slices/CartSlice';
 
 interface MenuItemModalProps {
   showModal: boolean;
@@ -12,12 +20,81 @@ interface MenuItemModalProps {
   onClose: () => void;
 }
 
+interface CustomizationProps {
+  item: CustomizationOption | AddOnOption;
+  type: 'CustomizationOption' | 'AddOnOption';
+}
+
 const MenuItemModal = ({
   showModal,
   infoToShow,
   onClose,
 }: MenuItemModalProps) => {
+  const { count, increment, decrement } = useCounter(1);
+  const dispatch = useAppDispatch();
+  const [selectedAddOns, setSelectedAddOns] = useState<AddOnOption[]>([]);
+  const [selectedCustom, setSelectedCustom] = useState<CustomizationOption[]>(
+    [],
+  );
+  const allSelectedItems = useMemo(
+    () => [...selectedAddOns, ...selectedCustom],
+    [selectedAddOns, selectedCustom],
+  );
+
+  const isItemSelected = useCallback(
+    (name: string) => {
+      return allSelectedItems.some(i => i.name === name);
+    },
+    [allSelectedItems],
+  );
+
+  const totalPrice = useMemo(() => {
+    return (
+      infoToShow &&
+      infoToShow?.price +
+        allSelectedItems.reduce((acc, i) => {
+          const total = (acc += i.price);
+          return total;
+        }, 0)
+    );
+  }, [allSelectedItems, infoToShow]);
+
   if (!infoToShow) return null;
+
+  const addItemToCart = () => {
+    const finalOrder = {
+      cartItemId: Date.now().toString(),
+      id: infoToShow.id,
+      name: infoToShow.name,
+      basePrice: infoToShow.price,
+      image: infoToShow.image,
+      selectedItems: [...allSelectedItems],
+      quantity: count,
+      itemTotal: totalPrice ?? 0,
+    };
+    dispatch(addToCart(finalOrder));
+    onClose();
+    console.log(finalOrder)
+  };
+
+  const OnPressCustomization = ({ item, type }: CustomizationProps) => {
+    if (type === 'CustomizationOption')
+      setSelectedCustom(prev => {
+        const isAlreadySelected = prev.find(i => i.name === item.name);
+        if (isAlreadySelected) {
+          return prev.filter(i => i.name !== item.name);
+        }
+        return [...prev, { ...item, type: type }];
+      });
+    if (type === 'AddOnOption')
+      setSelectedAddOns(prev => {
+        const isAlreadySelected = prev.find(i => i.name === item.name);
+        if (isAlreadySelected) {
+          return prev.filter(i => i.name !== item.name);
+        }
+        return [...prev, { ...item, type: type }];
+      });
+  };
 
   return (
     <Modal
@@ -108,9 +185,18 @@ const MenuItemModal = ({
                       <Text style={styles.optionName}>{item.name}</Text>
                       <Text style={styles.optionPrice}>₹ {item.price}</Text>
                       <CustomIonicIcon
-                        name="square-outline"
+                        name={
+                          !isItemSelected(item.name)
+                            ? 'square-outline'
+                            : 'checkbox-outline'
+                        }
                         size={30}
-                        onPress={() => {}}
+                        onPress={() =>
+                          OnPressCustomization({
+                            type: 'CustomizationOption',
+                            item: item,
+                          })
+                        }
                       />
                     </View>
                   );
@@ -132,9 +218,18 @@ const MenuItemModal = ({
                       <Text style={styles.optionName}>{item.name}</Text>
                       <Text style={styles.optionPrice}>₹ {item.price}</Text>
                       <CustomIonicIcon
-                        name="square-outline"
+                        name={
+                          !isItemSelected(item.name)
+                            ? 'square-outline'
+                            : 'checkbox-outline'
+                        }
                         size={30}
-                        onPress={() => {}}
+                        onPress={() =>
+                          OnPressCustomization({
+                            type: 'AddOnOption',
+                            item: item,
+                          })
+                        }
                       />
                     </View>
                   );
@@ -148,21 +243,22 @@ const MenuItemModal = ({
                 name="add-outline"
                 size={25}
                 color={COLORS.primary}
-                onPress={() => {}}
+                onPress={increment}
               />
-              <Text style={styles.quantityText}>0</Text>
+              <Text style={styles.quantityText}>{count}</Text>
               <CustomIonicIcon
                 name="remove-outline"
                 size={25}
                 color={COLORS.primary}
-                onPress={() => {}}
+                onPress={decrement}
               />
             </View>
             <AppButton
-              onPress={() => {}}
-              title="Add item"
+              onPress={addItemToCart}
+              title={`Add Item  ₹${totalPrice}`}
               textStyle={styles.addButtonText}
               buttonStyle={styles.addButton}
+              disable= {status === 'loading'}
             />
           </View>
         </View>

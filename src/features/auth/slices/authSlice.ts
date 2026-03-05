@@ -109,7 +109,7 @@ export const checkUserExists = createAsyncThunk(
   ) => {
     try {
       const field = payload.authProvider === 'phoneAuth' ? 'phone' : 'email';
-      const url = `${AUTH_ENDPOINTS.CHECK_USER}?${field}=${encodeURIComponent(
+      const url = `${AUTH_ENDPOINTS.USERS}?${field}=${encodeURIComponent(
         payload.identifier,
       )}`;
       const result = await apiClient.get(url);

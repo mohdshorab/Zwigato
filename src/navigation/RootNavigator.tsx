@@ -11,6 +11,7 @@ import HomeScreen from '../features/home/screens/HomeScreen';
 import RestaurantDetailScreen from '../features/restaurant/screens/RestaurantDetailScreen';
 import SearchScreen from '../features/search/screens/SearchScreen';
 import { useAppSelector } from '../store/hooks';
+import CartSCreen from '../features/cart/screens/CartScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,6 +32,13 @@ const AppStack = () => (
     <Stack.Screen
       name="RestaurantDetailScreen"
       component={RestaurantDetailScreen}
+    />
+    <Stack.Screen
+      options={{
+        animation: 'slide_from_right',
+      }}
+      name="CartScreen"
+      component={CartSCreen}
     />
     <Stack.Group
       screenOptions={{ presentation: 'modal', animation: 'slide_from_bottom' }}

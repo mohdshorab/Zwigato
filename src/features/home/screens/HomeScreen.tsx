@@ -6,9 +6,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlashList } from '@shopify/flash-list';
 import { useAppSelector } from '../../../store/hooks';
 import { CategoryState } from '../../../store/slices/restaurantsCategoriesSlice';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
-import { CommonHeader, CustomIonicIcon, QuickImage } from '../../../components';
+import { AppButton, CommonHeader, CustomIonicIcon } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
 import {
@@ -22,6 +22,9 @@ const HomeScreen = ({
   const { categories, status, error }: CategoryState = useAppSelector(
     state => state.restaurantsCategories,
   );
+
+  const { user } = useAppSelector(state => state.authUser);
+
   const [isSelected, setIsSelected] = useState<number>(0);
   const selectedCatName = useAppSelector(state =>
     selectedCategory(state, isSelected),
@@ -30,7 +33,7 @@ const HomeScreen = ({
     dataAsPerSelectedCat(state, selectedCatName),
   );
 
-  const ListEmptyComponent = () => {
+  const ListEmptyComponent = useCallback(() => {
     return (
       <View style={styles.listEmptyContainer}>
         <Text style={styles.noMatchFoundHead}>Bummer! No matches found.</Text>
@@ -39,7 +42,7 @@ const HomeScreen = ({
         </Text>
       </View>
     );
-  };
+  }, []);
 
   const onPressingRestaurantCard = (restID: number) => {
     navigation.navigate('RestaurantDetailScreen', {
@@ -64,6 +67,7 @@ const HomeScreen = ({
         showSearchIcon
         navigation={navigation}
         onSearchIconPress={onSearchIconPress}
+        title={`Hi ${user?.userName},`}
       />
       <View style={styles.categoriesHead}>
         <Text style={styles.catHeadTitle}>All Categories</Text>
@@ -121,6 +125,17 @@ const HomeScreen = ({
           </Text>
         )}
       />
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 50,
+          left: 0,
+          right: 0,
+          alignItems: 'center',
+        }}
+      >
+        <AppButton title="Go To Cart" onPress={() => {navigation.navigate('CartScreen')}} variant="primary" />
+      </View>
     </SafeAreaView>
   );
 };

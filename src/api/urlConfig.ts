@@ -12,5 +12,5 @@ export const ENDPOINTS = {
 export const AUTH_ENDPOINTS = {
   REGISTER: '/users',
   LOGIN: '/signin',
-  CHECK_USER: '/users'
+  USERS: '/users'
 };

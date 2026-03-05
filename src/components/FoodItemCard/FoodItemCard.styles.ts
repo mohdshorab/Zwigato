@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     fontSize: ms(13),
     color: COLORS.ui.borderGrey,
     marginVertical: vs(8),
+    marginRight: vs(8),
   },
   itemPrice: {
     fontSize: ms(16),
