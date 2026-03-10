@@ -124,6 +124,20 @@ export const checkUserExists = createAsyncThunk(
   },
 );
 
+export const fetchCurrentUser = createAsyncThunk(
+  'auth/fetchCurrentUser',
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const currentUser = await apiClient.get(
+        `${AUTH_ENDPOINTS.USERS}/${userId}`,
+      );
+      return currentUser.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  },
+);
+
 const authUserSlice = createSlice({
   name: 'auth/main',
   initialState: initialState,
@@ -133,7 +147,6 @@ const authUserSlice = createSlice({
     },
     logout() {
       Storage.removeItem('auth-token');
-      Storage.removeItem('user');
       return {
         ...initialState,
         isRehydrated: true,
@@ -141,7 +154,6 @@ const authUserSlice = createSlice({
     },
     rehydrateAuth(state, action) {
       state.accessToken = action.payload.accessToken;
-      state.user = action.payload.user;
       state.status = 'succeeded';
       state.isRehydrated = true;
     },
@@ -160,7 +172,6 @@ const authUserSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         state.status = 'succeeded';
         Storage.setItem('auth-token', action.payload.accessToken);
-        Storage.setObject('user', action.payload.user);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -178,7 +189,6 @@ const authUserSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         state.status = 'succeeded';
         Storage.setItem('auth-token', action.payload.accessToken);
-        Storage.setObject('user', action.payload.user);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -198,6 +208,19 @@ const authUserSlice = createSlice({
       .addCase(checkUserExists.rejected, (state, action) => {
         state.checkUserStatus = 'rejected';
         state.error = (action.payload as any)?.message ?? 'Unknown error';
+      })
+      .addCase(fetchCurrentUser.pending, state => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = 'succeeded';
+        state.isRehydrated = true;
+      })
+      .addCase(fetchCurrentUser.rejected, state => {
+        state.status = 'rejected';
+        state.isRehydrated = true;
       });
   },
 });

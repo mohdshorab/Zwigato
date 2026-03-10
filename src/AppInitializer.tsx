@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from './store/hooks';
 import { Storage } from './utils/storage';
 import {
+  fetchCurrentUser,
   rehydrateAuth,
   setRehydrated,
-  User,
 } from './features/auth/slices/authSlice';
+import { jwtDecode } from 'jwt-decode';
 
 const AppInitializer = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -15,9 +16,10 @@ const AppInitializer = ({ children }: { children: React.ReactNode }) => {
     const initApp = async () => {
       try {
         const token = await Storage.getItem('auth-token');
-        const user = await Storage.getObject<User>('user');
-        if (token && user) {
-          dispatch(rehydrateAuth({ accessToken: token, user }));
+        if (token) {
+          const decoded = jwtDecode<{ sub: string }>(token);
+          await dispatch(fetchCurrentUser(decoded.sub));
+          dispatch(rehydrateAuth({ accessToken: token }));
         } else {
           dispatch(setRehydrated());
         }

@@ -1,4 +1,4 @@
-import { Modal, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, ScrollView, Text, View } from 'react-native';
 import COLORS from '../../utils/constants/Colors';
 import CustomIonicIcon from '../CustomIonicIcon/CustomIonicIcon';
 import QuickImage from '../QuickImage/QuickImage';
@@ -10,9 +10,13 @@ import {
 import AppButton from '../AppButton/AppButton';
 import styles from './MenuItemModal.styles';
 import { useCallback, useMemo, useState } from 'react';
-import useCounter from '../../hooks/useCounter';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { addToCart } from '../../features/cart/slices/CartSlice';
+import {
+  addToCart,
+  CartItem,
+  decrementCartItem,
+  incrementCartItem,
+} from '../../features/cart/slices/CartSlice';
 
 interface MenuItemModalProps {
   showModal: boolean;
@@ -40,14 +44,13 @@ const MenuItemModal = ({
   infoToShow,
   onClose,
 }: MenuItemModalProps) => {
-  const { count, increment, decrement } = useCounter(1);
   const dispatch = useAppDispatch();
   const [selectedAddOns, setSelectedAddOns] = useState<AddOnOption[]>([]);
   const [selectedCustom, setSelectedCustom] = useState<CustomizationOption[]>(
     [],
   );
 
-  const { status, cart } = useAppSelector(state => state.cart);
+  const { status, cart, error } = useAppSelector(state => state.cart);
 
   const allSelectedItems = useMemo(
     () => [...selectedAddOns, ...selectedCustom],
@@ -60,15 +63,10 @@ const MenuItemModal = ({
     },
     [allSelectedItems],
   );
-
   const totalPrice = useMemo(() => {
+    if (!infoToShow) return 0;
     return (
-      infoToShow &&
-      infoToShow?.price +
-        allSelectedItems.reduce((acc, i) => {
-          const total = (acc += i.price);
-          return total;
-        }, 0)
+      infoToShow.price + allSelectedItems.reduce((acc, i) => acc + i.price, 0)
     );
   }, [allSelectedItems, infoToShow]);
 
@@ -105,21 +103,21 @@ const MenuItemModal = ({
       itemId: infoToShow.id,
       selectedAddons: allSelectedItems,
     });
-    const finalOrder = {
+    const finalOrder: CartItem = {
       cartItemId: cartItemId,
       id: infoToShow.id,
       name: infoToShow.name,
       basePrice: infoToShow.price,
       image: infoToShow.image,
       selectedItems: [...allSelectedItems],
-      quantity: count,
+      quantity: 1,
       itemTotal: totalPrice ?? 0,
     };
     dispatch(addToCart(finalOrder));
     onClose();
   };
 
-  const OnPressCustomization = ({ item, type }: CustomizationProps) => {
+  const onPressCustomization = ({ item, type }: CustomizationProps) => {
     if (type === 'CustomizationOption')
       setSelectedCustom(prev => {
         const isAlreadySelected = prev.find(i => i.name === item.name);
@@ -234,7 +232,7 @@ const MenuItemModal = ({
                         }
                         size={30}
                         onPress={() =>
-                          OnPressCustomization({
+                          onPressCustomization({
                             type: 'CustomizationOption',
                             item: item,
                           })
@@ -267,7 +265,7 @@ const MenuItemModal = ({
                         }
                         size={30}
                         onPress={() =>
-                          OnPressCustomization({
+                          onPressCustomization({
                             type: 'AddOnOption',
                             item: item,
                           })
@@ -280,32 +278,56 @@ const MenuItemModal = ({
             ) : null}
           </ScrollView>
           <View style={styles.footerContainer}>
+            {status === 'rejected' && error ? (
+              <Text style={styles.errorText}>{error}</Text>
+            ) : null}
             {matchingCartItem ? (
               <View style={styles.quantityContainer}>
-                <CustomIonicIcon
-                  name="add-outline"
-                  size={25}
-                  color={COLORS.primary}
-                  onPress={increment}
-                />
-                <Text style={styles.quantityText}>
-                  {matchingCartItem.quantity}
-                </Text>
                 <CustomIonicIcon
                   name="remove-outline"
                   size={25}
                   color={COLORS.primary}
-                  onPress={decrement}
+                  onPress={() => {
+                    const cartItemId = generateFingerprint({
+                      itemId: infoToShow.id,
+                      selectedAddons: allSelectedItems,
+                    });
+                    dispatch(decrementCartItem(cartItemId));
+                  }}
+                />
+                {status === 'loading' ? (
+                  <ActivityIndicator size="small" color={COLORS.primary} />
+                ) : (
+                  <Text style={styles.quantityText}>
+                    {matchingCartItem.quantity}
+                  </Text>
+                )}
+                <CustomIonicIcon
+                  name="add-outline"
+                  size={25}
+                  color={COLORS.primary}
+                  onPress={() => {
+                    const cartItemId = generateFingerprint({
+                      itemId: infoToShow.id,
+                      selectedAddons: allSelectedItems,
+                    });
+                    dispatch(incrementCartItem(cartItemId));
+                  }}
                 />
               </View>
             ) : (
-              <AppButton
-                onPress={addItemToCart}
-                title={`Add Item  ₹${totalPrice}`}
-                textStyle={styles.addButtonText}
-                buttonStyle={styles.addButton}
-                disable={status === 'loading'}
-              />
+              <View style={styles.loadingContainer}>
+                {status === 'loading' ? (
+                  <ActivityIndicator size="small" color={COLORS.primary} />
+                ) : (
+                  <AppButton
+                    onPress={addItemToCart}
+                    title={`Add Item  ₹${totalPrice}`}
+                    textStyle={styles.addButtonText}
+                    buttonStyle={styles.addButton}
+                  />
+                )}
+              </View>
             )}
           </View>
         </View>

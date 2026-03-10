@@ -50,7 +50,6 @@ const AppStack = () => (
 
 const RootNavigation = () => {
   const accessToken = useAppSelector(state => state.authUser.accessToken);
-  const isRehydrated = useAppSelector(state => state.authUser.isRehydrated);
 
   return (
     <NavigationContainer ref={navigationRef}>

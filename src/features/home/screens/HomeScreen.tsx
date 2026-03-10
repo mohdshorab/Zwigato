@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../store/hooks';
 import { CategoryState } from '../../../store/slices/restaurantsCategoriesSlice';
 import { useCallback, useState } from 'react';
 import CategoryCard from '../components/CategoryCard/CategoryCard';
-import { AppButton, CommonHeader, CustomIonicIcon } from '../../../components';
+import { CommonHeader, CustomIonicIcon } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
 import {
@@ -16,16 +16,35 @@ import {
   selectedCategory,
 } from '../../../store/slices/restaurantsCategoriesSelector';
 
+const ListEmptyComponent = () => (
+  <View style={styles.listEmptyContainer}>
+    <Text style={styles.noMatchFoundHead}>Bummer! No matches found.</Text>
+    <Text style={styles.noMatchFoundSubHead}>
+      Why not try something else for now?
+    </Text>
+  </View>
+);
+
+const ListHeader = ({ title }: { title: string }) => (
+  <Text style={styles.subHeads}>{title}</Text>
+);
+
+const ListFooter = ({ show }: { show: boolean }) => (
+  <Text style={styles.listEndHeads}>{show ? `That's all for now!` : ''}</Text>
+);
+
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'HomeScreen'>) => {
-  const { categories, status, error }: CategoryState = useAppSelector(
+  const { categories }: CategoryState = useAppSelector(
     state => state.restaurantsCategories,
   );
 
   const { user } = useAppSelector(state => state.authUser);
+  const cartCount = useAppSelector(state => state.cart.cart.length);
 
   const [isSelected, setIsSelected] = useState<number>(0);
+
   const selectedCatName = useAppSelector(state =>
     selectedCategory(state, isSelected),
   );
@@ -33,40 +52,62 @@ const HomeScreen = ({
     dataAsPerSelectedCat(state, selectedCatName),
   );
 
-  const ListEmptyComponent = useCallback(() => {
-    return (
-      <View style={styles.listEmptyContainer}>
-        <Text style={styles.noMatchFoundHead}>Bummer! No matches found.</Text>
-        <Text style={styles.noMatchFoundSubHead}>
-          Why not try something else for now?
-        </Text>
-      </View>
-    );
+  const headerTitle = !dataToBeShown?.length
+    ? ''
+    : isSelected === 0
+    ? 'Explore More'
+    : selectedCatName ?? '';
+
+  const onPressingRestaurantCard = useCallback(
+    (restID: number) => {
+      navigation.navigate('RestaurantDetailScreen', {
+        restaurantId: restID,
+      });
+    },
+    [navigation],
+  );
+
+  const onPressCatIcon = useCallback((id: number) => {
+    setIsSelected(id);
   }, []);
 
-  const onPressingRestaurantCard = (restID: number) => {
-    navigation.navigate('RestaurantDetailScreen', {
-      restaurantId: restID,
-    });
-  };
-
-  const onPressCatIcon = (id: number) => {
-    setIsSelected(id);
-  };
-
-  const onSearchIconPress = () => {
+  const onSearchIconPress = useCallback(() => {
     navigation.navigate('SearchScreen', {
       searchMode: 'global',
       searchPlaceHolder: `Restaurant name or a dish...`,
     });
-  };
+  }, [navigation]);
+
+  const renderCategoryItem = useCallback(
+    ({ item }: { item: any }) => (
+      <CategoryCard
+        item={item}
+        isSelected={isSelected}
+        onPress={() => onPressCatIcon(item.id)}
+      />
+    ),
+    [isSelected, onPressCatIcon],
+  );
+
+  const renderRestaurantItem = useCallback(
+    ({ item }: { item: any }) => (
+      <RestaurantCard
+        onPress={() => onPressingRestaurantCard(item?.id)}
+        item={item}
+      />
+    ),
+    [onPressingRestaurantCard],
+  );
 
   return (
     <SafeAreaView style={styles.container}>
       <CommonHeader
         showSearchIcon
+        showCartIcon
+        cartCount={cartCount}
         navigation={navigation}
         onSearchIconPress={onSearchIconPress}
+        onCartIconPress={() => navigation.navigate('CartScreen')}
         title={`Hi ${user?.userName},`}
       />
       <View style={styles.categoriesHead}>
@@ -85,57 +126,19 @@ const HomeScreen = ({
         showsHorizontalScrollIndicator={false}
         data={categories}
         keyExtractor={item => item?.id.toString()}
-        renderItem={({ item, index }) => {
-          return (
-            <CategoryCard
-              item={item}
-              isSelected={isSelected}
-              onPress={() => onPressCatIcon(item.id)}
-            />
-          );
-        }}
+        renderItem={renderCategoryItem}
       />
       <FlashList
         key={isSelected}
         showsVerticalScrollIndicator
         data={dataToBeShown || []}
         keyExtractor={item => item?.id.toString()}
-        renderItem={({ item }) => {
-          return (
-            <RestaurantCard
-              onPress={() => onPressingRestaurantCard(item?.id)}
-              item={item}
-            />
-          );
-        }}
+        renderItem={renderRestaurantItem}
         ListEmptyComponent={ListEmptyComponent}
         contentContainerStyle={dataToBeShown?.length === 0 ? styles.flex : {}}
-        ListHeaderComponent={() => (
-          <Text style={styles.subHeads}>
-            {!dataToBeShown?.length
-              ? ''
-              : isSelected === 0
-              ? 'Explore More'
-              : `${selectedCatName}`}
-          </Text>
-        )}
-        ListFooterComponent={() => (
-          <Text style={styles.listEndHeads}>
-            {dataToBeShown?.length ? `That's all for now!` : ''}
-          </Text>
-        )}
+        ListHeaderComponent={<ListHeader title={headerTitle} />}
+        ListFooterComponent={<ListFooter show={!!dataToBeShown?.length} />}
       />
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 50,
-          left: 0,
-          right: 0,
-          alignItems: 'center',
-        }}
-      >
-        <AppButton title="Go To Cart" onPress={() => {navigation.navigate('CartScreen')}} variant="primary" />
-      </View>
     </SafeAreaView>
   );
 };

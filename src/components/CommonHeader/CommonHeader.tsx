@@ -23,6 +23,9 @@ interface CommonheaderProps {
   autoFocusSearch?: boolean;
   onEndEditing?: () => void;
   title?: string;
+  showCartIcon?: boolean;
+  onCartIconPress?: () => void;
+  cartCount?: number;
 }
 
 const CommonHeader = ({
@@ -39,6 +42,9 @@ const CommonHeader = ({
   autoFocusSearch = false,
   onEndEditing,
   title,
+  showCartIcon,
+  onCartIconPress,
+  cartCount = 0,
 }: CommonheaderProps) => {
   const [searchText, setSearchText] = useState('');
 
@@ -104,6 +110,23 @@ const CommonHeader = ({
             style={styles.headEndIconButton}
             onPress={onEndIconPress}
           />
+        )}
+        {showCartIcon && (
+          <View style={styles.cartIconWrapper}>
+            <CustomIonicIcon
+              name="cart-outline"
+              size={ms(26)}
+              color={COLORS.common.black}
+              onPress={onCartIconPress || (() => {})}
+            />
+            {cartCount > 0 && (
+              <View style={styles.cartBadge}>
+                <Text style={styles.cartBadgeText}>
+                  {cartCount > 99 ? '99+' : cartCount}
+                </Text>
+              </View>
+            )}
+          </View>
         )}
       </View>
     </View>

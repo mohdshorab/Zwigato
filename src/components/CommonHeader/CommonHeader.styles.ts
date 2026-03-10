@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { hs, ms, vs } from '../../utils/Layout';
+import COLORS from '../../utils/constants/Colors';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -24,6 +25,27 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontWeight: '500',
     fontSize: ms(18),
+  },
+  cartIconWrapper: {
+    marginLeft: hs(10),
+    position: 'relative',
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: -vs(4),
+    right: -hs(4),
+    backgroundColor: COLORS.primary,
+    borderRadius: ms(10),
+    minWidth: ms(16),
+    height: ms(16),
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: hs(3),
+  },
+  cartBadgeText: {
+    color: COLORS.common.white,
+    fontSize: ms(9),
+    fontWeight: '700',
   },
 });
 
