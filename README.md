@@ -14,7 +14,7 @@ Zwigato is a cross-platform mobile experience built with **React Native** and **
 * **Framework:** [React Native](https://reactnative.dev/) (Android & iOS)
 * **Language:** [TypeScript](https://www.typescriptlang.org/)
 * **State Management:** [Redux Toolkit (RTK)](https://redux-toolkit.js.org/) + Middleware Listeners & Thunks
-* **Database/Auth:** [Firebase](https://firebase.google.com/) (OTP Login, Token Management)
+* **Database/Auth:** [Firebase](https://firebase.google.com/) (Phone OTP Login, Token Management)
 * **List Rendering:** [Shopify FlashList](https://shopify.github.io/flash-list/) for buttery-smooth scrolling
 * **Networking:** [Axios](https://axios-http.com/)
 * **Debugging:** [Reactotron](https://github.com/infinitered/reactotron)
@@ -24,10 +24,10 @@ Zwigato is a cross-platform mobile experience built with **React Native** and **
 
 ## 🛠️ Key Features
 
-* **Secure Auth:** Firebase-powered OTP authentication with automated session/token handling.
+* **Firebase OTP Auth:** Real-world phone number verification flow with automated session management and JWT token exchange.
 * **Smart Cart:** Advanced quantity logic and removal alerts powered by Redux Listener Middleware.
 * **Restaurant Discovery:** High-performance listing using `FlashList` with support for search and category filtering.
-* **Global Error Handling:** A centralized "Watcher" using Redux Matchers to catch and toast API failures instantly.
+* **Global Error Handling:** A centralized "Watcher" using Redux Matchers and a **Global Error Boundary** for UI recovery.
 * **Navigation:** Nested navigation stacks for a fluid user journey from Home to Checkout.
 
 ---
@@ -40,41 +40,37 @@ Zwigato utilizes a **Feature-Based Folder Structure**, keeping logic, UI, and st
 
 ## ⚙️ Development Setup
 
-### 1. Start the Mock Restaurant API
-Zwigato relies on a local JSON server to simulate real-world backend responses.
+> [!CAUTION]
+> **Firebase Config:** You must have a valid `google-services.json` (Android) or `GoogleService-Info.plist` (iOS) in your project. Ensure **Phone Auth** is enabled in your Firebase Console.
+
+### 1. Start the Mock Backend
+Zwigato uses `json-server-auth` to manage user profiles and tokens once Firebase verifies the phone number.
 ```
 npm run server
 ```
-
-
 2. Install Dependencies
 ```
 npm install
 ```
-
-# For iOS:
-```
-cd ios && pod install && cd ..
-```
-
 3. Launch the Application
-# Android
+Android:
+
 ```
 npm run android
 ```
-# iOS
+iOS:
+
 ```
+cd ios && pod install && cd ..
 npm run ios
 ```
-
----
-
-## 📝 Learning Roadmap & Progress
-
-* **Redux Toolkit Architecture** (Slices & Listeners)
-* **Firebase OTP Authentication** Integration
-* **High-performance Restaurant Listing** (FlashList)
-* **Cart Management & Logic**
-* **Advanced Search & Multi-Filter Logic** (In Progress)
-* **Checkout & Payment Gateway Integration** (Planned)
-* **Real-time Push Notification Polish** (Planned)
+📝 Learning Roadmap & Progress
+- Firebase Phone/OTP Authentication Integration
+- Redux Toolkit Architecture (Slices & Listeners)
+- High-performance Restaurant Listing (FlashList)
+- Global Error Boundary & Navigation Recovery
+- Cart Management & Logic
+- Feature-Based Folder Structuring
+- Advanced Search & Multi-Filter Logic
+- Checkout & Payment Gateway Integration
+- Real-time Push Notification Polish 
