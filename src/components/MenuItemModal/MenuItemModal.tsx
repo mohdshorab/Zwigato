@@ -114,7 +114,7 @@ const MenuItemModal = ({
       itemTotal: totalPrice ?? 0,
     };
     dispatch(addToCart(finalOrder));
-    onClose();
+    // onClose();
   };
 
   const onPressCustomization = ({ item, type }: CustomizationProps) => {

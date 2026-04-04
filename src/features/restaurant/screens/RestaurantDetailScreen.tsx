@@ -19,10 +19,10 @@ import {
   CommonHeader,
   CustomIonicIcon,
   MenuItemModal,
-  FoodItemCard
+  FoodItemCard,
 } from '../../../components';
 import COLORS from '../../../utils/constants/Colors';
-import { hs, ms, vs } from '../../../utils/Layout';
+import { ms } from '../../../utils/Layout';
 import FilterChip from '../components/FilterChip/FilterChip';
 import { MenuItem } from '../../../types/restaurant';
 import {
@@ -30,6 +30,8 @@ import {
   RESTAURANT_FILTERS,
 } from '../../../utils/constants/restaurantConstants';
 import { filteredData } from '../slices/filteredSectionsSelector';
+import RestaurantInfo from '../components/RestaurantInfo/RestaurantInfo';
+import RatingBadge from '../components/RatingBadge/RatingBadge';
 
 const RestaurantDetailScreen = ({
   navigation,
@@ -47,7 +49,7 @@ const RestaurantDetailScreen = ({
     dispatch(fetchSelectedRestaurantData(restaurantId));
   }, [restaurantId, dispatch]);
 
-  const { restaurant, status, error }: SelectedRestaurantState = useAppSelector(
+  const { restaurant, status }: SelectedRestaurantState = useAppSelector(
     state => state.selectedRestaurant,
   );
 
@@ -78,51 +80,6 @@ const RestaurantDetailScreen = ({
     });
   };
 
-  const RestaurantInfo = () => {
-    return (
-      <View style={styles.infoWrapper}>
-        <Text style={styles.restaurantName}>{restaurant?.name}</Text>
-        <View style={styles.detailRow}>
-          <CustomIonicIcon
-            name="location-outline"
-            size={ms(20)}
-            color={COLORS.common.black}
-            style={styles.iconMargin}
-          />
-          <Text style={styles.addressText} numberOfLines={2}>
-            {restaurant?.address}
-          </Text>
-        </View>
-        <View style={styles.detailRow}>
-          <CustomIonicIcon
-            name="bicycle"
-            size={ms(20)}
-            color={COLORS.common.green}
-            style={styles.iconMargin}
-          />
-          <Text style={styles.deliveryText}>{restaurant?.deliveryTime}</Text>
-        </View>
-      </View>
-    );
-  };
-
-  const RatingBadge = () => {
-    return (
-      <View style={styles.ratingWrapper}>
-        <View style={styles.ratingBadge}>
-          <CustomIonicIcon
-            name="star"
-            size={ms(14)}
-            color={COLORS.common.white}
-            style={styles.iconMargin}
-          />
-          <Text style={styles.ratingText}>{restaurant?.rating}</Text>
-        </View>
-        <Text style={styles.ratingCountText}>By {restaurant?.ratingCount}</Text>
-      </View>
-    );
-  };
-
   const renderMenuList = ({ item }: { item: MenuItem }) => {
     return <FoodItemCard item={item} onPress={showFoodDetails} />;
   };
@@ -145,8 +102,15 @@ const RestaurantDetailScreen = ({
         onSearchIconPress={onSearchIconPress}
       />
       <View style={styles.headerRow}>
-        <RestaurantInfo />
-        <RatingBadge />
+        <RestaurantInfo
+          name={restaurant?.name}
+          address={restaurant?.address}
+          deliveryTime={restaurant?.deliveryTime}
+        />
+        <RatingBadge
+          rating={restaurant?.rating}
+          ratingCount={restaurant?.ratingCount}
+        />
       </View>
       <View style={styles.thinSeparator} />
       <View style={styles.offersContainer}>
